@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'LifeSim' target in the 'LifeSim' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif

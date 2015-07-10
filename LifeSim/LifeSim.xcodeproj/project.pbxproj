@@ -1,0 +1,529 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 45;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1DDD58140DA1D0A300B32029 /* MainMenu.xib */; };
+		1F00AE2115D8F15E003D85DD /* SceneBoxVis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F00AE1E15D8F15E003D85DD /* SceneBoxVis.cpp */; };
+		1F631C66153D4E5800C28DCB /* g_axis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1F631C63153D4E5800C28DCB /* g_axis.cpp */; };
+		1FAC5B85152CC9F900AC0D43 /* Scene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FAC5B81152CC9F900AC0D43 /* Scene.cpp */; };
+		1FAC5B86152CC9F900AC0D43 /* SceneVis.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FAC5B83152CC9F900AC0D43 /* SceneVis.cpp */; };
+		1FAC5BB2152CCB3300AC0D43 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FAC5BB1152CCB3300AC0D43 /* OpenGL.framework */; };
+		1FB0FED115C1652F00BC719A /* SceneBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0FEC015C1652F00BC719A /* SceneBox.cpp */; };
+		1FB0FED215C1652F00BC719A /* ScenePhysics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0FEC815C1652F00BC719A /* ScenePhysics.cpp */; };
+		1FB0FED315C1652F00BC719A /* ScenePlane.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0FECA15C1652F00BC719A /* ScenePlane.cpp */; };
+		1FB0FED415C1652F00BC719A /* SceneSphere.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0FECE15C1652F00BC719A /* SceneSphere.cpp */; };
+		1FB0FED815C1655C00BC719A /* Creature.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FB0FED615C1655C00BC719A /* Creature.cpp */; };
+		1FB0FF3B15C168A800BC719A /* res in Resources */ = {isa = PBXBuildFile; fileRef = 1FB0FF3715C168A800BC719A /* res */; };
+		1FBBA64A152CD57500B1B35C /* BasicOpenGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 1FBBA649152CD57500B1B35C /* BasicOpenGLView.mm */; };
+		1FEC960815DB425B001FB2CA /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC960715DB425B001FB2CA /* Mesh.cpp */; };
+		1FEC960E15DB4276001FB2CA /* VertexProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC960A15DB4276001FB2CA /* VertexProgram.cpp */; };
+		1FEC960F15DB4276001FB2CA /* FragmentProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC960D15DB4276001FB2CA /* FragmentProgram.cpp */; };
+		1FEC961215DB4287001FB2CA /* CreatureMotorController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC961115DB4287001FB2CA /* CreatureMotorController.cpp */; };
+		1FEC961D15DB42C7001FB2CA /* ResourceManager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FEC961B15DB42C7001FB2CA /* ResourceManager.cpp */; };
+		1FF4B1A3152CE9F0004F1354 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FF4B1A2152CE9F0004F1354 /* GLUT.framework */; };
+		256AC3DA0F4B6AC300CF3369 /* LifeSimAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 256AC3D90F4B6AC300CF3369 /* LifeSimAppDelegate.m */; };
+		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
+		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
+		1DDD58150DA1D0A300B32029 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		1F00AE1E15D8F15E003D85DD /* SceneBoxVis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneBoxVis.cpp; path = ../src/Scene/SceneBoxVis.cpp; sourceTree = SOURCE_ROOT; };
+		1F00AE1F15D8F15E003D85DD /* SceneUniversalConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneUniversalConstraint.h; path = ../src/Scene/SceneUniversalConstraint.h; sourceTree = SOURCE_ROOT; };
+		1F00AE2015D8F15E003D85DD /* SceneObjectVis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneObjectVis.h; path = ../src/Scene/SceneObjectVis.h; sourceTree = SOURCE_ROOT; };
+		1F00AE2415D8F184003D85DD /* Quaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Quaternion.h; path = ../src/Util/Math/Quaternion.h; sourceTree = SOURCE_ROOT; };
+		1F00AE2515D8F184003D85DD /* Transform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Transform.h; path = ../src/Util/Math/Transform.h; sourceTree = SOURCE_ROOT; };
+		1F38DC4B15313CD400B4B192 /* UserInputManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInputManager.h; path = ../src/UserInputManager.h; sourceTree = SOURCE_ROOT; };
+		1F631C63153D4E5800C28DCB /* g_axis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = g_axis.cpp; path = ../src/Util/Graphics/g_axis.cpp; sourceTree = SOURCE_ROOT; };
+		1F631C64153D4E5800C28DCB /* g_axis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = g_axis.h; path = ../src/Util/Graphics/g_axis.h; sourceTree = SOURCE_ROOT; };
+		1F631C69153D4E6D00C28DCB /* Plane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Plane.h; path = ../src/Util/Math/Plane.h; sourceTree = SOURCE_ROOT; };
+		1FAC5B72152CC99300AC0D43 /* BasicOpenGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicOpenGLView.h; path = Classes/BasicOpenGLView.h; sourceTree = "<group>"; };
+		1FAC5B77152CC9B100AC0D43 /* fpscounter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = fpscounter.h; path = ../src/Util/fpscounter.h; sourceTree = SOURCE_ROOT; };
+		1FAC5B7A152CC9B100AC0D43 /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = timer.h; path = ../src/Util/timer.h; sourceTree = SOURCE_ROOT; };
+		1FAC5B7D152CC9C900AC0D43 /* Vector2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vector2.h; path = ../src/Util/Math/Vector2.h; sourceTree = SOURCE_ROOT; };
+		1FAC5B7E152CC9C900AC0D43 /* Vector3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vector3.h; path = ../src/Util/Math/Vector3.h; sourceTree = SOURCE_ROOT; };
+		1FAC5B7F152CC9C900AC0D43 /* Vector4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Vector4.h; path = ../src/Util/Math/Vector4.h; sourceTree = SOURCE_ROOT; };
+		1FAC5B81152CC9F900AC0D43 /* Scene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Scene.cpp; path = ../src/Scene/Scene.cpp; sourceTree = SOURCE_ROOT; };
+		1FAC5B82152CC9F900AC0D43 /* Scene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Scene.h; path = ../src/Scene/Scene.h; sourceTree = SOURCE_ROOT; };
+		1FAC5B83152CC9F900AC0D43 /* SceneVis.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneVis.cpp; path = ../src/Scene/SceneVis.cpp; sourceTree = SOURCE_ROOT; };
+		1FAC5B84152CC9F900AC0D43 /* SceneVis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneVis.h; path = ../src/Scene/SceneVis.h; sourceTree = SOURCE_ROOT; };
+		1FAC5BB1152CCB3300AC0D43 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		1FB0FEC015C1652F00BC719A /* SceneBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneBox.cpp; path = ../src/Scene/SceneBox.cpp; sourceTree = SOURCE_ROOT; };
+		1FB0FEC115C1652F00BC719A /* SceneBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneBox.h; path = ../src/Scene/SceneBox.h; sourceTree = SOURCE_ROOT; };
+		1FB0FEC215C1652F00BC719A /* SceneBoxVis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneBoxVis.h; path = ../src/Scene/SceneBoxVis.h; sourceTree = SOURCE_ROOT; };
+		1FB0FEC315C1652F00BC719A /* SceneConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneConstraint.h; path = ../src/Scene/SceneConstraint.h; sourceTree = SOURCE_ROOT; };
+		1FB0FEC415C1652F00BC719A /* SceneHingeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneHingeConstraint.h; path = ../src/Scene/SceneHingeConstraint.h; sourceTree = SOURCE_ROOT; };
+		1FB0FEC515C1652F00BC719A /* SceneLight.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneLight.h; path = ../src/Scene/SceneLight.h; sourceTree = SOURCE_ROOT; };
+		1FB0FEC615C1652F00BC719A /* SceneObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneObject.h; path = ../src/Scene/SceneObject.h; sourceTree = SOURCE_ROOT; };
+		1FB0FEC715C1652F00BC719A /* SceneObserver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneObserver.h; path = ../src/Scene/SceneObserver.h; sourceTree = SOURCE_ROOT; };
+		1FB0FEC815C1652F00BC719A /* ScenePhysics.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScenePhysics.cpp; path = ../src/Scene/ScenePhysics.cpp; sourceTree = SOURCE_ROOT; };
+		1FB0FEC915C1652F00BC719A /* ScenePhysics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScenePhysics.h; path = ../src/Scene/ScenePhysics.h; sourceTree = SOURCE_ROOT; };
+		1FB0FECA15C1652F00BC719A /* ScenePlane.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScenePlane.cpp; path = ../src/Scene/ScenePlane.cpp; sourceTree = SOURCE_ROOT; };
+		1FB0FECB15C1652F00BC719A /* ScenePlane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScenePlane.h; path = ../src/Scene/ScenePlane.h; sourceTree = SOURCE_ROOT; };
+		1FB0FECC15C1652F00BC719A /* ScenePlaneVis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ScenePlaneVis.h; path = ../src/Scene/ScenePlaneVis.h; sourceTree = SOURCE_ROOT; };
+		1FB0FECD15C1652F00BC719A /* SceneRigidBodyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneRigidBodyObject.h; path = ../src/Scene/SceneRigidBodyObject.h; sourceTree = SOURCE_ROOT; };
+		1FB0FECE15C1652F00BC719A /* SceneSphere.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SceneSphere.cpp; path = ../src/Scene/SceneSphere.cpp; sourceTree = SOURCE_ROOT; };
+		1FB0FECF15C1652F00BC719A /* SceneSphere.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneSphere.h; path = ../src/Scene/SceneSphere.h; sourceTree = SOURCE_ROOT; };
+		1FB0FED015C1652F00BC719A /* SceneSphereVis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SceneSphereVis.h; path = ../src/Scene/SceneSphereVis.h; sourceTree = SOURCE_ROOT; };
+		1FB0FED615C1655C00BC719A /* Creature.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Creature.cpp; path = ../src/Scene/Creature/Creature.cpp; sourceTree = SOURCE_ROOT; };
+		1FB0FED715C1655C00BC719A /* Creature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Creature.h; path = ../src/Scene/Creature/Creature.h; sourceTree = SOURCE_ROOT; };
+		1FB0FED915C1656800BC719A /* CreatureVis.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatureVis.h; path = ../src/Scene/CreatureVis.h; sourceTree = SOURCE_ROOT; };
+		1FB0FF3715C168A800BC719A /* res */ = {isa = PBXFileReference; lastKnownFileType = folder; name = res; path = ../res; sourceTree = SOURCE_ROOT; };
+		1FB1D19315DA68AF00B57185 /* CreatureController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatureController.h; path = ../src/Scene/Creature/CreatureController.h; sourceTree = SOURCE_ROOT; };
+		1FBBA649152CD57500B1B35C /* BasicOpenGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BasicOpenGLView.mm; path = Classes/BasicOpenGLView.mm; sourceTree = "<group>"; };
+		1FEC960615DB425B001FB2CA /* Mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Mesh.h; path = ../src/Graphics/Mesh/Mesh.h; sourceTree = SOURCE_ROOT; };
+		1FEC960715DB425B001FB2CA /* Mesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Mesh.cpp; path = ../src/Graphics/Mesh/Mesh.cpp; sourceTree = SOURCE_ROOT; };
+		1FEC960A15DB4276001FB2CA /* VertexProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = VertexProgram.cpp; path = ../src/Graphics/Shader/VertexProgram.cpp; sourceTree = SOURCE_ROOT; };
+		1FEC960B15DB4276001FB2CA /* VertexProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = VertexProgram.h; path = ../src/Graphics/Shader/VertexProgram.h; sourceTree = SOURCE_ROOT; };
+		1FEC960C15DB4276001FB2CA /* FragmentProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FragmentProgram.h; path = ../src/Graphics/Shader/FragmentProgram.h; sourceTree = SOURCE_ROOT; };
+		1FEC960D15DB4276001FB2CA /* FragmentProgram.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FragmentProgram.cpp; path = ../src/Graphics/Shader/FragmentProgram.cpp; sourceTree = SOURCE_ROOT; };
+		1FEC961015DB4287001FB2CA /* CreatureMotorController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CreatureMotorController.h; path = ../src/Scene/Creature/CreatureMotorController.h; sourceTree = SOURCE_ROOT; };
+		1FEC961115DB4287001FB2CA /* CreatureMotorController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = CreatureMotorController.cpp; path = ../src/Scene/Creature/CreatureMotorController.cpp; sourceTree = SOURCE_ROOT; };
+		1FEC961A15DB42C7001FB2CA /* ResourceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ResourceManager.h; path = ../src/Resource/ResourceManager.h; sourceTree = SOURCE_ROOT; };
+		1FEC961B15DB42C7001FB2CA /* ResourceManager.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ResourceManager.cpp; path = ../src/Resource/ResourceManager.cpp; sourceTree = SOURCE_ROOT; };
+		1FEC961C15DB42C7001FB2CA /* Resource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Resource.h; path = ../src/Resource/Resource.h; sourceTree = SOURCE_ROOT; };
+		1FF4B1A2152CE9F0004F1354 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		256AC3D80F4B6AC300CF3369 /* LifeSimAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeSimAppDelegate.h; sourceTree = "<group>"; };
+		256AC3D90F4B6AC300CF3369 /* LifeSimAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifeSimAppDelegate.m; sourceTree = "<group>"; };
+		256AC3F00F4B6AF500CF3369 /* LifeSim_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifeSim_Prefix.pch; sourceTree = "<group>"; };
+		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
+		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
+		8D1107310486CEB800E47090 /* LifeSim-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LifeSim-Info.plist"; sourceTree = "<group>"; };
+		8D1107320486CEB800E47090 /* LifeSim.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LifeSim.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8D11072E0486CEB800E47090 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
+				1FAC5BB2152CCB3300AC0D43 /* OpenGL.framework in Frameworks */,
+				1FF4B1A3152CE9F0004F1354 /* GLUT.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		080E96DDFE201D6D7F000001 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				1FAC5B75152CC99800AC0D43 /* Shared */,
+				1FAC5B72152CC99300AC0D43 /* BasicOpenGLView.h */,
+				1FBBA649152CD57500B1B35C /* BasicOpenGLView.mm */,
+				256AC3D80F4B6AC300CF3369 /* LifeSimAppDelegate.h */,
+				256AC3D90F4B6AC300CF3369 /* LifeSimAppDelegate.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */,
+				1FAC5BB1152CCB3300AC0D43 /* OpenGL.framework */,
+				1FF4B1A2152CE9F0004F1354 /* GLUT.framework */,
+			);
+			name = "Linked Frameworks";
+			sourceTree = "<group>";
+		};
+		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				29B97324FDCFA39411CA2CEA /* AppKit.framework */,
+				13E42FB307B3F0F600E4EEF1 /* CoreData.framework */,
+				29B97325FDCFA39411CA2CEA /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		19C28FACFE9D520D11CA2CBB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8D1107320486CEB800E47090 /* LifeSim.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1F00AE2615D8F190003D85DD /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				1FEC960515DB4244001FB2CA /* Mesh */,
+				1FEC960915DB4260001FB2CA /* Shader */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		1F631C62153D4E4400C28DCB /* Graphics */ = {
+			isa = PBXGroup;
+			children = (
+				1F631C63153D4E5800C28DCB /* g_axis.cpp */,
+				1F631C64153D4E5800C28DCB /* g_axis.h */,
+			);
+			name = Graphics;
+			sourceTree = "<group>";
+		};
+		1FAC5B75152CC99800AC0D43 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				1F00AE2615D8F190003D85DD /* Graphics */,
+				1FEC961915DB42AE001FB2CA /* Resource */,
+				1FAC5B80152CC9EB00AC0D43 /* Scene */,
+				1FAC5B76152CC9A100AC0D43 /* Util */,
+				1F38DC4B15313CD400B4B192 /* UserInputManager.h */,
+			);
+			name = Shared;
+			sourceTree = "<group>";
+		};
+		1FAC5B76152CC9A100AC0D43 /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				1F631C62153D4E4400C28DCB /* Graphics */,
+				1FAC5B7C152CC9BA00AC0D43 /* Math */,
+				1FAC5B77152CC9B100AC0D43 /* fpscounter.h */,
+				1FAC5B7A152CC9B100AC0D43 /* timer.h */,
+			);
+			name = Util;
+			sourceTree = "<group>";
+		};
+		1FAC5B7C152CC9BA00AC0D43 /* Math */ = {
+			isa = PBXGroup;
+			children = (
+				1F00AE2415D8F184003D85DD /* Quaternion.h */,
+				1F00AE2515D8F184003D85DD /* Transform.h */,
+				1F631C69153D4E6D00C28DCB /* Plane.h */,
+				1FAC5B7D152CC9C900AC0D43 /* Vector2.h */,
+				1FAC5B7E152CC9C900AC0D43 /* Vector3.h */,
+				1FAC5B7F152CC9C900AC0D43 /* Vector4.h */,
+			);
+			name = Math;
+			sourceTree = "<group>";
+		};
+		1FAC5B80152CC9EB00AC0D43 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				1FB0FED515C1653F00BC719A /* Creature */,
+				1FB0FED915C1656800BC719A /* CreatureVis.h */,
+				1FAC5B81152CC9F900AC0D43 /* Scene.cpp */,
+				1FAC5B82152CC9F900AC0D43 /* Scene.h */,
+				1FB0FEC015C1652F00BC719A /* SceneBox.cpp */,
+				1FB0FEC115C1652F00BC719A /* SceneBox.h */,
+				1FB0FEC215C1652F00BC719A /* SceneBoxVis.h */,
+				1F00AE1E15D8F15E003D85DD /* SceneBoxVis.cpp */,
+				1FB0FEC315C1652F00BC719A /* SceneConstraint.h */,
+				1FB0FEC415C1652F00BC719A /* SceneHingeConstraint.h */,
+				1F00AE1F15D8F15E003D85DD /* SceneUniversalConstraint.h */,
+				1FB0FEC515C1652F00BC719A /* SceneLight.h */,
+				1FB0FEC615C1652F00BC719A /* SceneObject.h */,
+				1F00AE2015D8F15E003D85DD /* SceneObjectVis.h */,
+				1FB0FEC715C1652F00BC719A /* SceneObserver.h */,
+				1FB0FEC815C1652F00BC719A /* ScenePhysics.cpp */,
+				1FB0FEC915C1652F00BC719A /* ScenePhysics.h */,
+				1FB0FECA15C1652F00BC719A /* ScenePlane.cpp */,
+				1FB0FECB15C1652F00BC719A /* ScenePlane.h */,
+				1FB0FECC15C1652F00BC719A /* ScenePlaneVis.h */,
+				1FB0FECD15C1652F00BC719A /* SceneRigidBodyObject.h */,
+				1FB0FECE15C1652F00BC719A /* SceneSphere.cpp */,
+				1FB0FECF15C1652F00BC719A /* SceneSphere.h */,
+				1FB0FED015C1652F00BC719A /* SceneSphereVis.h */,
+				1FAC5B83152CC9F900AC0D43 /* SceneVis.cpp */,
+				1FAC5B84152CC9F900AC0D43 /* SceneVis.h */,
+			);
+			name = Scene;
+			sourceTree = "<group>";
+		};
+		1FB0FED515C1653F00BC719A /* Creature */ = {
+			isa = PBXGroup;
+			children = (
+				1FEC961015DB4287001FB2CA /* CreatureMotorController.h */,
+				1FEC961115DB4287001FB2CA /* CreatureMotorController.cpp */,
+				1FB1D19315DA68AF00B57185 /* CreatureController.h */,
+				1FB0FED615C1655C00BC719A /* Creature.cpp */,
+				1FB0FED715C1655C00BC719A /* Creature.h */,
+			);
+			name = Creature;
+			sourceTree = "<group>";
+		};
+		1FEC960515DB4244001FB2CA /* Mesh */ = {
+			isa = PBXGroup;
+			children = (
+				1FEC960615DB425B001FB2CA /* Mesh.h */,
+				1FEC960715DB425B001FB2CA /* Mesh.cpp */,
+			);
+			name = Mesh;
+			sourceTree = "<group>";
+		};
+		1FEC960915DB4260001FB2CA /* Shader */ = {
+			isa = PBXGroup;
+			children = (
+				1FEC960A15DB4276001FB2CA /* VertexProgram.cpp */,
+				1FEC960B15DB4276001FB2CA /* VertexProgram.h */,
+				1FEC960C15DB4276001FB2CA /* FragmentProgram.h */,
+				1FEC960D15DB4276001FB2CA /* FragmentProgram.cpp */,
+			);
+			name = Shader;
+			sourceTree = "<group>";
+		};
+		1FEC961915DB42AE001FB2CA /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				1FEC961A15DB42C7001FB2CA /* ResourceManager.h */,
+				1FEC961B15DB42C7001FB2CA /* ResourceManager.cpp */,
+				1FEC961C15DB42C7001FB2CA /* Resource.h */,
+			);
+			name = Resource;
+			sourceTree = "<group>";
+		};
+		29B97314FDCFA39411CA2CEA /* LifeSim */ = {
+			isa = PBXGroup;
+			children = (
+				080E96DDFE201D6D7F000001 /* Classes */,
+				29B97315FDCFA39411CA2CEA /* Other Sources */,
+				29B97317FDCFA39411CA2CEA /* Resources */,
+				29B97323FDCFA39411CA2CEA /* Frameworks */,
+				19C28FACFE9D520D11CA2CBB /* Products */,
+			);
+			name = LifeSim;
+			sourceTree = "<group>";
+		};
+		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				256AC3F00F4B6AF500CF3369 /* LifeSim_Prefix.pch */,
+				29B97316FDCFA39411CA2CEA /* main.m */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		29B97317FDCFA39411CA2CEA /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				1FB0FF3715C168A800BC719A /* res */,
+				8D1107310486CEB800E47090 /* LifeSim-Info.plist */,
+				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
+				1DDD58140DA1D0A300B32029 /* MainMenu.xib */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
+				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		8D1107260486CEB800E47090 /* LifeSim */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LifeSim" */;
+			buildPhases = (
+				8D1107290486CEB800E47090 /* Resources */,
+				8D11072C0486CEB800E47090 /* Sources */,
+				8D11072E0486CEB800E47090 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LifeSim;
+			productInstallPath = "$(HOME)/Applications";
+			productName = LifeSim;
+			productReference = 8D1107320486CEB800E47090 /* LifeSim.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		29B97313FDCFA39411CA2CEA /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "LifeSim" */;
+			compatibilityVersion = "Xcode 3.1";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 29B97314FDCFA39411CA2CEA /* LifeSim */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8D1107260486CEB800E47090 /* LifeSim */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8D1107290486CEB800E47090 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
+				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
+				1FB0FF3B15C168A800BC719A /* res in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8D11072C0486CEB800E47090 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D11072D0486CEB800E47090 /* main.m in Sources */,
+				256AC3DA0F4B6AC300CF3369 /* LifeSimAppDelegate.m in Sources */,
+				1FAC5B85152CC9F900AC0D43 /* Scene.cpp in Sources */,
+				1FAC5B86152CC9F900AC0D43 /* SceneVis.cpp in Sources */,
+				1FBBA64A152CD57500B1B35C /* BasicOpenGLView.mm in Sources */,
+				1F631C66153D4E5800C28DCB /* g_axis.cpp in Sources */,
+				1FB0FED115C1652F00BC719A /* SceneBox.cpp in Sources */,
+				1FB0FED215C1652F00BC719A /* ScenePhysics.cpp in Sources */,
+				1FB0FED315C1652F00BC719A /* ScenePlane.cpp in Sources */,
+				1FB0FED415C1652F00BC719A /* SceneSphere.cpp in Sources */,
+				1FB0FED815C1655C00BC719A /* Creature.cpp in Sources */,
+				1F00AE2115D8F15E003D85DD /* SceneBoxVis.cpp in Sources */,
+				1FEC960815DB425B001FB2CA /* Mesh.cpp in Sources */,
+				1FEC960E15DB4276001FB2CA /* VertexProgram.cpp in Sources */,
+				1FEC960F15DB4276001FB2CA /* FragmentProgram.cpp in Sources */,
+				1FEC961215DB4287001FB2CA /* CreatureMotorController.cpp in Sources */,
+				1FEC961D15DB42C7001FB2CA /* ResourceManager.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		089C165CFE840E0CC02AAC07 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				089C165DFE840E0CC02AAC07 /* English */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		1DDD58140DA1D0A300B32029 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				1DDD58150DA1D0A300B32029 /* English */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		C01FCF4B08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LifeSim_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include/bullet,
+					/opt/local/include,
+				);
+				INFOPLIST_FILE = "LifeSim-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				LIBRARY_SEARCH_PATHS = (
+					/opt/local/lib,
+					/usr/local/lib,
+				);
+				OTHER_LDFLAGS = (
+					"-lLinearMath",
+					"-lBulletCollision",
+					"-lBulletDynamics",
+					"-lyaml-cpp",
+				);
+				PRODUCT_NAME = LifeSim;
+			};
+			name = Debug;
+		};
+		C01FCF4C08A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = LifeSim_Prefix.pch;
+				INFOPLIST_FILE = "LifeSim-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = LifeSim;
+			};
+			name = Release;
+		};
+		C01FCF4F08A954540054247B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Debug;
+		};
+		C01FCF5008A954540054247B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "LifeSim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4B08A954540054247B /* Debug */,
+				C01FCF4C08A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "LifeSim" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF4F08A954540054247B /* Debug */,
+				C01FCF5008A954540054247B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 29B97313FDCFA39411CA2CEA /* Project object */;
+}

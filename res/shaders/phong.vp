@@ -1,0 +1,81 @@
+!!ARBvp1.0
+
+ATTRIB iPos = vertex.position;
+ATTRIB iNormal = vertex.normal;
+
+PARAM  mvp[4]         = { state.matrix.mvp };
+PARAM  mv[4]          = { state.matrix.modelview };
+PARAM  mv_invtrans[4] = { state.matrix.modelview.invtrans };
+
+PARAM  iLightDir      = state.light[0].position;
+PARAM  iHalfDir       = state.light[0].half;
+
+PARAM ambientColor    = state.lightprod[0].ambient;
+PARAM diffuseColor    = state.lightprod[0].diffuse;
+PARAM specularColor   = state.lightprod[0].specular;
+
+OUTPUT oPos           = result.position;
+OUTPUT oColor         = result.color;
+
+TEMP pos, posEye, normal, temp, dots, lightDir, magnitude, color, cameraDir, halfVector;
+
+
+
+# Transform vertex to clip space
+DP4 pos.x, mvp[0], iPos;
+DP4 pos.y, mvp[1], iPos;
+DP4 pos.z, mvp[2], iPos;
+DP4 pos.w, mvp[3], iPos;
+
+# Transform vertex to eye space
+DP4 posEye.x, mv[0], iPos;
+DP4 posEye.y, mv[1], iPos;
+DP4 posEye.z, mv[2], iPos;
+DP4 posEye.w, mv[3], iPos;
+
+# Transform normal to eye space
+DP3 normal.x, mv_invtrans[0], iNormal;
+DP3 normal.y, mv_invtrans[1], iNormal;
+DP3 normal.z, mv_invtrans[2], iNormal;
+
+# Normalize the normal
+DP3 magnitude, normal, normal;
+RSQ temp, magnitude.x;
+MUL normal, normal, temp;
+
+# Calculate light direction
+MUL temp, iLightDir.wwww, {-1,-1,-1,0};
+MAD lightDir, posEye, temp, iLightDir;
+
+# Normalize light direction
+DP3 magnitude, lightDir, lightDir;
+RSQ temp, magnitude.x;
+MUL lightDir, lightDir, temp;
+
+# Calculate the normalized camera direction
+MUL posEye, posEye, {-1,-1,-1,1};
+DP3 magnitude, posEye, posEye;
+RSQ temp, magnitude.x;
+MUL cameraDir, posEye, temp;
+
+# Calculate half vector
+ADD halfVector, cameraDir, lightDir;
+DP3 magnitude, halfVector, halfVector;
+RSQ temp, magnitude.x;
+MUL halfVector, halfVector, temp;
+
+
+
+# Save position
+MOV oPos, pos;
+
+# Put surface normal in texcoord[1]
+MOV result.texcoord[1], normal;
+
+# Light direction goes in texcoord[2]
+MOV result.texcoord[2], lightDir;
+
+# Position in eye space goes in texcoord[3]
+MOV result.texcoord[3], halfVector;
+
+END

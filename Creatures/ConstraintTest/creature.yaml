@@ -1,0 +1,24 @@
+creature_name: Timaaay!
+
+rigid_bodies:
+  - type: "box"
+    name: "Cube"
+    position: [0.000000, 2.500000, -0.000000]
+    rotation: [0.707107, 0.000000, 0.000000, 0.707107]
+    halfExtents: [0.250000, 1.000000, 0.250000]
+
+  - type: "box"
+    name: "Cube.002"
+    position: [0.000000, 2.500000, 2.000000]
+    rotation: [-0.707107, -0.000000, 0.000000, 0.707107]
+    halfExtents: [0.250000, 1.000000, 0.250000]
+
+constraints:
+  - type: hinge
+    bodyA: "Cube"
+    bodyB: "Cube.002"
+    axisA: [1.000000, 0.000000, 0.000000]
+    axisB: [1.000000, -0.000000, -0.000000]
+    pivotA: [0.000000, 1.000000, 0.000000]
+    pivotB: [0.000000, 1.000000, -0.000000]
+

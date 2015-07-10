@@ -1,0 +1,6 @@
+type: rl_experiment
+env: test_env.yaml
+agent: test_agent.yaml
+
+numSecondsPerEnvStep: 0.001
+numEnvStepsPerRLStep: 50
