@@ -40,7 +40,7 @@ Creature::~Creature() {
 
 bool Creature::load(const string &filename) {
 
-	CreatureDesc desc;
+	SceneCreatureDesc desc;
 
   int fd = open(filename.c_str(), O_RDONLY);
 
@@ -49,9 +49,9 @@ bool Creature::load(const string &filename) {
 
 	close(fd);
 
-	for (int i=0; i<desc.scene_object_size(); i++) {
+	for (int i=0; i<desc.child_scene_object_size(); i++) {
 
-		SceneObjectDesc bodyDesc = desc.scene_object(i);
+		SceneObjectDesc bodyDesc = desc.child_scene_object(i);
 
     string name = bodyDesc.name();
 		Transform transform(bodyDesc.transform());

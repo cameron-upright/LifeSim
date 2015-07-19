@@ -1,5 +1,5 @@
 name: "Timaaay!"
-scene_object {
+child_scene_object {
   type: BOX
   name: "head.001"
   transform {
@@ -23,7 +23,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_F_0.L"
   transform {
@@ -47,7 +47,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_F_0.R"
   transform {
@@ -71,7 +71,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_F_1.L"
   transform {
@@ -95,7 +95,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_F_1.L.001"
   transform {
@@ -119,7 +119,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_F_2.L"
   transform {
@@ -143,7 +143,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_F_2.L.001"
   transform {
@@ -167,7 +167,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_H_0.L"
   transform {
@@ -191,7 +191,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_H_0.R"
   transform {
@@ -215,7 +215,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_H_1.L"
   transform {
@@ -239,7 +239,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_H_1.R"
   transform {
@@ -263,7 +263,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_H_2.L"
   transform {
@@ -287,7 +287,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_H_2.L.001"
   transform {
@@ -311,7 +311,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_H_3.L"
   transform {
@@ -335,7 +335,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "leg_H_3.L.001"
   transform {
@@ -359,7 +359,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "neck_0"
   transform {
@@ -383,7 +383,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "neck_1"
   transform {
@@ -407,7 +407,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "spine_0"
   transform {
@@ -431,7 +431,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "spine_1"
   transform {
@@ -455,7 +455,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "spine_2"
   transform {
@@ -479,7 +479,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "spine_3"
   transform {
@@ -503,7 +503,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "tail_0"
   transform {
@@ -527,7 +527,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "tail_1"
   transform {
@@ -551,7 +551,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "tail_2"
   transform {
@@ -575,7 +575,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "tail_3"
   transform {
@@ -599,7 +599,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "tail_4"
   transform {
@@ -623,7 +623,7 @@ scene_object {
     }
   }
 }
-scene_object {
+child_scene_object {
   type: BOX
   name: "tail_5"
   transform {
