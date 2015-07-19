@@ -9,14 +9,14 @@ message VectorDesc {
 }
 
 message TransformDesc {
-  required VectorDesc x = 1;
-  required VectorDesc v = 2;
+  required VectorDesc position = 1;
+  required VectorDesc rotation = 2;
 }
 
 
 
 
-message RigidBodyDesc {
+message SceneObjectDesc {
 
   extensions 1000 to max;
 
@@ -28,17 +28,16 @@ message RigidBodyDesc {
   required string name = 2;
 
 	// TODO : Refactor before release, rigid bodies and their states should be decoupled.
-	//        This currently is used to specify the default positions of the creatures
+	//        This currently is used to specify the default positions of the
 	//        rigid bodies.
-	required VectorDesc position = 3;
-	required VectorDesc rotation = 4;
+	required TransformDesc transform = 3;
 
 }
 
-message RigidBoxDesc {
+message SceneBoxDesc {
 
-  extend RigidBodyDesc {
-    required RigidBoxDesc rigid_body = 1000;
+  extend SceneObjectDesc {
+    required SceneBoxDesc scene_object = 1000;
 	}
 
 	required VectorDesc half_extents = 1;
@@ -97,7 +96,11 @@ message CreatureDesc {
 
   required string name = 1;
 
-  repeated RigidBodyDesc rigid_body = 2;
+  repeated SceneObjectDesc scene_object = 2;
   repeated ConstraintDesc constraint = 3;
 
 }
+
+
+
+

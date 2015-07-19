@@ -38,16 +38,18 @@ out.puts "name: \"#{yaml["creature_name"]}\""
 
 yaml["rigid_bodies"].each do |rb|
 
-  out.puts "rigid_body {"
+  out.puts "scene_object {"
   out.puts "  type: #{rigid_body_type_map[rb["type"]]}"
   out.puts "  name: \"#{rb["name"]}\""
-  out.puts "  position {"
-  rb["position"].each { |x| out.puts "    x: #{x}" }
+  out.puts "  transform {"
+  out.puts "    position {"
+  rb["position"].each { |x| out.puts "      x: #{x}" }
+  out.puts "    }"
+  out.puts "    rotation {"
+  rb["rotation"].each { |x| out.puts "      x: #{x}" }
+  out.puts "    }"
   out.puts "  }"
-  out.puts "  rotation {"
-  rb["rotation"].each { |x| out.puts "    x: #{x}" }
-  out.puts "  }"
-  out.puts "  [LifeSim.RigidBoxDesc.rigid_body] {"
+  out.puts "  [LifeSim.SceneBoxDesc.scene_object] {"
   out.puts "    half_extents {"
   rb["halfExtents"].each { |x| out.puts "      x: #{x}" }
   out.puts "    }"

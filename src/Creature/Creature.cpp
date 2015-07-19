@@ -4,7 +4,6 @@
 #include <fstream>
 #include <istream>
 #include <sstream>
-#include <yaml-cpp/yaml.h>
 
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
@@ -50,25 +49,24 @@ bool Creature::load(const string &filename) {
 
 	close(fd);
 
-	for (int i=0; i<desc.rigid_body_size(); i++) {
+	for (int i=0; i<desc.scene_object_size(); i++) {
 
-		RigidBodyDesc bodyDesc = desc.rigid_body(i);
+		SceneObjectDesc bodyDesc = desc.scene_object(i);
 
     string name = bodyDesc.name();
-		Vector3f position(bodyDesc.position());
-		Quaternionf rotation(bodyDesc.rotation());
-		rotation.normalize();
+		Transform transform(bodyDesc.transform());
+		//		rotation.normalize();
 
-		cout << name << " " << position << " " << rotation << endl;
+		//		cout << name << " " << position << " " << rotation << endl;
 
-		if (bodyDesc.type() == RigidBodyDesc_Type_BOX) {
+		if (bodyDesc.type() == SceneObjectDesc_Type_BOX) {
 
-			const RigidBoxDesc &boxDesc = bodyDesc.GetExtension(RigidBoxDesc::rigid_body);
+			const SceneBoxDesc &boxDesc = bodyDesc.GetExtension(SceneBoxDesc::scene_object);
 
 			Vector3f halfExtents(boxDesc.half_extents());
 
 
-			SceneBox *sceneBox = new SceneBox(name, halfExtents, Transform(position, rotation));
+			SceneBox *sceneBox = new SceneBox(name, halfExtents, transform);
 
 			boxes.push_back(sceneBox);
 

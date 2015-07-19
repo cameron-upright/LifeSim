@@ -16,6 +16,11 @@ public:
 
   Transform(const Vector3f &position_, const Quaternionf &rotation_) : position(position_), rotation(rotation_) {}
 
+	Transform(const LifeSim::TransformDesc &desc) {
+		position = Vector3f(desc.position());
+		rotation = Quaternionf(desc.rotation());
+	}
+
 
   operator const btTransform () const {
     return btTransform(rotation, position);
