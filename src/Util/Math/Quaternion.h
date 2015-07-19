@@ -56,6 +56,15 @@ class Quaternion {
 
   }
 
+	Quaternion(const LifeSim::VectorDesc &desc) {
+		assert(desc.x_size() == 4);
+		v[0] = desc.x(0);
+		v[1] = desc.x(1);
+		v[2] = desc.x(2);
+		w    = desc.x(3);
+	}
+
+
   T lengthSquared(void) {
     return w*w + v*v;
   }

@@ -3,4 +3,6 @@ LifeSim/LifeSim.xcodeproj/*pbxuser
 LifeSim/build
 gui
 *.o
+*.pb.h
+*.pb.cc
 *~

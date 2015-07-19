@@ -1,11 +1,21 @@
+#include <unistd.h>
+#include <fcntl.h>
+
 #include <fstream>
 #include <istream>
 #include <sstream>
 #include <yaml-cpp/yaml.h>
 
+#include <google/protobuf/text_format.h>
+#include <google/protobuf/io/zero_copy_stream_impl.h>
+
+#include "LifeSim.pb.h"
+
 #include "Creature.h"
 
 #include "Vector2.h"
+
+using namespace LifeSim;
 
 Creature::Creature(const string &name_) : SceneObject(name_) {
 }
@@ -30,7 +40,136 @@ Creature::~Creature() {
 }
 
 bool Creature::load(const string &filename) {
-  
+
+	CreatureDesc desc;
+
+  int fd = open(filename.c_str(), O_RDONLY);
+
+  google::protobuf::io::FileInputStream fileInput(fd);
+	google::protobuf::TextFormat::Parse(&fileInput, &desc);
+
+	close(fd);
+
+	for (int i=0; i<desc.rigid_body_size(); i++) {
+
+		RigidBodyDesc bodyDesc = desc.rigid_body(i);
+
+    string name = bodyDesc.name();
+		Vector3f position(bodyDesc.position());
+		Quaternionf rotation(bodyDesc.rotation());
+		rotation.normalize();
+
+		cout << name << " " << position << " " << rotation << endl;
+
+		if (bodyDesc.type() == RigidBodyDesc_Type_BOX) {
+
+			const RigidBoxDesc &boxDesc = bodyDesc.GetExtension(RigidBoxDesc::rigid_body);
+
+			Vector3f halfExtents(boxDesc.half_extents());
+
+
+			SceneBox *sceneBox = new SceneBox(name, halfExtents, Transform(position, rotation));
+
+			boxes.push_back(sceneBox);
+
+			rigidBodyMap[sceneBox->getName().c_str()] = sceneBox;
+
+		}
+
+	}
+
+
+
+
+
+
+	for (int i=0; i<desc.constraint_size(); i++) {
+
+		ConstraintDesc constraintDesc = desc.constraint(i);
+
+    string name = constraintDesc.name();
+
+		string bodyNameA = constraintDesc.body(0);
+		string bodyNameB = constraintDesc.body(1);
+
+		if (constraintDesc.type() == ConstraintDesc_Type_HINGE) {
+
+			const HingeConstraintDesc &hingeDesc = constraintDesc.GetExtension(HingeConstraintDesc::constraint);
+
+			Vector3f axisA  = hingeDesc.axis_in_a();
+			Vector3f axisB  = hingeDesc.axis_in_b();
+			Vector3f pivotA = hingeDesc.pivot_in_a();
+			Vector3f pivotB = hingeDesc.pivot_in_b();
+			Vector2f limit  = hingeDesc.limit();
+
+			SceneRigidBodyObject *bodyA, *bodyB;
+
+			//    cout << "\"" << bodyNameA << "\"" << endl;
+
+			bodyA = rigidBodyMap[bodyNameA.c_str()];
+			bodyB = rigidBodyMap[bodyNameB.c_str()];
+
+			SceneHingeConstraint *sceneHingeConstraint = new SceneHingeConstraint(btVector3(axisA[0], axisA[1], axisA[2]),
+																																						btVector3(axisB[0], axisB[1], axisB[2]),
+																																						btVector3(pivotA[0], pivotA[1], pivotA[2]),
+																																						btVector3(pivotB[0], pivotB[1], pivotB[2]),
+																																						limit, bodyA, bodyB, name);
+			hingeConstraints.push_back(sceneHingeConstraint);
+			constraintMap[name] = sceneHingeConstraint;
+
+			/*
+				cout << axisA << endl;
+				cout << axisB << endl;
+				cout << pivotA << endl;
+				cout << pivotB << endl;
+				cout << bodyA << endl;
+				cout << bodyB << endl;
+				cout << endl;
+			*/
+
+		} else if (constraintDesc.type() == ConstraintDesc_Type_UNIVERSAL) {
+
+			const UniversalConstraintDesc &universalDesc = constraintDesc.GetExtension(UniversalConstraintDesc::constraint);
+
+			Vector3f pivot = universalDesc.pivot();
+			Vector3f axis0 = universalDesc.axis_0();
+			Vector3f axis1 = universalDesc.axis_1();
+			Vector2f limit0 = universalDesc.limit_0();
+			Vector2f limit1 = universalDesc.limit_1();
+
+			SceneRigidBodyObject *bodyA, *bodyB;
+
+			//    cout << "\"" << bodyNameA << "\"" << endl;
+
+			bodyA = rigidBodyMap[bodyNameA.c_str()];
+			bodyB = rigidBodyMap[bodyNameB.c_str()];
+
+			SceneUniversalConstraint *sceneUniversalConstraint = new SceneUniversalConstraint(btVector3(axis0[0], axis0[1], axis0[2]),
+																																												btVector3(axis1[0], axis1[1], axis1[2]),
+																																												btVector3(pivot[0], pivot[1], pivot[2]),
+																																												limit0, limit1,
+																																												bodyA, bodyB, name);
+			universalConstraints.push_back(sceneUniversalConstraint);
+			constraintMap[name] = sceneUniversalConstraint;
+
+			/*
+				cout << axis0 << endl;
+				cout << axis1 << endl;
+				cout << pivot << endl;
+				cout << bodyA << endl;
+				cout << bodyB << endl;
+				cout << limit0 << endl;
+				cout << limit1 << endl;
+				cout << endl;
+			*/
+
+
+		}
+	}
+
+
+
+	/*
   ifstream fin(filename.c_str());
 
   YAML::Parser parser(fin);
@@ -54,137 +193,7 @@ bool Creature::load(const string &filename) {
       parseConstraint((*constraints)[i]);
 
   return true;
-
-}
-
-
-
-void Creature::parseRigidBody(const YAML::Node& node) {
-
-  string type;
-
-  node["type"] >> type;
-
-  if (type == "box") {
-    string name;
-    Vector3f position;
-    Vector3f halfExtents;
-    Quaternionf rotation;
-
-    node["name"] >> name;
-    node["position"] >> position;
-    node["rotation"] >> rotation;
-    node["halfExtents"] >> halfExtents;
-
-    rotation.normalize();
-
-    SceneBox *sceneBox = new SceneBox(name, halfExtents, Transform(position, rotation));
-
-    boxes.push_back(sceneBox);
-
-    rigidBodyMap[sceneBox->getName().c_str()] = sceneBox;
-
-    /*
-    cout << name << endl;
-    cout << position << endl;
-    cout << halfExtents << endl;
-    cout << endl;
-    */
-
-  }
-
-}
-
-
-void Creature::parseConstraint(const YAML::Node& node) {
-
-  string type;
-
-  node["type"] >> type;
-
-  if (type == "hinge") {
-    Vector3f axisA, axisB, pivotA, pivotB;
-    string bodyNameA, bodyNameB;
-    Vector2f limit;
-    string name;
-
-    node["name"] >> name;
-    node["axisA"] >> axisA;
-    node["axisB"] >> axisB;
-    node["pivotA"] >> pivotA;
-    node["pivotB"] >> pivotB;
-    node["bodyA"] >> bodyNameA;
-    node["bodyB"] >> bodyNameB;
-    node["limit"] >> limit;
-
-    SceneRigidBodyObject *bodyA, *bodyB;
-
-    //    cout << "\"" << bodyNameA << "\"" << endl;
-
-    bodyA = rigidBodyMap[bodyNameA.c_str()];
-    bodyB = rigidBodyMap[bodyNameB.c_str()];
-
-    SceneHingeConstraint *sceneHingeConstraint = new SceneHingeConstraint(btVector3(axisA[0], axisA[1], axisA[2]),
-									  btVector3(axisB[0], axisB[1], axisB[2]),
-									  btVector3(pivotA[0], pivotA[1], pivotA[2]),
-									  btVector3(pivotB[0], pivotB[1], pivotB[2]),
-									  limit, bodyA, bodyB, name);
-    hingeConstraints.push_back(sceneHingeConstraint);
-    constraintMap[name] = sceneHingeConstraint;
-
-    /*
-    cout << axisA << endl;
-    cout << axisB << endl;
-    cout << pivotA << endl;
-    cout << pivotB << endl;
-    cout << bodyA << endl;
-    cout << bodyB << endl;
-    cout << endl;
-    */
-
-  } else if (type == "universal") {
-    Vector3f axis0, axis1, pivot;
-    Vector2f limit0, limit1;
-    string bodyNameA, bodyNameB;
-    string name;
-
-    node["name"] >> name;
-    node["axis0"] >> axis0;
-    node["axis1"] >> axis1;
-    node["pivot"] >> pivot;
-    node["bodyA"] >> bodyNameA;
-    node["bodyB"] >> bodyNameB;
-    node["limit0"] >> limit0;
-    node["limit1"] >> limit1;
-
-    SceneRigidBodyObject *bodyA, *bodyB;
-
-    //    cout << "\"" << bodyNameA << "\"" << endl;
-
-    bodyA = rigidBodyMap[bodyNameA.c_str()];
-    bodyB = rigidBodyMap[bodyNameB.c_str()];
-
-    SceneUniversalConstraint *sceneUniversalConstraint = new SceneUniversalConstraint(btVector3(axis0[0], axis0[1], axis0[2]),
-										      btVector3(axis1[0], axis1[1], axis1[2]),
-										      btVector3(pivot[0], pivot[1], pivot[2]),
-										      limit0, limit1,
-										      bodyA, bodyB, name);
-    universalConstraints.push_back(sceneUniversalConstraint);
-    constraintMap[name] = sceneUniversalConstraint;
-
-    /*
-    cout << axis0 << endl;
-    cout << axis1 << endl;
-    cout << pivot << endl;
-    cout << bodyA << endl;
-    cout << bodyB << endl;
-    cout << limit0 << endl;
-    cout << limit1 << endl;
-    cout << endl;
-    */
-
-
-  }
+	*/
 
 }
 

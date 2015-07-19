@@ -22,6 +22,12 @@ public:
     set(vec[0], vec[1]);
   }
 
+	Vector2(const LifeSim::VectorDesc &desc) {
+		assert(desc.x_size() == 2);
+		v[0] = desc.x(0);
+		v[1] = desc.x(1);
+	}
+
 
   void set(const T &x, const T &y) {
     v[0] = x;

@@ -1,0 +1,103 @@
+
+package LifeSim;
+
+
+message VectorDesc {
+
+  repeated float x = 1;
+
+}
+
+message TransformDesc {
+  required VectorDesc x = 1;
+  required VectorDesc v = 2;
+}
+
+
+
+
+message RigidBodyDesc {
+
+  extensions 1000 to max;
+
+  enum Type {
+    BOX = 1;
+  }
+
+  required Type type = 1;
+  required string name = 2;
+
+	// TODO : Refactor before release, rigid bodies and their states should be decoupled.
+	//        This currently is used to specify the default positions of the creatures
+	//        rigid bodies.
+	required VectorDesc position = 3;
+	required VectorDesc rotation = 4;
+
+}
+
+message RigidBoxDesc {
+
+  extend RigidBodyDesc {
+    required RigidBoxDesc rigid_body = 1000;
+	}
+
+	required VectorDesc half_extents = 1;
+	
+}
+
+
+message ConstraintDesc {
+
+  extensions 1000 to max;
+
+	enum Type {
+    HINGE = 1;
+    UNIVERSAL = 2;
+	}
+
+	required Type type = 1;
+  required string name = 2;
+
+	// The bodies for the constraint (one or two)
+	repeated string body = 3;
+
+}
+
+message HingeConstraintDesc {
+
+  extend ConstraintDesc {
+    required HingeConstraintDesc constraint = 1000;
+	}
+
+	required VectorDesc pivot_in_a = 1;
+	required VectorDesc pivot_in_b = 2;
+	required VectorDesc axis_in_a = 3;
+	required VectorDesc axis_in_b = 4;
+	required VectorDesc limit = 5;
+
+}
+
+
+message UniversalConstraintDesc {
+
+  extend ConstraintDesc {
+    required UniversalConstraintDesc constraint = 1001;
+	}
+
+  required VectorDesc pivot = 1;
+  required VectorDesc axis_0 = 2;
+  required VectorDesc axis_1 = 3;
+  required VectorDesc limit_0 = 4;
+	required VectorDesc limit_1 = 5;
+
+}
+
+
+message CreatureDesc {
+
+  required string name = 1;
+
+  repeated RigidBodyDesc rigid_body = 2;
+  repeated ConstraintDesc constraint = 3;
+
+}

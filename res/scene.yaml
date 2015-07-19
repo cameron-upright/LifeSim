@@ -30,7 +30,7 @@
 
 - type: creature
   name: creature
-  config: "creatures/cat/cat.yaml"
+  config: "creatures/cat/cat.prototxt"
 
 - type: light
   name: light0

@@ -6,6 +6,9 @@
 #include <yaml-cpp/yaml.h>
 #include <LinearMath/btQuaternion.h>
 
+#include "LifeSim.pb.h"
+
+
 template<typename T>
 struct Vector3 {
 
@@ -28,6 +31,13 @@ public:
   Vector3(const btVector3 &vec) {
     set(vec.getX(), vec.getY(), vec.getZ());
   }
+
+	Vector3(const LifeSim::VectorDesc &desc) {
+		assert(desc.x_size() == 3);
+		v[0] = desc.x(0);
+		v[1] = desc.x(1);
+		v[2] = desc.x(2);
+	}
 
   void set(const T *vec) {
     set(vec[0], vec[1], vec[2]);
