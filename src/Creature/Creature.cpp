@@ -54,7 +54,6 @@ bool Creature::load(const string &filename) {
 		SceneObjectDesc bodyDesc = desc.child_scene_object(i);
 
     string name = bodyDesc.name();
-		Transform transform(bodyDesc.transform());
 		//		rotation.normalize();
 
 		//		cout << name << " " << position << " " << rotation << endl;
@@ -63,6 +62,7 @@ bool Creature::load(const string &filename) {
 
 			const SceneBoxDesc &boxDesc = bodyDesc.GetExtension(SceneBoxDesc::scene_object);
 
+			Transform transform(boxDesc.transform());
 			Vector3f halfExtents(boxDesc.half_extents());
 
 

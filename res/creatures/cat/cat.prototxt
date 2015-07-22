@@ -2,20 +2,20 @@ name: "Timaaay!"
 child_scene_object {
   type: BOX
   name: "head.001"
-  transform {
-    position {
-      x: -0.0
-      x: 0.683879
-      x: 0.960586
-    }
-    rotation {
-      x: -0.606801
-      x: -0.0
-      x: -0.0
-      x: 0.794853
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.0
+        x: 0.683879
+        x: 0.960586
+      }
+      rotation {
+        x: -0.606801
+        x: -0.0
+        x: -0.0
+        x: 0.794853
+      }
+    }
     half_extents {
       x: 0.089191
       x: 0.089191
@@ -26,20 +26,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_F_0.L"
-  transform {
-    position {
-      x: 0.102438
-      x: 0.440592
-      x: 0.557266
-    }
-    rotation {
-      x: -0.640247
-      x: 0.007603
-      x: -0.053564
-      x: 0.766262
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.102438
+        x: 0.440592
+        x: 0.557266
+      }
+      rotation {
+        x: -0.640247
+        x: 0.007603
+        x: -0.053564
+        x: 0.766262
+      }
+    }
     half_extents {
       x: 0.034213
       x: 0.058315
@@ -50,20 +50,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_F_0.R"
-  transform {
-    position {
-      x: -0.102438
-      x: 0.440592
-      x: 0.557266
-    }
-    rotation {
-      x: -0.640245
-      x: -0.007605
-      x: 0.053564
-      x: 0.766263
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.102438
+        x: 0.440592
+        x: 0.557266
+      }
+      rotation {
+        x: -0.640245
+        x: -0.007605
+        x: 0.053564
+        x: 0.766263
+      }
+    }
     half_extents {
       x: 0.034213
       x: 0.058315
@@ -74,20 +74,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_F_1.L"
-  transform {
-    position {
-      x: 0.085635
-      x: 0.161324
-      x: 0.544303
-    }
-    rotation {
-      x: -0.77897
-      x: -0.013889
-      x: -0.045772
-      x: 0.625235
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.085635
+        x: 0.161324
+        x: 0.544303
+      }
+      rotation {
+        x: -0.77897
+        x: -0.013889
+        x: -0.045772
+        x: 0.625235
+      }
+    }
     half_extents {
       x: 0.03233
       x: 0.038788
@@ -98,20 +98,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_F_1.L.001"
-  transform {
-    position {
-      x: -0.085636
-      x: 0.161324
-      x: 0.544303
-    }
-    rotation {
-      x: -0.778972
-      x: 0.01389
-      x: 0.045773
-      x: 0.625232
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.085636
+        x: 0.161324
+        x: 0.544303
+      }
+      rotation {
+        x: -0.778972
+        x: 0.01389
+        x: 0.045773
+        x: 0.625232
+      }
+    }
     half_extents {
       x: 0.03233
       x: 0.038788
@@ -122,20 +122,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_F_2.L"
-  transform {
-    position {
-      x: 0.071092
-      x: 0.035321
-      x: 0.620486
-    }
-    rotation {
-      x: -0.70605
-      x: -0.038663
-      x: -0.038663
-      x: 0.706048
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.071092
+        x: 0.035321
+        x: 0.620486
+      }
+      rotation {
+        x: -0.70605
+        x: -0.038663
+        x: -0.038663
+        x: 0.706048
+      }
+    }
     half_extents {
       x: 0.045537
       x: 0.049123
@@ -146,20 +146,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_F_2.L.001"
-  transform {
-    position {
-      x: -0.071092
-      x: 0.035321
-      x: 0.620486
-    }
-    rotation {
-      x: -0.706049
-      x: 0.038665
-      x: 0.038665
-      x: 0.706048
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.071092
+        x: 0.035321
+        x: 0.620486
+      }
+      rotation {
+        x: -0.706049
+        x: 0.038665
+        x: 0.038665
+        x: 0.706048
+      }
+    }
     half_extents {
       x: 0.045537
       x: 0.049123
@@ -170,20 +170,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_H_0.L"
-  transform {
-    position {
-      x: 0.109205
-      x: 0.508553
-      x: -0.024682
-    }
-    rotation {
-      x: -0.73409
-      x: -0.04414
-      x: 0.035006
-      x: 0.676711
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.109205
+        x: 0.508553
+        x: -0.024682
+      }
+      rotation {
+        x: -0.73409
+        x: -0.04414
+        x: 0.035006
+        x: 0.676711
+      }
+    }
     half_extents {
       x: 0.039636
       x: 0.084522
@@ -194,20 +194,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_H_0.R"
-  transform {
-    position {
-      x: -0.109204
-      x: 0.508553
-      x: -0.024682
-    }
-    rotation {
-      x: -0.73409
-      x: 0.044138
-      x: -0.035006
-      x: 0.676711
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.109204
+        x: 0.508553
+        x: -0.024682
+      }
+      rotation {
+        x: -0.73409
+        x: 0.044138
+        x: -0.035006
+        x: 0.676711
+      }
+    }
     half_extents {
       x: 0.039636
       x: 0.084522
@@ -218,20 +218,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_H_1.L"
-  transform {
-    position {
-      x: 0.10942
-      x: 0.295014
-      x: -0.103312
-    }
-    rotation {
-      x: -0.22712
-      x: 0.050049
-      x: -0.052707
-      x: 0.971151
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.10942
+        x: 0.295014
+        x: -0.103312
+      }
+      rotation {
+        x: -0.22712
+        x: 0.050049
+        x: -0.052707
+        x: 0.971151
+      }
+    }
     half_extents {
       x: 0.029759
       x: 0.051375
@@ -242,20 +242,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_H_1.R"
-  transform {
-    position {
-      x: -0.10942
-      x: 0.295014
-      x: -0.103312
-    }
-    rotation {
-      x: -0.22712
-      x: -0.050048
-      x: 0.052708
-      x: 0.971151
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.10942
+        x: 0.295014
+        x: -0.103312
+      }
+      rotation {
+        x: -0.22712
+        x: -0.050048
+        x: 0.052708
+        x: 0.971151
+      }
+    }
     half_extents {
       x: 0.029759
       x: 0.051375
@@ -266,20 +266,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_H_2.L"
-  transform {
-    position {
-      x: 0.108487
-      x: 0.141587
-      x: -0.152861
-    }
-    rotation {
-      x: -0.827104
-      x: 0.054529
-      x: 0.122018
-      x: 0.545928
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.108487
+        x: 0.141587
+        x: -0.152861
+      }
+      rotation {
+        x: -0.827104
+        x: 0.054529
+        x: 0.122018
+        x: 0.545928
+      }
+    }
     half_extents {
       x: 0.02438
       x: 0.037887
@@ -290,20 +290,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_H_2.L.001"
-  transform {
-    position {
-      x: -0.108488
-      x: 0.141587
-      x: -0.152861
-    }
-    rotation {
-      x: -0.827105
-      x: -0.054526
-      x: -0.122016
-      x: 0.545928
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.108488
+        x: 0.141587
+        x: -0.152861
+      }
+      rotation {
+        x: -0.827105
+        x: -0.054526
+        x: -0.122016
+        x: 0.545928
+      }
+    }
     half_extents {
       x: 0.02438
       x: 0.037887
@@ -314,20 +314,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_H_3.L"
-  transform {
-    position {
-      x: 0.133903
-      x: 0.036175
-      x: -0.056195
-    }
-    rotation {
-      x: -0.705194
-      x: 0.097724
-      x: 0.073563
-      x: 0.698383
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.133903
+        x: 0.036175
+        x: -0.056195
+      }
+      rotation {
+        x: -0.705194
+        x: 0.097724
+        x: 0.073563
+        x: 0.698383
+      }
+    }
     half_extents {
       x: 0.045265
       x: 0.055284
@@ -338,20 +338,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "leg_H_3.L.001"
-  transform {
-    position {
-      x: -0.133902
-      x: 0.036175
-      x: -0.056195
-    }
-    rotation {
-      x: -0.705195
-      x: -0.097722
-      x: -0.073565
-      x: 0.698382
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.133902
+        x: 0.036175
+        x: -0.056195
+      }
+      rotation {
+        x: -0.705195
+        x: -0.097722
+        x: -0.073565
+        x: 0.698382
+      }
+    }
     half_extents {
       x: 0.045265
       x: 0.055284
@@ -362,20 +362,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "neck_0"
-  transform {
-    position {
-      x: -0.0
-      x: 0.715141
-      x: 0.731933
-    }
-    rotation {
-      x: -0.771671
-      x: -0.0
-      x: -0.0
-      x: 0.636021
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.0
+        x: 0.715141
+        x: 0.731933
+      }
+      rotation {
+        x: -0.771671
+        x: -0.0
+        x: -0.0
+        x: 0.636021
+      }
+    }
     half_extents {
       x: 0.048841999999999997
       x: 0.048841999999999997
@@ -386,20 +386,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "neck_1"
-  transform {
-    position {
-      x: -0.0
-      x: 0.731544
-      x: 0.83231
-    }
-    rotation {
-      x: -0.725455
-      x: -0.0
-      x: -0.0
-      x: 0.68827
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.0
+        x: 0.731544
+        x: 0.83231
+      }
+      rotation {
+        x: -0.725455
+        x: -0.0
+        x: -0.0
+        x: 0.68827
+      }
+    }
     half_extents {
       x: 0.050487
       x: 0.050487
@@ -410,20 +410,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "spine_0"
-  transform {
-    position {
-      x: -0.0
-      x: 0.587966
-      x: -0.026142
-    }
-    rotation {
-      x: -0.707106
-      x: -0.0
-      x: 0.0
-      x: 0.707108
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.0
+        x: 0.587966
+        x: -0.026142
+      }
+      rotation {
+        x: -0.707106
+        x: -0.0
+        x: 0.0
+        x: 0.707108
+      }
+    }
     half_extents {
       x: 0.073703
       x: 0.126528
@@ -434,20 +434,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "spine_1"
-  transform {
-    position {
-      x: -0.0
-      x: 0.617642
-      x: 0.188968
-    }
-    rotation {
-      x: -0.707106
-      x: -0.0
-      x: 0.0
-      x: 0.707107
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.0
+        x: 0.617642
+        x: 0.188968
+      }
+      rotation {
+        x: -0.707106
+        x: -0.0
+        x: 0.0
+        x: 0.707107
+      }
+    }
     half_extents {
       x: 0.074406
       x: 0.092316
@@ -458,20 +458,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "spine_2"
-  transform {
-    position {
-      x: -0.0
-      x: 0.613156
-      x: 0.370538
-    }
-    rotation {
-      x: -0.707108
-      x: -0.0
-      x: -0.0
-      x: 0.707105
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.0
+        x: 0.613156
+        x: 0.370538
+      }
+      rotation {
+        x: -0.707108
+        x: -0.0
+        x: -0.0
+        x: 0.707105
+      }
+    }
     half_extents {
       x: 0.076904
       x: 0.092698
@@ -482,20 +482,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "spine_3"
-  transform {
-    position {
-      x: -0.0
-      x: 0.604265
-      x: 0.577486
-    }
-    rotation {
-      x: -0.707107
-      x: -0.0
-      x: -0.0
-      x: 0.707106
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: -0.0
+        x: 0.604265
+        x: 0.577486
+      }
+      rotation {
+        x: -0.707107
+        x: -0.0
+        x: -0.0
+        x: 0.707106
+      }
+    }
     half_extents {
       x: 0.086382
       x: 0.115012
@@ -506,20 +506,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "tail_0"
-  transform {
-    position {
-      x: 0.0
-      x: 0.691224
-      x: -0.224188
-    }
-    rotation {
-      x: -0.712743
-      x: -0.0
-      x: 0.0
-      x: 0.701426
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.0
+        x: 0.691224
+        x: -0.224188
+      }
+      rotation {
+        x: -0.712743
+        x: -0.0
+        x: 0.0
+        x: 0.701426
+      }
+    }
     half_extents {
       x: 0.035
       x: 0.07
@@ -530,20 +530,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "tail_1"
-  transform {
-    position {
-      x: 0.0
-      x: 0.691224
-      x: -0.364188
-    }
-    rotation {
-      x: -0.702384
-      x: -0.0
-      x: 0.0
-      x: 0.711798
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.0
+        x: 0.691224
+        x: -0.364188
+      }
+      rotation {
+        x: -0.702384
+        x: -0.0
+        x: 0.0
+        x: 0.711798
+      }
+    }
     half_extents {
       x: 0.0315
       x: 0.07
@@ -554,20 +554,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "tail_2"
-  transform {
-    position {
-      x: 0.0
-      x: 0.691224
-      x: -0.504188
-    }
-    rotation {
-      x: -0.70645
-      x: -0.0
-      x: 0.0
-      x: 0.707763
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.0
+        x: 0.691224
+        x: -0.504188
+      }
+      rotation {
+        x: -0.70645
+        x: -0.0
+        x: 0.0
+        x: 0.707763
+      }
+    }
     half_extents {
       x: 0.02835
       x: 0.07
@@ -578,20 +578,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "tail_3"
-  transform {
-    position {
-      x: 0.0
-      x: 0.691224
-      x: -0.644188
-    }
-    rotation {
-      x: -0.707602
-      x: -0.0
-      x: 0.0
-      x: 0.706612
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.0
+        x: 0.691224
+        x: -0.644188
+      }
+      rotation {
+        x: -0.707602
+        x: -0.0
+        x: 0.0
+        x: 0.706612
+      }
+    }
     half_extents {
       x: 0.025515
       x: 0.07
@@ -602,20 +602,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "tail_4"
-  transform {
-    position {
-      x: 0.0
-      x: 0.691224
-      x: -0.784188
-    }
-    rotation {
-      x: -0.706965
-      x: -0.0
-      x: 0.0
-      x: 0.707249
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.0
+        x: 0.691224
+        x: -0.784188
+      }
+      rotation {
+        x: -0.706965
+        x: -0.0
+        x: 0.0
+        x: 0.707249
+      }
+    }
     half_extents {
       x: 0.022964
       x: 0.07
@@ -626,20 +626,20 @@ child_scene_object {
 child_scene_object {
   type: BOX
   name: "tail_5"
-  transform {
-    position {
-      x: 0.0
-      x: 0.691224
-      x: -0.924188
-    }
-    rotation {
-      x: -0.706459
-      x: -0.0
-      x: 0.0
-      x: 0.707754
-    }
-  }
   [LifeSim.SceneBoxDesc.scene_object] {
+    transform {
+      position {
+        x: 0.0
+        x: 0.691224
+        x: -0.924188
+      }
+      rotation {
+        x: -0.706459
+        x: -0.0
+        x: 0.0
+        x: 0.707754
+      }
+    }
     half_extents {
       x: 0.020667
       x: 0.07

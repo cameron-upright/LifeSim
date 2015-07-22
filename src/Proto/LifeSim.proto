@@ -28,13 +28,8 @@ message SceneObjectDesc {
 		LIGHT    = 1000;
   }
 
-  required Type type = 1;
-  required string name = 2;
-
-	// TODO : Refactor before release, rigid bodies and their states should be decoupled.
-	//        This currently is used to specify the default positions of the
-	//        rigid bodies.
-	required TransformDesc transform = 3;
+	required Type type = 1;
+	required string name = 2;
 
 }
 
@@ -57,7 +52,11 @@ message SceneBoxDesc {
     required SceneBoxDesc scene_object = 1001;
 	}
 
-	required VectorDesc half_extents = 1;
+	// TODO : Refactor before release, rigid bodies and their states should be decoupled.
+	//        This currently is used to specify the default positions of the
+	//        rigid bodies.
+	required TransformDesc transform = 1;
+	required VectorDesc half_extents = 2;
 	
 }
 
@@ -67,7 +66,8 @@ message SceneSphereDesc {
 		required SceneSphereDesc scene_object = 1002;
 	}
 
-	required float radius = 1;
+	required TransformDesc transform = 1;
+	required float radius = 2;
 
 }
 
@@ -77,9 +77,10 @@ message SceneLightDesc {
 		required SceneLightDesc scene_object = 2000;
 	}
 
-	required VectorDesc ambient  = 1;
-	required VectorDesc diffuse  = 2;
-	required VectorDesc specular = 3;
+	required VectorDesc position = 1;
+	required VectorDesc ambient  = 2;
+	required VectorDesc diffuse  = 3;
+	required VectorDesc specular = 4;
 }
 
 
@@ -137,12 +138,19 @@ message SceneCreatureDesc {
 	}
 
   required string name = 1;
+	required TransformDesc transform = 2;
 
-  repeated SceneObjectDesc child_scene_object = 2;
-  repeated ConstraintDesc constraint = 3;
+  repeated SceneObjectDesc child_scene_object = 3;
+  repeated ConstraintDesc constraint = 4;
 
 }
 
 
 
+
+message SceneDesc {
+
+  repeated SceneObjectDesc scene_object = 1;
+
+}
 

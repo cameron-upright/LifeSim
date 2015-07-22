@@ -1,11 +1,19 @@
+#include <unistd.h>
+#include <fcntl.h>
+
 #include <fstream>
 #include <istream>
 #include <sstream>
+
+#include <google/protobuf/text_format.h>
+#include <google/protobuf/io/zero_copy_stream_impl.h>
 
 #include "Scene.h"
 
 
 using namespace std;
+
+using namespace LifeSim;
 
 Scene::Scene() {
 
@@ -55,6 +63,20 @@ Scene::~Scene() {
 
 bool Scene::load(const char *filename) {
 
+	/*
+	SceneDesc desc;
+
+
+  int fd = open(filename, O_RDONLY);
+
+  google::protobuf::io::FileInputStream fileInput(fd);
+	google::protobuf::TextFormat::Parse(&fileInput, &desc);
+
+	close(fd);
+	*/
+
+
+
 	// Get the directory of the file
 	string filenameStr = string(filename);
   size_t found;
@@ -97,14 +119,6 @@ bool Scene::load(const char *filename) {
 			if (sceneObserver)
 				sceneObserver->onSceneAddPlane(scenePlane, origin, size);
 
-			/*
-			cout << name << endl;
-			cout << type << endl;
-			cout << plane << endl;
-			cout << origin << endl;
-			cout << size << endl;
-			cout << endl;
-			*/
 		}
 
 
@@ -125,13 +139,6 @@ bool Scene::load(const char *filename) {
 			if (sceneObserver)
 				sceneObserver->onSceneAddSphere(sceneSphere);
 
-			/*
-			cout << name << endl;
-			cout << type << endl;
-			cout << origin << endl;
-			cout << radius << endl;
-			cout << endl;
-			*/
 		}
 
 		else if (type == "box") {
@@ -153,15 +160,6 @@ bool Scene::load(const char *filename) {
 			if (sceneObserver)
 				sceneObserver->onSceneAddBox(sceneBox);
 
-			/*
-			cout << name << endl;
-			cout << type << endl;
-			cout << position << endl;
-			cout << rotation << endl;
-			cout << halfExtents << endl;
-			cout << endl;
-			*/
-
 		}
 
 		else if (type == "light") {
@@ -176,15 +174,6 @@ bool Scene::load(const char *filename) {
 
 			if (sceneObserver)
 				sceneObserver->onSceneAddLight(position, diffuse, specular, ambient);
-
-			/*
-			cout << name << endl;
-			cout << position << endl;
-			cout << diffuse << endl;
-			cout << specular << endl;
-			cout << ambient << endl;
-			cout << endl;
-			*/
 
 		}
 
@@ -204,17 +193,12 @@ bool Scene::load(const char *filename) {
 			if (sceneObserver)
 				sceneObserver->onSceneAddCreature(creature);
 
-			/*
-			cout << name << endl;
-			cout << config << endl;
-			cout << endl;
-			*/
-
 		}
 
   }
 
 	fin.close();
+
 
 	return true;
 
