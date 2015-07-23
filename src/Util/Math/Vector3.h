@@ -28,11 +28,11 @@ public:
     set(vec);
   }
 
-  Vector3(const btVector3 &vec) {
+  explicit Vector3(const btVector3 &vec) {
     set(vec.getX(), vec.getY(), vec.getZ());
   }
 
-	Vector3(const LifeSim::VectorDesc &desc) {
+	explicit Vector3(const LifeSim::VectorDesc &desc) {
 		assert(desc.x_size() == 3);
 		v[0] = desc.x(0);
 		v[1] = desc.x(1);

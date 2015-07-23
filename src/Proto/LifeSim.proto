@@ -28,10 +28,20 @@ message SceneObjectDesc {
 		LIGHT    = 1000;
   }
 
-	required Type type = 1;
-	required string name = 2;
+	required Type type = 2;
+	required string name = 3;
 
 }
+
+
+message SceneObjectRef {
+
+	optional string config = 1;
+	optional SceneObjectDesc desc = 2;
+
+}
+
+
 
 message ScenePlaneDesc {
 
@@ -137,7 +147,6 @@ message SceneCreatureDesc {
 		required SceneCreatureDesc scene_object = 1100;
 	}
 
-  required string name = 1;
 	required TransformDesc transform = 2;
 
   repeated SceneObjectDesc child_scene_object = 3;
@@ -146,11 +155,9 @@ message SceneCreatureDesc {
 }
 
 
-
-
 message SceneDesc {
 
-  repeated SceneObjectDesc scene_object = 1;
+  repeated SceneObjectRef scene_object = 1;
 
 }
 

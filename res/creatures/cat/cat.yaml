@@ -1,4 +1,4 @@
-creature_name: Timaaay!
+name: "creature"
 
 rigid_bodies:
   - type: "box"

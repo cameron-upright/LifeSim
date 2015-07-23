@@ -7,6 +7,8 @@
 
 #include "Vector3.h"
 
+using namespace std;
+
 template<typename T>
 struct Vector4 {
 
@@ -22,16 +24,26 @@ public:
     set(x,y,z,w);
   }
 
-  Vector4(const T *vec) {
+  explicit Vector4(const T *vec) {
     set(vec[0], vec[1], vec[2], vec[3]);
   }
 
-  Vector4(const Vector3<T> &x) {
+  explicit Vector4(const Vector3<T> &x) {
     v[0] = x[0];
     v[1] = x[1];
     v[2] = x[2];
     v[3] = 1.0;
   }
+
+
+	Vector4(const LifeSim::VectorDesc &desc) {
+		assert(desc.x_size() == 4);
+		v[0] = desc.x(0);
+		v[1] = desc.x(1);
+		v[2] = desc.x(2);
+		v[3] = desc.x(3);
+	}
+
 
   void set(const T &x, const T &y, const T &z, const T &w) {
     v[0] = x;

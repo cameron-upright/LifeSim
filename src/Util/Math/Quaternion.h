@@ -16,14 +16,15 @@ class Quaternion {
   Vector3<T> v;
   T w;
 
-  Quaternion(void) {}
+	// Identity
+  Quaternion(void) : v(0,0,0), w(1) {}
 
   Quaternion(const Quaternion<T> &q) {
     v = q.v;
     w = q.w;
   }
 
-  Quaternion(const Vector3<T> &v2) {
+  explicit Quaternion(const Vector3<T> &v2) {
     v = v2;
     w = 0.0;
   }
@@ -47,7 +48,7 @@ class Quaternion {
     w = q3;
   }
 
-  Quaternion(const btQuaternion &q) {
+  explicit Quaternion(const btQuaternion &q) {
 
     v[0] = q.getX();
     v[1] = q.getY();
@@ -56,7 +57,7 @@ class Quaternion {
 
   }
 
-	Quaternion(const LifeSim::VectorDesc &desc) {
+	explicit Quaternion(const LifeSim::VectorDesc &desc) {
 		assert(desc.x_size() == 4);
 		v[0] = desc.x(0);
 		v[1] = desc.x(1);

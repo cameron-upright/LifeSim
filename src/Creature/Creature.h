@@ -38,8 +38,10 @@ public:
   map<string, SceneConstraint*> constraintMap;
   hash_map<const char *, SceneRigidBodyObject*, hash<const char *>, eqstr> rigidBodyMap;
 
+	Creature() {}
 
-  Creature(const string &name_);
+	Creature(const string &name_) : SceneObject(name_) {}
+
   ~Creature();
 
   bool load(const string &filename);

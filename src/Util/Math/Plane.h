@@ -3,9 +3,11 @@
 
 #include <iostream>
 #include <cmath>
-//#include <yaml-cpp/yaml.h>
 
 #include "Vector3.h"
+
+#include "LifeSim.pb.h"
+
 
 template<typename T>
 struct Plane {
@@ -20,6 +22,17 @@ public:
   Plane(const Vector3<T> &_v, const T &_d) {
     set(_v, _d);
   }
+
+	Plane(const LifeSim::VectorDesc &desc) {
+		assert(desc.x_size() == 4);
+
+		v[0] = desc.x(0);
+		v[1] = desc.x(1);
+		v[2] = desc.x(2);
+		v.normalize();
+
+		d = desc.x(3);
+	}
 
   void set(const Vector3<T> &_v, const T &_d) {
 		v = _v;

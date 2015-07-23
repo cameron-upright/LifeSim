@@ -1,2 +1,2 @@
-scene: scene.yaml
+scene: scene.prototxt
 creature: creature

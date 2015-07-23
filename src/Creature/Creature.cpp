@@ -16,9 +16,6 @@
 
 using namespace LifeSim;
 
-Creature::Creature(const string &name_) : SceneObject(name_) {
-}
-
 Creature::~Creature() {
 
   for (vector<SceneBox*>::iterator it = boxes.begin(); it != boxes.end(); it++) {
@@ -40,7 +37,8 @@ Creature::~Creature() {
 
 bool Creature::load(const string &filename) {
 
-	SceneCreatureDesc desc;
+	SceneObjectDesc desc;
+
 
   int fd = open(filename.c_str(), O_RDONLY);
 
@@ -49,9 +47,18 @@ bool Creature::load(const string &filename) {
 
 	close(fd);
 
-	for (int i=0; i<desc.child_scene_object_size(); i++) {
+	assert(desc.type() == SceneObjectDesc_Type_CREATURE);
 
-		SceneObjectDesc bodyDesc = desc.child_scene_object(i);
+	const SceneCreatureDesc &creatureDesc = desc.GetExtension(SceneCreatureDesc::scene_object);
+
+	this->name = desc.name();
+
+
+
+
+	for (int i=0; i<creatureDesc.child_scene_object_size(); i++) {
+
+		SceneObjectDesc bodyDesc = creatureDesc.child_scene_object(i);
 
     string name = bodyDesc.name();
 		//		rotation.normalize();
@@ -81,9 +88,9 @@ bool Creature::load(const string &filename) {
 
 
 
-	for (int i=0; i<desc.constraint_size(); i++) {
+	for (int i=0; i<creatureDesc.constraint_size(); i++) {
 
-		ConstraintDesc constraintDesc = desc.constraint(i);
+		ConstraintDesc constraintDesc = creatureDesc.constraint(i);
 
     string name = constraintDesc.name();
 
@@ -94,11 +101,11 @@ bool Creature::load(const string &filename) {
 
 			const HingeConstraintDesc &hingeDesc = constraintDesc.GetExtension(HingeConstraintDesc::constraint);
 
-			Vector3f axisA  = hingeDesc.axis_in_a();
-			Vector3f axisB  = hingeDesc.axis_in_b();
-			Vector3f pivotA = hingeDesc.pivot_in_a();
-			Vector3f pivotB = hingeDesc.pivot_in_b();
-			Vector2f limit  = hingeDesc.limit();
+			Vector3f axisA(hingeDesc.axis_in_a());
+			Vector3f axisB(hingeDesc.axis_in_b());
+			Vector3f pivotA(hingeDesc.pivot_in_a());
+			Vector3f pivotB(hingeDesc.pivot_in_b());
+			Vector2f limit(hingeDesc.limit());
 
 			SceneRigidBodyObject *bodyA, *bodyB;
 
@@ -129,11 +136,11 @@ bool Creature::load(const string &filename) {
 
 			const UniversalConstraintDesc &universalDesc = constraintDesc.GetExtension(UniversalConstraintDesc::constraint);
 
-			Vector3f pivot = universalDesc.pivot();
-			Vector3f axis0 = universalDesc.axis_0();
-			Vector3f axis1 = universalDesc.axis_1();
-			Vector2f limit0 = universalDesc.limit_0();
-			Vector2f limit1 = universalDesc.limit_1();
+			Vector3f pivot(universalDesc.pivot());
+			Vector3f axis0(universalDesc.axis_0());
+			Vector3f axis1(universalDesc.axis_1());
+			Vector2f limit0(universalDesc.limit_0());
+			Vector2f limit1(universalDesc.limit_1());
 
 			SceneRigidBodyObject *bodyA, *bodyB;
 

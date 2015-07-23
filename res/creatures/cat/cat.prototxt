@@ -1,1465 +1,1472 @@
-name: "Timaaay!"
-child_scene_object {
-  type: BOX
-  name: "head.001"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
+name: "creature"
+type: CREATURE
+[LifeSim.SceneCreatureDesc.scene_object] {
+  transform {
+    position { x: 0 x: 0 x: 0 }
+    rotation { x: 0 x: 0 x: 0 x: 1 }
+  }
+  child_scene_object {
+    type: BOX
+    name: "head.001"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.0
+          x: 0.683879
+          x: 0.960586
+        }
+        rotation {
+          x: -0.606801
+          x: -0.0
+          x: -0.0
+          x: 0.794853
+        }
+      }
+      half_extents {
+        x: 0.089191
+        x: 0.089191
+        x: 0.089191
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_F_0.L"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.102438
+          x: 0.440592
+          x: 0.557266
+        }
+        rotation {
+          x: -0.640247
+          x: 0.007603
+          x: -0.053564
+          x: 0.766262
+        }
+      }
+      half_extents {
+        x: 0.034213
+        x: 0.058315
+        x: 0.164028
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_F_0.R"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.102438
+          x: 0.440592
+          x: 0.557266
+        }
+        rotation {
+          x: -0.640245
+          x: -0.007605
+          x: 0.053564
+          x: 0.766263
+        }
+      }
+      half_extents {
+        x: 0.034213
+        x: 0.058315
+        x: 0.164028
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_F_1.L"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.085635
+          x: 0.161324
+          x: 0.544303
+        }
+        rotation {
+          x: -0.77897
+          x: -0.013889
+          x: -0.045772
+          x: 0.625235
+        }
+      }
+      half_extents {
+        x: 0.03233
+        x: 0.038788
+        x: 0.127491
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_F_1.L.001"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.085636
+          x: 0.161324
+          x: 0.544303
+        }
+        rotation {
+          x: -0.778972
+          x: 0.01389
+          x: 0.045773
+          x: 0.625232
+        }
+      }
+      half_extents {
+        x: 0.03233
+        x: 0.038788
+        x: 0.127491
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_F_2.L"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.071092
+          x: 0.035321
+          x: 0.620486
+        }
+        rotation {
+          x: -0.70605
+          x: -0.038663
+          x: -0.038663
+          x: 0.706048
+        }
+      }
+      half_extents {
+        x: 0.045537
+        x: 0.049123
+        x: 0.034262
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_F_2.L.001"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.071092
+          x: 0.035321
+          x: 0.620486
+        }
+        rotation {
+          x: -0.706049
+          x: 0.038665
+          x: 0.038665
+          x: 0.706048
+        }
+      }
+      half_extents {
+        x: 0.045537
+        x: 0.049123
+        x: 0.034262
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_H_0.L"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.109205
+          x: 0.508553
+          x: -0.024682
+        }
+        rotation {
+          x: -0.73409
+          x: -0.04414
+          x: 0.035006
+          x: 0.676711
+        }
+      }
+      half_extents {
+        x: 0.039636
+        x: 0.084522
+        x: 0.158713
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_H_0.R"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.109204
+          x: 0.508553
+          x: -0.024682
+        }
+        rotation {
+          x: -0.73409
+          x: 0.044138
+          x: -0.035006
+          x: 0.676711
+        }
+      }
+      half_extents {
+        x: 0.039636
+        x: 0.084522
+        x: 0.158713
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_H_1.L"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.10942
+          x: 0.295014
+          x: -0.103312
+        }
+        rotation {
+          x: -0.22712
+          x: 0.050049
+          x: -0.052707
+          x: 0.971151
+        }
+      }
+      half_extents {
+        x: 0.029759
+        x: 0.051375
+        x: 0.123739
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_H_1.R"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.10942
+          x: 0.295014
+          x: -0.103312
+        }
+        rotation {
+          x: -0.22712
+          x: -0.050048
+          x: 0.052708
+          x: 0.971151
+        }
+      }
+      half_extents {
+        x: 0.029759
+        x: 0.051375
+        x: 0.123739
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_H_2.L"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.108487
+          x: 0.141587
+          x: -0.152861
+        }
+        rotation {
+          x: -0.827104
+          x: 0.054529
+          x: 0.122018
+          x: 0.545928
+        }
+      }
+      half_extents {
+        x: 0.02438
+        x: 0.037887
+        x: 0.114279
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_H_2.L.001"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.108488
+          x: 0.141587
+          x: -0.152861
+        }
+        rotation {
+          x: -0.827105
+          x: -0.054526
+          x: -0.122016
+          x: 0.545928
+        }
+      }
+      half_extents {
+        x: 0.02438
+        x: 0.037887
+        x: 0.114279
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_H_3.L"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.133903
+          x: 0.036175
+          x: -0.056195
+        }
+        rotation {
+          x: -0.705194
+          x: 0.097724
+          x: 0.073563
+          x: 0.698383
+        }
+      }
+      half_extents {
+        x: 0.045265
+        x: 0.055284
+        x: 0.033988
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "leg_H_3.L.001"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.133902
+          x: 0.036175
+          x: -0.056195
+        }
+        rotation {
+          x: -0.705195
+          x: -0.097722
+          x: -0.073565
+          x: 0.698382
+        }
+      }
+      half_extents {
+        x: 0.045265
+        x: 0.055284
+        x: 0.033988
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "neck_0"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.0
+          x: 0.715141
+          x: 0.731933
+        }
+        rotation {
+          x: -0.771671
+          x: -0.0
+          x: -0.0
+          x: 0.636021
+        }
+      }
+      half_extents {
+        x: 0.048841999999999997
+        x: 0.048841999999999997
+        x: 0.048841999999999997
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "neck_1"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.0
+          x: 0.731544
+          x: 0.83231
+        }
+        rotation {
+          x: -0.725455
+          x: -0.0
+          x: -0.0
+          x: 0.68827
+        }
+      }
+      half_extents {
+        x: 0.050487
+        x: 0.050487
+        x: 0.050487
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "spine_0"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.0
+          x: 0.587966
+          x: -0.026142
+        }
+        rotation {
+          x: -0.707106
+          x: -0.0
+          x: 0.0
+          x: 0.707108
+        }
+      }
+      half_extents {
+        x: 0.073703
+        x: 0.126528
+        x: 0.140074
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "spine_1"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.0
+          x: 0.617642
+          x: 0.188968
+        }
+        rotation {
+          x: -0.707106
+          x: -0.0
+          x: 0.0
+          x: 0.707107
+        }
+      }
+      half_extents {
+        x: 0.074406
+        x: 0.092316
+        x: 0.099886
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "spine_2"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.0
+          x: 0.613156
+          x: 0.370538
+        }
+        rotation {
+          x: -0.707108
+          x: -0.0
+          x: -0.0
+          x: 0.707105
+        }
+      }
+      half_extents {
+        x: 0.076904
+        x: 0.092698
+        x: 0.121584
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "spine_3"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.0
+          x: 0.604265
+          x: 0.577486
+        }
+        rotation {
+          x: -0.707107
+          x: -0.0
+          x: -0.0
+          x: 0.707106
+        }
+      }
+      half_extents {
+        x: 0.086382
+        x: 0.115012
+        x: 0.142584
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "tail_0"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.0
+          x: 0.691224
+          x: -0.224188
+        }
+        rotation {
+          x: -0.712743
+          x: -0.0
+          x: 0.0
+          x: 0.701426
+        }
+      }
+      half_extents {
+        x: 0.035
+        x: 0.07
+        x: 0.035
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "tail_1"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.0
+          x: 0.691224
+          x: -0.364188
+        }
+        rotation {
+          x: -0.702384
+          x: -0.0
+          x: 0.0
+          x: 0.711798
+        }
+      }
+      half_extents {
+        x: 0.0315
+        x: 0.07
+        x: 0.0315
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "tail_2"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.0
+          x: 0.691224
+          x: -0.504188
+        }
+        rotation {
+          x: -0.70645
+          x: -0.0
+          x: 0.0
+          x: 0.707763
+        }
+      }
+      half_extents {
+        x: 0.02835
+        x: 0.07
+        x: 0.02835
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "tail_3"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.0
+          x: 0.691224
+          x: -0.644188
+        }
+        rotation {
+          x: -0.707602
+          x: -0.0
+          x: 0.0
+          x: 0.706612
+        }
+      }
+      half_extents {
+        x: 0.025515
+        x: 0.07
+        x: 0.025515
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "tail_4"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.0
+          x: 0.691224
+          x: -0.784188
+        }
+        rotation {
+          x: -0.706965
+          x: -0.0
+          x: 0.0
+          x: 0.707249
+        }
+      }
+      half_extents {
+        x: 0.022964
+        x: 0.07
+        x: 0.022964
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "tail_5"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.0
+          x: 0.691224
+          x: -0.924188
+        }
+        rotation {
+          x: -0.706459
+          x: -0.0
+          x: 0.0
+          x: 0.707754
+        }
+      }
+      half_extents {
+        x: 0.020667
+        x: 0.07
+        x: 0.020667
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "spine_1"
+    body: "spine_1"
+    body: "spine_0"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
         x: -0.0
-        x: 0.683879
-        x: 0.960586
+        x: 0.69537
+        x: 0.09796
       }
-      rotation {
-        x: -0.606801
+      axis_0 {
+        x: -1.0
         x: -0.0
         x: -0.0
-        x: 0.794853
       }
-    }
-    half_extents {
-      x: 0.089191
-      x: 0.089191
-      x: 0.089191
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_F_0.L"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: 0.102438
-        x: 0.440592
-        x: 0.557266
-      }
-      rotation {
-        x: -0.640247
-        x: 0.007603
-        x: -0.053564
-        x: 0.766262
-      }
-    }
-    half_extents {
-      x: 0.034213
-      x: 0.058315
-      x: 0.164028
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_F_0.R"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.102438
-        x: 0.440592
-        x: 0.557266
-      }
-      rotation {
-        x: -0.640245
-        x: -0.007605
-        x: 0.053564
-        x: 0.766263
-      }
-    }
-    half_extents {
-      x: 0.034213
-      x: 0.058315
-      x: 0.164028
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_F_1.L"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: 0.085635
-        x: 0.161324
-        x: 0.544303
-      }
-      rotation {
-        x: -0.77897
-        x: -0.013889
-        x: -0.045772
-        x: 0.625235
-      }
-    }
-    half_extents {
-      x: 0.03233
-      x: 0.038788
-      x: 0.127491
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_F_1.L.001"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.085636
-        x: 0.161324
-        x: 0.544303
-      }
-      rotation {
-        x: -0.778972
-        x: 0.01389
-        x: 0.045773
-        x: 0.625232
-      }
-    }
-    half_extents {
-      x: 0.03233
-      x: 0.038788
-      x: 0.127491
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_F_2.L"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: 0.071092
-        x: 0.035321
-        x: 0.620486
-      }
-      rotation {
-        x: -0.70605
-        x: -0.038663
-        x: -0.038663
-        x: 0.706048
-      }
-    }
-    half_extents {
-      x: 0.045537
-      x: 0.049123
-      x: 0.034262
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_F_2.L.001"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.071092
-        x: 0.035321
-        x: 0.620486
-      }
-      rotation {
-        x: -0.706049
-        x: 0.038665
-        x: 0.038665
-        x: 0.706048
-      }
-    }
-    half_extents {
-      x: 0.045537
-      x: 0.049123
-      x: 0.034262
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_H_0.L"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: 0.109205
-        x: 0.508553
-        x: -0.024682
-      }
-      rotation {
-        x: -0.73409
-        x: -0.04414
-        x: 0.035006
-        x: 0.676711
-      }
-    }
-    half_extents {
-      x: 0.039636
-      x: 0.084522
-      x: 0.158713
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_H_0.R"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.109204
-        x: 0.508553
-        x: -0.024682
-      }
-      rotation {
-        x: -0.73409
-        x: 0.044138
-        x: -0.035006
-        x: 0.676711
-      }
-    }
-    half_extents {
-      x: 0.039636
-      x: 0.084522
-      x: 0.158713
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_H_1.L"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: 0.10942
-        x: 0.295014
-        x: -0.103312
-      }
-      rotation {
-        x: -0.22712
-        x: 0.050049
-        x: -0.052707
-        x: 0.971151
-      }
-    }
-    half_extents {
-      x: 0.029759
-      x: 0.051375
-      x: 0.123739
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_H_1.R"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.10942
-        x: 0.295014
-        x: -0.103312
-      }
-      rotation {
-        x: -0.22712
-        x: -0.050048
-        x: 0.052708
-        x: 0.971151
-      }
-    }
-    half_extents {
-      x: 0.029759
-      x: 0.051375
-      x: 0.123739
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_H_2.L"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: 0.108487
-        x: 0.141587
-        x: -0.152861
-      }
-      rotation {
-        x: -0.827104
-        x: 0.054529
-        x: 0.122018
-        x: 0.545928
-      }
-    }
-    half_extents {
-      x: 0.02438
-      x: 0.037887
-      x: 0.114279
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_H_2.L.001"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.108488
-        x: 0.141587
-        x: -0.152861
-      }
-      rotation {
-        x: -0.827105
-        x: -0.054526
-        x: -0.122016
-        x: 0.545928
-      }
-    }
-    half_extents {
-      x: 0.02438
-      x: 0.037887
-      x: 0.114279
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_H_3.L"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: 0.133903
-        x: 0.036175
-        x: -0.056195
-      }
-      rotation {
-        x: -0.705194
-        x: 0.097724
-        x: 0.073563
-        x: 0.698383
-      }
-    }
-    half_extents {
-      x: 0.045265
-      x: 0.055284
-      x: 0.033988
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "leg_H_3.L.001"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.133902
-        x: 0.036175
-        x: -0.056195
-      }
-      rotation {
-        x: -0.705195
-        x: -0.097722
-        x: -0.073565
-        x: 0.698382
-      }
-    }
-    half_extents {
-      x: 0.045265
-      x: 0.055284
-      x: 0.033988
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "neck_0"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
+      axis_1 {
         x: -0.0
-        x: 0.715141
-        x: 0.731933
+        x: 0.999825
+        x: -0.018687
       }
-      rotation {
-        x: -0.771671
-        x: -0.0
-        x: -0.0
-        x: 0.636021
+      limit_0 {
+        x: -0.349066
+        x: 0.349066
       }
-    }
-    half_extents {
-      x: 0.048841999999999997
-      x: 0.048841999999999997
-      x: 0.048841999999999997
+      limit_1 {
+        x: -0.349066
+        x: 0.349066
+      }
     }
   }
-}
-child_scene_object {
-  type: BOX
-  name: "neck_1"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
+  constraint {
+    type: UNIVERSAL
+    name: "spine_2"
+    body: "spine_2"
+    body: "spine_1"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
         x: -0.0
-        x: 0.731544
-        x: 0.83231
+        x: 0.698725
+        x: 0.277448
       }
-      rotation {
-        x: -0.725455
+      axis_0 {
+        x: -1.0
+        x: 0.0
         x: -0.0
-        x: -0.0
-        x: 0.68827
       }
-    }
-    half_extents {
-      x: 0.050487
-      x: 0.050487
-      x: 0.050487
+      axis_1 {
+        x: 0.0
+        x: 0.992553
+        x: -0.121817
+      }
+      limit_0 {
+        x: -0.349066
+        x: 0.349066
+      }
+      limit_1 {
+        x: -0.349066
+        x: 0.349066
+      }
     }
   }
-}
-child_scene_object {
-  type: BOX
-  name: "spine_0"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
+  constraint {
+    type: UNIVERSAL
+    name: "spine_3"
+    body: "spine_3"
+    body: "spine_2"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
         x: -0.0
-        x: 0.587966
-        x: -0.026142
+        x: 0.721371
+        x: 0.461968
       }
-      rotation {
-        x: -0.707106
+      axis_0 {
+        x: -1.0
         x: -0.0
         x: 0.0
-        x: 0.707108
       }
-    }
-    half_extents {
-      x: 0.073703
-      x: 0.126528
-      x: 0.140074
+      axis_1 {
+        x: -0.0
+        x: 0.999523
+        x: -0.030874
+      }
+      limit_0 {
+        x: -0.349066
+        x: 0.349066
+      }
+      limit_1 {
+        x: -0.349066
+        x: 0.349066
+      }
     }
   }
-}
-child_scene_object {
-  type: BOX
-  name: "spine_1"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.0
-        x: 0.617642
-        x: 0.188968
-      }
-      rotation {
-        x: -0.707106
-        x: -0.0
+  constraint {
+    type: UNIVERSAL
+    name: "neck_0"
+    body: "neck_0"
+    body: "spine_3"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
         x: 0.0
-        x: 0.707107
+        x: 0.728081
+        x: 0.679199
       }
-    }
-    half_extents {
-      x: 0.074406
-      x: 0.092316
-      x: 0.099886
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "spine_2"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.0
-        x: 0.613156
-        x: 0.370538
-      }
-      rotation {
-        x: -0.707108
-        x: -0.0
-        x: -0.0
-        x: 0.707105
-      }
-    }
-    half_extents {
-      x: 0.076904
-      x: 0.092698
-      x: 0.121584
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "spine_3"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: -0.0
-        x: 0.604265
-        x: 0.577486
-      }
-      rotation {
-        x: -0.707107
-        x: -0.0
-        x: -0.0
-        x: 0.707106
-      }
-    }
-    half_extents {
-      x: 0.086382
-      x: 0.115012
-      x: 0.142584
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "tail_0"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
+      axis_0 {
+        x: -1.0
         x: 0.0
-        x: 0.691224
-        x: -0.224188
-      }
-      rotation {
-        x: -0.712743
         x: -0.0
-        x: 0.0
-        x: 0.701426
       }
-    }
-    half_extents {
-      x: 0.035
-      x: 0.07
-      x: 0.035
+      axis_1 {
+        x: 0.0
+        x: 0.982805
+        x: -0.184648
+      }
+      limit_0 {
+        x: -0.349066
+        x: 0.698132
+      }
+      limit_1 {
+        x: -0.523599
+        x: 0.523599
+      }
     }
   }
-}
-child_scene_object {
-  type: BOX
-  name: "tail_1"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
+  constraint {
+    type: UNIVERSAL
+    name: "neck_1"
+    body: "neck_1"
+    body: "neck_0"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
         x: 0.0
-        x: 0.691224
-        x: -0.364188
+        x: 0.746666
+        x: 0.778116
       }
-      rotation {
-        x: -0.702384
+      axis_0 {
+        x: -1.0
+        x: 0.0
         x: -0.0
-        x: 0.0
-        x: 0.711798
       }
-    }
-    half_extents {
-      x: 0.0315
-      x: 0.07
-      x: 0.0315
+      axis_1 {
+        x: 0.0
+        x: 0.999984
+        x: -0.005681
+      }
+      limit_0 {
+        x: -0.698132
+        x: 0.174533
+      }
+      limit_1 {
+        x: -0.523599
+        x: 0.523599
+      }
     }
   }
-}
-child_scene_object {
-  type: BOX
-  name: "tail_2"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
+  constraint {
+    type: UNIVERSAL
+    name: "head"
+    body: "head.001"
+    body: "neck_1"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
         x: 0.0
-        x: 0.691224
-        x: -0.504188
+        x: 0.747265
+        x: 0.883626
       }
-      rotation {
-        x: -0.70645
+      axis_0 {
+        x: -1.0
+        x: 0.0
+        x: 0.0
+      }
+      axis_1 {
+        x: 0.0
+        x: 0.964345
+        x: 0.26465
+      }
+      limit_0 {
+        x: -0.349066
+        x: 0.523599
+      }
+      limit_1 {
+        x: -0.523599
+        x: 0.523599
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "leg_F_0.L"
+    body: "leg_F_0.L"
+    body: "spine_3"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: 0.112897
+        x: 0.603451
+        x: 0.587979
+      }
+      axis_0 {
+        x: 0.998436
+        x: -0.05568
+        x: -0.005056
+      }
+      axis_1 {
+        x: 0.007088
+        x: 0.215757
+        x: -0.976421
+      }
+      limit_0 {
+        x: -0.872665
+        x: 0.872665
+      }
+      limit_1 {
+        x: -0.523599
+        x: 0.174533
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_F_1.L"
+    body: "leg_F_1.L"
+    body: "leg_F_0.L"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: 0.993432
+        x: 0.114331
+        x: 0.004691
+      }
+      axis_in_b {
+        x: 0.996053
+        x: 0.086202
+        x: 0.021152
+      }
+      pivot_in_a {
+        x: 0.002025
+        x: 0.003016
+        x: 0.120049
+      }
+      pivot_in_b {
+        x: 0.004667
+        x: 0.011664
+        x: -0.169558
+      }
+      limit {
+        x: -1.570797
+        x: 0.349066
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_F_2.L"
+    body: "leg_F_2.L"
+    body: "leg_F_1.L"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: -0.999882
+        x: -0.003756
+        x: 0.014912
+      }
+      axis_in_b {
+        x: -0.999645
+        x: 0.020904
+        x: -0.016529
+      }
+      pivot_in_a {
+        x: 0.0057
+        x: 0.050342
+        x: 0.001396
+      }
+      pivot_in_b {
+        x: 0.003445
+        x: 0.000833
+        x: -0.127444
+      }
+      limit {
+        x: -1.396264
+        x: 0.523599
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "leg_F_0.R"
+    body: "leg_F_0.R"
+    body: "spine_3"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.112897
+        x: 0.603451
+        x: 0.587979
+      }
+      axis_0 {
+        x: 0.998436
+        x: 0.05568
+        x: 0.005056
+      }
+      axis_1 {
+        x: -0.007088
+        x: 0.215757
+        x: -0.976421
+      }
+      limit_0 {
+        x: -0.872665
+        x: 0.872665
+      }
+      limit_1 {
+        x: -0.174533
+        x: 0.523599
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_F_1.R"
+    body: "leg_F_1.L.001"
+    body: "leg_F_0.R"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: 0.993431
+        x: -0.114335
+        x: -0.004691
+      }
+      axis_in_b {
+        x: 0.996054
+        x: -0.086199
+        x: -0.021155
+      }
+      pivot_in_a {
+        x: -0.002025
+        x: 0.003016
+        x: 0.120049
+      }
+      pivot_in_b {
+        x: -0.004667
+        x: 0.011663
+        x: -0.169558
+      }
+      limit {
+        x: -1.570797
+        x: 0.349066
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_F_2.R"
+    body: "leg_F_2.L.001"
+    body: "leg_F_1.L.001"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: -0.999882
+        x: 0.00376
+        x: -0.014912
+      }
+      axis_in_b {
+        x: -0.999645
+        x: -0.020901
+        x: 0.016528
+      }
+      pivot_in_a {
+        x: -0.005701
+        x: 0.050342
+        x: 0.001396
+      }
+      pivot_in_b {
+        x: -0.003444
+        x: 0.000835
+        x: -0.127444
+      }
+      limit {
+        x: -1.396264
+        x: 0.523599
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "leg_H_0.L"
+    body: "leg_H_0.L"
+    body: "spine_0"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: 0.087512
+        x: 0.669373
+        x: -0.03887
+      }
+      axis_0 {
+        x: 0.978299
+        x: 0.084796
+        x: -0.189051
+      }
+      axis_1 {
+        x: -0.171279
+        x: -0.182471
+        x: -0.968177
+      }
+      limit_0 {
+        x: -0.872665
+        x: 0.523599
+      }
+      limit_1 {
+        x: -0.523599
+        x: 0.174533
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_H_1.L"
+    body: "leg_H_1.L"
+    body: "leg_H_0.L"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: -0.982034
+        x: -0.188493
+        x: 0.008939
+      }
+      axis_in_b {
+        x: -0.982588
+        x: -0.177384
+        x: 0.055284
+      }
+      pivot_in_a {
+        x: 0.000232
+        x: -0.001576
+        x: 0.131291
+      }
+      pivot_in_b {
+        x: -0.001247
+        x: -0.026073
+        x: -0.16124
+      }
+      limit {
+        x: -1.221731
+        x: 0.872665
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_H_2.L"
+    body: "leg_H_2.L"
+    body: "leg_H_1.L"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: -0.999089
+        x: 0.042074
+        x: 0.007173
+      }
+      axis_in_b {
+        x: -0.973073
+        x: -0.223599
+        x: 0.055964
+      }
+      pivot_in_a {
+        x: 0.002013
+        x: -0.007012
+        x: 0.115966
+      }
+      pivot_in_b {
+        x: -0.00185
+        x: -0.001638
+        x: -0.098774
+      }
+      limit {
+        x: -0.872665
+        x: 1.221731
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_H_3.L"
+    body: "leg_H_3.L"
+    body: "leg_H_2.L"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: -0.996626
+        x: 0.072825
+        x: -0.037867
+      }
+      axis_in_b {
+        x: -0.994741
+        x: 0.070893
+        x: 0.073915
+      }
+      pivot_in_a {
+        x: 0.004646
+        x: 0.05354
+        x: 0.001584
+      }
+      pivot_in_b {
+        x: 0.00061
+        x: -0.001076
+        x: -0.114293
+      }
+      limit {
+        x: -1.047198
+        x: 1.047198
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "leg_H_0.R"
+    body: "leg_H_0.R"
+    body: "spine_0"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.087512
+        x: 0.669373
+        x: -0.03887
+      }
+      axis_0 {
+        x: 0.978299
+        x: -0.084796
+        x: 0.189051
+      }
+      axis_1 {
+        x: 0.171279
+        x: -0.182471
+        x: -0.968177
+      }
+      limit_0 {
+        x: -0.872665
+        x: 0.523599
+      }
+      limit_1 {
+        x: -0.174533
+        x: 0.523599
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_H_1.R"
+    body: "leg_H_1.R"
+    body: "leg_H_0.R"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: -0.982034
+        x: 0.188494
+        x: -0.00894
+      }
+      axis_in_b {
+        x: -0.982589
+        x: 0.177381
+        x: -0.055281
+      }
+      pivot_in_a {
+        x: -0.000233
+        x: -0.001576
+        x: 0.131291
+      }
+      pivot_in_b {
+        x: 0.001246
+        x: -0.026073
+        x: -0.16124
+      }
+      limit {
+        x: -1.221731
+        x: 0.872665
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_H_2.R"
+    body: "leg_H_2.L.001"
+    body: "leg_H_1.R"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: -0.999089
+        x: -0.042067
+        x: -0.007172
+      }
+      axis_in_b {
+        x: -0.973073
+        x: 0.2236
+        x: -0.055965
+      }
+      pivot_in_a {
+        x: -0.002012
+        x: -0.007013
+        x: 0.115965
+      }
+      pivot_in_b {
+        x: 0.00185
+        x: -0.001638
+        x: -0.098774
+      }
+      limit {
+        x: -0.872665
+        x: 1.221731
+      }
+    }
+  }
+  constraint {
+    type: HINGE
+    name: "leg_H_3.R"
+    body: "leg_H_3.L.001"
+    body: "leg_H_2.L.001"
+    [LifeSim.HingeConstraintDesc.constraint] {
+      axis_in_a {
+        x: -0.996626
+        x: -0.072825
+        x: 0.037862
+      }
+      axis_in_b {
+        x: -0.994742
+        x: -0.070886
+        x: -0.073915
+      }
+      pivot_in_a {
+        x: -0.004646
+        x: 0.053538
+        x: 0.001585
+      }
+      pivot_in_b {
+        x: -0.000609
+        x: -0.001077
+        x: -0.114293
+      }
+      limit {
+        x: -1.047198
+        x: 1.047198
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "tail_0"
+    body: "tail_0"
+    body: "spine_0"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
         x: -0.0
-        x: 0.0
-        x: 0.707763
+        x: 0.691077
+        x: -0.153233
       }
-    }
-    half_extents {
-      x: 0.02835
-      x: 0.07
-      x: 0.02835
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "tail_3"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
+      axis_0 {
+        x: 1.0
         x: 0.0
-        x: 0.691224
-        x: -0.644188
-      }
-      rotation {
-        x: -0.707602
         x: -0.0
-        x: 0.0
-        x: 0.706612
       }
-    }
-    half_extents {
-      x: 0.025515
-      x: 0.07
-      x: 0.025515
-    }
-  }
-}
-child_scene_object {
-  type: BOX
-  name: "tail_4"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: 0.0
-        x: 0.691224
-        x: -0.784188
-      }
-      rotation {
-        x: -0.706965
+      axis_1 {
         x: -0.0
-        x: 0.0
-        x: 0.707249
+        x: 0.999872
+        x: -0.016004
       }
-    }
-    half_extents {
-      x: 0.022964
-      x: 0.07
-      x: 0.022964
+      limit_0 {
+        x: -1.047198
+        x: 1.047198
+      }
+      limit_1 {
+        x: -1.047198
+        x: 1.047198
+      }
     }
   }
-}
-child_scene_object {
-  type: BOX
-  name: "tail_5"
-  [LifeSim.SceneBoxDesc.scene_object] {
-    transform {
-      position {
-        x: 0.0
-        x: 0.691224
-        x: -0.924188
-      }
-      rotation {
-        x: -0.706459
+  constraint {
+    type: UNIVERSAL
+    name: "tail_1"
+    body: "tail_1"
+    body: "tail_0"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
         x: -0.0
+        x: 0.688837
+        x: -0.293215
+      }
+      axis_0 {
+        x: 1.0
         x: 0.0
-        x: 0.707754
+        x: -0.0
+      }
+      axis_1 {
+        x: -0.0
+        x: 0.999911
+        x: 0.013314
+      }
+      limit_0 {
+        x: -1.047198
+        x: 1.047198
+      }
+      limit_1 {
+        x: -1.047198
+        x: 1.047198
       }
     }
-    half_extents {
-      x: 0.020667
-      x: 0.07
-      x: 0.020667
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "tail_2"
+    body: "tail_2"
+    body: "tail_1"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.0
+        x: 0.6907
+        x: -0.433203
+      }
+      axis_0 {
+        x: 1.0
+        x: 0.0
+        x: 0.0
+      }
+      axis_1 {
+        x: -0.0
+        x: 0.999998
+        x: 0.001858
+      }
+      limit_0 {
+        x: -1.047198
+        x: 1.047198
+      }
+      limit_1 {
+        x: -1.047198
+        x: 1.047198
+      }
     }
   }
-}
-constraint {
-  type: UNIVERSAL
-  name: "spine_1"
-  body: "spine_1"
-  body: "spine_0"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.0
-      x: 0.69537
-      x: 0.09796
-    }
-    axis_0 {
-      x: -1.0
-      x: -0.0
-      x: -0.0
-    }
-    axis_1 {
-      x: -0.0
-      x: 0.999825
-      x: -0.018687
-    }
-    limit_0 {
-      x: -0.349066
-      x: 0.349066
-    }
-    limit_1 {
-      x: -0.349066
-      x: 0.349066
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "spine_2"
-  body: "spine_2"
-  body: "spine_1"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.0
-      x: 0.698725
-      x: 0.277448
-    }
-    axis_0 {
-      x: -1.0
-      x: 0.0
-      x: -0.0
-    }
-    axis_1 {
-      x: 0.0
-      x: 0.992553
-      x: -0.121817
-    }
-    limit_0 {
-      x: -0.349066
-      x: 0.349066
-    }
-    limit_1 {
-      x: -0.349066
-      x: 0.349066
+  constraint {
+    type: UNIVERSAL
+    name: "tail_3"
+    body: "tail_3"
+    body: "tail_2"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.0
+        x: 0.690961
+        x: -0.573203
+      }
+      axis_0 {
+        x: 1.0
+        x: 0.0
+        x: -0.0
+      }
+      axis_1 {
+        x: -0.0
+        x: 0.999999
+        x: -0.0014
+      }
+      limit_0 {
+        x: -1.047198
+        x: 1.047198
+      }
+      limit_1 {
+        x: -1.047198
+        x: 1.047198
+      }
     }
   }
-}
-constraint {
-  type: UNIVERSAL
-  name: "spine_3"
-  body: "spine_3"
-  body: "spine_2"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.0
-      x: 0.721371
-      x: 0.461968
-    }
-    axis_0 {
-      x: -1.0
-      x: -0.0
-      x: 0.0
-    }
-    axis_1 {
-      x: -0.0
-      x: 0.999523
-      x: -0.030874
-    }
-    limit_0 {
-      x: -0.349066
-      x: 0.349066
-    }
-    limit_1 {
-      x: -0.349066
-      x: 0.349066
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "neck_0"
-  body: "neck_0"
-  body: "spine_3"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: 0.0
-      x: 0.728081
-      x: 0.679199
-    }
-    axis_0 {
-      x: -1.0
-      x: 0.0
-      x: -0.0
-    }
-    axis_1 {
-      x: 0.0
-      x: 0.982805
-      x: -0.184648
-    }
-    limit_0 {
-      x: -0.349066
-      x: 0.698132
-    }
-    limit_1 {
-      x: -0.523599
-      x: 0.523599
+  constraint {
+    type: UNIVERSAL
+    name: "tail_4"
+    body: "tail_4"
+    body: "tail_3"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.0
+        x: 0.690765
+        x: -0.713203
+      }
+      axis_0 {
+        x: 1.0
+        x: 0.0
+        x: -0.0
+      }
+      axis_1 {
+        x: -0.0
+        x: 1.0
+        x: 0.000401
+      }
+      limit_0 {
+        x: -1.047198
+        x: 1.047198
+      }
+      limit_1 {
+        x: -1.047198
+        x: 1.047198
+      }
     }
   }
-}
-constraint {
-  type: UNIVERSAL
-  name: "neck_1"
-  body: "neck_1"
-  body: "neck_0"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: 0.0
-      x: 0.746666
-      x: 0.778116
-    }
-    axis_0 {
-      x: -1.0
-      x: 0.0
-      x: -0.0
-    }
-    axis_1 {
-      x: 0.0
-      x: 0.999984
-      x: -0.005681
-    }
-    limit_0 {
-      x: -0.698132
-      x: 0.174533
-    }
-    limit_1 {
-      x: -0.523599
-      x: 0.523599
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "head"
-  body: "head.001"
-  body: "neck_1"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: 0.0
-      x: 0.747265
-      x: 0.883626
-    }
-    axis_0 {
-      x: -1.0
-      x: 0.0
-      x: 0.0
-    }
-    axis_1 {
-      x: 0.0
-      x: 0.964345
-      x: 0.26465
-    }
-    limit_0 {
-      x: -0.349066
-      x: 0.523599
-    }
-    limit_1 {
-      x: -0.523599
-      x: 0.523599
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "leg_F_0.L"
-  body: "leg_F_0.L"
-  body: "spine_3"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: 0.112897
-      x: 0.603451
-      x: 0.587979
-    }
-    axis_0 {
-      x: 0.998436
-      x: -0.05568
-      x: -0.005056
-    }
-    axis_1 {
-      x: 0.007088
-      x: 0.215757
-      x: -0.976421
-    }
-    limit_0 {
-      x: -0.872665
-      x: 0.872665
-    }
-    limit_1 {
-      x: -0.523599
-      x: 0.174533
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_F_1.L"
-  body: "leg_F_1.L"
-  body: "leg_F_0.L"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: 0.993432
-      x: 0.114331
-      x: 0.004691
-    }
-    axis_in_b {
-      x: 0.996053
-      x: 0.086202
-      x: 0.021152
-    }
-    pivot_in_a {
-      x: 0.002025
-      x: 0.003016
-      x: 0.120049
-    }
-    pivot_in_b {
-      x: 0.004667
-      x: 0.011664
-      x: -0.169558
-    }
-    limit {
-      x: -1.570797
-      x: 0.349066
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_F_2.L"
-  body: "leg_F_2.L"
-  body: "leg_F_1.L"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: -0.999882
-      x: -0.003756
-      x: 0.014912
-    }
-    axis_in_b {
-      x: -0.999645
-      x: 0.020904
-      x: -0.016529
-    }
-    pivot_in_a {
-      x: 0.0057
-      x: 0.050342
-      x: 0.001396
-    }
-    pivot_in_b {
-      x: 0.003445
-      x: 0.000833
-      x: -0.127444
-    }
-    limit {
-      x: -1.396264
-      x: 0.523599
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "leg_F_0.R"
-  body: "leg_F_0.R"
-  body: "spine_3"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.112897
-      x: 0.603451
-      x: 0.587979
-    }
-    axis_0 {
-      x: 0.998436
-      x: 0.05568
-      x: 0.005056
-    }
-    axis_1 {
-      x: -0.007088
-      x: 0.215757
-      x: -0.976421
-    }
-    limit_0 {
-      x: -0.872665
-      x: 0.872665
-    }
-    limit_1 {
-      x: -0.174533
-      x: 0.523599
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_F_1.R"
-  body: "leg_F_1.L.001"
-  body: "leg_F_0.R"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: 0.993431
-      x: -0.114335
-      x: -0.004691
-    }
-    axis_in_b {
-      x: 0.996054
-      x: -0.086199
-      x: -0.021155
-    }
-    pivot_in_a {
-      x: -0.002025
-      x: 0.003016
-      x: 0.120049
-    }
-    pivot_in_b {
-      x: -0.004667
-      x: 0.011663
-      x: -0.169558
-    }
-    limit {
-      x: -1.570797
-      x: 0.349066
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_F_2.R"
-  body: "leg_F_2.L.001"
-  body: "leg_F_1.L.001"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: -0.999882
-      x: 0.00376
-      x: -0.014912
-    }
-    axis_in_b {
-      x: -0.999645
-      x: -0.020901
-      x: 0.016528
-    }
-    pivot_in_a {
-      x: -0.005701
-      x: 0.050342
-      x: 0.001396
-    }
-    pivot_in_b {
-      x: -0.003444
-      x: 0.000835
-      x: -0.127444
-    }
-    limit {
-      x: -1.396264
-      x: 0.523599
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "leg_H_0.L"
-  body: "leg_H_0.L"
-  body: "spine_0"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: 0.087512
-      x: 0.669373
-      x: -0.03887
-    }
-    axis_0 {
-      x: 0.978299
-      x: 0.084796
-      x: -0.189051
-    }
-    axis_1 {
-      x: -0.171279
-      x: -0.182471
-      x: -0.968177
-    }
-    limit_0 {
-      x: -0.872665
-      x: 0.523599
-    }
-    limit_1 {
-      x: -0.523599
-      x: 0.174533
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_H_1.L"
-  body: "leg_H_1.L"
-  body: "leg_H_0.L"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: -0.982034
-      x: -0.188493
-      x: 0.008939
-    }
-    axis_in_b {
-      x: -0.982588
-      x: -0.177384
-      x: 0.055284
-    }
-    pivot_in_a {
-      x: 0.000232
-      x: -0.001576
-      x: 0.131291
-    }
-    pivot_in_b {
-      x: -0.001247
-      x: -0.026073
-      x: -0.16124
-    }
-    limit {
-      x: -1.221731
-      x: 0.872665
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_H_2.L"
-  body: "leg_H_2.L"
-  body: "leg_H_1.L"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: -0.999089
-      x: 0.042074
-      x: 0.007173
-    }
-    axis_in_b {
-      x: -0.973073
-      x: -0.223599
-      x: 0.055964
-    }
-    pivot_in_a {
-      x: 0.002013
-      x: -0.007012
-      x: 0.115966
-    }
-    pivot_in_b {
-      x: -0.00185
-      x: -0.001638
-      x: -0.098774
-    }
-    limit {
-      x: -0.872665
-      x: 1.221731
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_H_3.L"
-  body: "leg_H_3.L"
-  body: "leg_H_2.L"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: -0.996626
-      x: 0.072825
-      x: -0.037867
-    }
-    axis_in_b {
-      x: -0.994741
-      x: 0.070893
-      x: 0.073915
-    }
-    pivot_in_a {
-      x: 0.004646
-      x: 0.05354
-      x: 0.001584
-    }
-    pivot_in_b {
-      x: 0.00061
-      x: -0.001076
-      x: -0.114293
-    }
-    limit {
-      x: -1.047198
-      x: 1.047198
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "leg_H_0.R"
-  body: "leg_H_0.R"
-  body: "spine_0"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.087512
-      x: 0.669373
-      x: -0.03887
-    }
-    axis_0 {
-      x: 0.978299
-      x: -0.084796
-      x: 0.189051
-    }
-    axis_1 {
-      x: 0.171279
-      x: -0.182471
-      x: -0.968177
-    }
-    limit_0 {
-      x: -0.872665
-      x: 0.523599
-    }
-    limit_1 {
-      x: -0.174533
-      x: 0.523599
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_H_1.R"
-  body: "leg_H_1.R"
-  body: "leg_H_0.R"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: -0.982034
-      x: 0.188494
-      x: -0.00894
-    }
-    axis_in_b {
-      x: -0.982589
-      x: 0.177381
-      x: -0.055281
-    }
-    pivot_in_a {
-      x: -0.000233
-      x: -0.001576
-      x: 0.131291
-    }
-    pivot_in_b {
-      x: 0.001246
-      x: -0.026073
-      x: -0.16124
-    }
-    limit {
-      x: -1.221731
-      x: 0.872665
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_H_2.R"
-  body: "leg_H_2.L.001"
-  body: "leg_H_1.R"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: -0.999089
-      x: -0.042067
-      x: -0.007172
-    }
-    axis_in_b {
-      x: -0.973073
-      x: 0.2236
-      x: -0.055965
-    }
-    pivot_in_a {
-      x: -0.002012
-      x: -0.007013
-      x: 0.115965
-    }
-    pivot_in_b {
-      x: 0.00185
-      x: -0.001638
-      x: -0.098774
-    }
-    limit {
-      x: -0.872665
-      x: 1.221731
-    }
-  }
-}
-constraint {
-  type: HINGE
-  name: "leg_H_3.R"
-  body: "leg_H_3.L.001"
-  body: "leg_H_2.L.001"
-  [LifeSim.HingeConstraintDesc.constraint] {
-    axis_in_a {
-      x: -0.996626
-      x: -0.072825
-      x: 0.037862
-    }
-    axis_in_b {
-      x: -0.994742
-      x: -0.070886
-      x: -0.073915
-    }
-    pivot_in_a {
-      x: -0.004646
-      x: 0.053538
-      x: 0.001585
-    }
-    pivot_in_b {
-      x: -0.000609
-      x: -0.001077
-      x: -0.114293
-    }
-    limit {
-      x: -1.047198
-      x: 1.047198
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "tail_0"
-  body: "tail_0"
-  body: "spine_0"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.0
-      x: 0.691077
-      x: -0.153233
-    }
-    axis_0 {
-      x: 1.0
-      x: 0.0
-      x: -0.0
-    }
-    axis_1 {
-      x: -0.0
-      x: 0.999872
-      x: -0.016004
-    }
-    limit_0 {
-      x: -1.047198
-      x: 1.047198
-    }
-    limit_1 {
-      x: -1.047198
-      x: 1.047198
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "tail_1"
-  body: "tail_1"
-  body: "tail_0"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.0
-      x: 0.688837
-      x: -0.293215
-    }
-    axis_0 {
-      x: 1.0
-      x: 0.0
-      x: -0.0
-    }
-    axis_1 {
-      x: -0.0
-      x: 0.999911
-      x: 0.013314
-    }
-    limit_0 {
-      x: -1.047198
-      x: 1.047198
-    }
-    limit_1 {
-      x: -1.047198
-      x: 1.047198
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "tail_2"
-  body: "tail_2"
-  body: "tail_1"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.0
-      x: 0.6907
-      x: -0.433203
-    }
-    axis_0 {
-      x: 1.0
-      x: 0.0
-      x: 0.0
-    }
-    axis_1 {
-      x: -0.0
-      x: 0.999998
-      x: 0.001858
-    }
-    limit_0 {
-      x: -1.047198
-      x: 1.047198
-    }
-    limit_1 {
-      x: -1.047198
-      x: 1.047198
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "tail_3"
-  body: "tail_3"
-  body: "tail_2"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.0
-      x: 0.690961
-      x: -0.573203
-    }
-    axis_0 {
-      x: 1.0
-      x: 0.0
-      x: -0.0
-    }
-    axis_1 {
-      x: -0.0
-      x: 0.999999
-      x: -0.0014
-    }
-    limit_0 {
-      x: -1.047198
-      x: 1.047198
-    }
-    limit_1 {
-      x: -1.047198
-      x: 1.047198
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "tail_4"
-  body: "tail_4"
-  body: "tail_3"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.0
-      x: 0.690765
-      x: -0.713203
-    }
-    axis_0 {
-      x: 1.0
-      x: 0.0
-      x: -0.0
-    }
-    axis_1 {
-      x: -0.0
-      x: 1.0
-      x: 0.000401
-    }
-    limit_0 {
-      x: -1.047198
-      x: 1.047198
-    }
-    limit_1 {
-      x: -1.047198
-      x: 1.047198
-    }
-  }
-}
-constraint {
-  type: UNIVERSAL
-  name: "tail_5"
-  body: "tail_5"
-  body: "tail_4"
-  [LifeSim.UniversalConstraintDesc.constraint] {
-    pivot {
-      x: -0.0
-      x: 0.690821
-      x: -0.853203
-    }
-    axis_0 {
-      x: 1.0
-      x: 0.0
-      x: 0.0
-    }
-    axis_1 {
-      x: -0.0
-      x: 0.999999
-      x: 0.001831
-    }
-    limit_0 {
-      x: -1.047198
-      x: 1.047198
-    }
-    limit_1 {
-      x: -1.047198
-      x: 1.047198
+  constraint {
+    type: UNIVERSAL
+    name: "tail_5"
+    body: "tail_5"
+    body: "tail_4"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.0
+        x: 0.690821
+        x: -0.853203
+      }
+      axis_0 {
+        x: 1.0
+        x: 0.0
+        x: 0.0
+      }
+      axis_1 {
+        x: -0.0
+        x: 0.999999
+        x: 0.001831
+      }
+      limit_0 {
+        x: -1.047198
+        x: 1.047198
+      }
+      limit_1 {
+        x: -1.047198
+        x: 1.047198
+      }
     }
   }
 }

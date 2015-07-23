@@ -65,8 +65,8 @@ void SceneBoxVis::calcLightFacing(const Vector4f &lightPosition) {
   btTransform transform;
   box->getMotionState()->getWorldTransform(transform);
 
-  Quaternionf q = transform.getRotation();
-  Vector3f p = transform.getOrigin();
+  Quaternionf q(transform.getRotation());
+  Vector3f p(transform.getOrigin());
 
   for (int i=0; i<mesh.getNumTri(); i++) {
 
@@ -150,8 +150,8 @@ void SceneBoxVis::renderDarkCap(const Vector4f &lightPosition) {
   btTransform transform;
   box->getMotionState()->getWorldTransform(transform);
 
-  Quaternionf q = transform.getRotation();
-  Vector3f p = transform.getOrigin();
+  Quaternionf q(transform.getRotation());
+  Vector3f p(transform.getOrigin());
 
 
   glBegin(GL_TRIANGLES);
@@ -201,8 +201,8 @@ void SceneBoxVis::renderShadowSides(const Vector4f &lightPosition) {
   btTransform transform;
   box->getMotionState()->getWorldTransform(transform);
 
-  Quaternionf q = transform.getRotation();
-  Vector3f p = transform.getOrigin();
+  Quaternionf q(transform.getRotation());
+  Vector3f p(transform.getOrigin());
 
   if (lightPosition[3] == 0.0f) {
 

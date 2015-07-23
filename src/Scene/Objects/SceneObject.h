@@ -11,6 +11,7 @@ public:
 
   string name;
 
+	SceneObject() {}
   SceneObject(string name_) {
     name = name_;
   }

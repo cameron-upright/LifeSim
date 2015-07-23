@@ -63,9 +63,15 @@ Scene::~Scene() {
 
 bool Scene::load(const char *filename) {
 
-	/*
-	SceneDesc desc;
 
+	// Get the directory of the file
+	string filenameStr = string(filename);
+	size_t found;
+	found = filenameStr.find_last_of("/");
+	string dir = filenameStr.substr(0,found);
+
+
+	SceneDesc desc;
 
   int fd = open(filename, O_RDONLY);
 
@@ -73,23 +79,98 @@ bool Scene::load(const char *filename) {
 	google::protobuf::TextFormat::Parse(&fileInput, &desc);
 
 	close(fd);
-	*/
+
+	
+	
+	for (int i=0; i<desc.scene_object_size(); i++) {
+
+		SceneObjectRef ref = desc.scene_object(i);
+
+		if (ref.has_desc()) {
+
+
+			SceneObjectDesc sceneObjectDesc = ref.desc();
+
+			string name = sceneObjectDesc.name();
+
+
+			if (sceneObjectDesc.type() == SceneObjectDesc_Type_PLANE) {
+
+				const ScenePlaneDesc &planeDesc = sceneObjectDesc.GetExtension(ScenePlaneDesc::scene_object);
+
+				Vector3f origin(planeDesc.origin());
+				Planef plane = planeDesc.plane();
+				float size = planeDesc.size();
+
+				ScenePlane *scenePlane = new ScenePlane(name, plane);
+				planes.push_back(scenePlane);
+
+				scenePhysics->addSceneRigidBody(scenePlane);
+
+				if (sceneObserver)
+					sceneObserver->onSceneAddPlane(scenePlane, origin, size);
+			}
+
+			else if (sceneObjectDesc.type() == SceneObjectDesc_Type_BOX) {
+
+				const SceneBoxDesc &boxDesc = sceneObjectDesc.GetExtension(SceneBoxDesc::scene_object);
+
+				Transform transform(boxDesc.transform());
+				Vector3f halfExtents(boxDesc.half_extents());
+
+				SceneBox *sceneBox = new SceneBox(name, halfExtents, transform);
+				boxes.push_back(sceneBox);
+
+				scenePhysics->addSceneRigidBody(sceneBox);
+
+				if (sceneObserver)
+					sceneObserver->onSceneAddBox(sceneBox);
+
+			}
+
+			else if (sceneObjectDesc.type() == SceneObjectDesc_Type_LIGHT) {
+
+				const SceneLightDesc &lightDesc = sceneObjectDesc.GetExtension(SceneLightDesc::scene_object);
+
+				Vector4f position(lightDesc.position());
+				Vector4f ambient(lightDesc.ambient());
+				Vector4f diffuse(lightDesc.diffuse());
+				Vector4f specular(lightDesc.specular());
+
+				if (sceneObserver)
+					sceneObserver->onSceneAddLight(position, diffuse, specular, ambient);
+
+			}
+
+		}
 
 
 
-	// Get the directory of the file
-	string filenameStr = string(filename);
-  size_t found;
-  found = filenameStr.find_last_of("/");
-	string dir = filenameStr.substr(0,found);
+		// TODO : Refactor!!!  We're assuming a config based scene object is a creature
+		if (ref.has_config()) {
 
-	ifstream fin(filename);
+			const string &config = ref.config();
+
+			Creature *creature = new Creature();
+			creature->load(dir + "/" + config);
+
+			creatures.push_back(creature);
+
+			creature->addToScenePhysics(scenePhysics);
+
+			if (sceneObserver)
+				sceneObserver->onSceneAddCreature(creature);
+
+		}
 
 
-  YAML::Parser parser(fin);
-  YAML::Node doc;
+	}
 
-  parser.GetNextDocument(doc);
+
+
+
+
+	/*
   for(unsigned i=0;i<doc.size();i++) {
 
     //		cout << "blah" << endl;
@@ -198,6 +279,7 @@ bool Scene::load(const char *filename) {
   }
 
 	fin.close();
+  */
 
 
 	return true;
