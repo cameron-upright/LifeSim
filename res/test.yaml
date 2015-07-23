@@ -1,5 +1,5 @@
 type: rl_experiment
-env: test_env.yaml
+env: test_env.prototxt
 agent: test_agent.yaml
 
 numSecondsPerEnvStep: 0.001

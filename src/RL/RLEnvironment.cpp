@@ -1,8 +1,19 @@
+#include <unistd.h>
+#include <fcntl.h>
+
 #include <fstream>
 #include <istream>
 #include <sstream>
 
+#include <google/protobuf/text_format.h>
+#include <google/protobuf/io/zero_copy_stream_impl.h>
+
 #include "RLEnvironment.h"
+
+#include "LifeSim.pb.h"
+
+
+using namespace LifeSim;
 
 
 RLEnvironment::RLEnvironment() {
@@ -16,30 +27,25 @@ RLEnvironment::~RLEnvironment() {
 
 void RLEnvironment::load(const string &filename) {
 
+
+  RLEnvironmentDesc desc;
+
+  int fd = open(filename.c_str(), O_RDONLY);
+
+  google::protobuf::io::FileInputStream fileInput(fd);
+	google::protobuf::TextFormat::Parse(&fileInput, &desc);
+
+	close(fd);
+
+	
 	// Get the directory of the file
 	string filenameStr = string(filename);
   size_t found;
   found = filenameStr.find_last_of("/");
 	string dir = filenameStr.substr(0,found);
 
-  ifstream fin(filename.c_str());
-
-  YAML::Parser parser(fin);
-  YAML::Node doc;
-
-  parser.GetNextDocument(doc);
-
-	string sceneConfig;
-	string creatureName;
-
-	doc["scene"] >> sceneConfig;
-	doc["creature"] >> creatureName;
-
-	scene->load((dir + "/" + sceneConfig).c_str());
-
-	creature = scene->getCreature(creatureName);
-
-	fin.close();
+	scene->load((dir + "/" + desc.scene()).c_str());
+	creature = scene->getCreature(desc.creature());
 
 }
 

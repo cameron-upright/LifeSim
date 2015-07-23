@@ -161,3 +161,11 @@ message SceneDesc {
 
 }
 
+
+
+message RLEnvironmentDesc {
+
+  required string scene = 1;
+  required string creature = 2;
+
+}
