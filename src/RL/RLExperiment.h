@@ -24,9 +24,6 @@ public:
   // The number of times the environment is stepped, for every RL step
   int numEnvStepsPerRLStep;
 
-  // The amount of time that goes by before we step the environment
-  float numSecondsPerEnvStep;
-
 };
 
 

@@ -168,4 +168,8 @@ message RLEnvironmentDesc {
   required string scene = 1;
   required string creature = 2;
 
+	required float env_step_size = 3;
+
 }
+
+

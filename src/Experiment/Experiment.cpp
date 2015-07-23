@@ -66,7 +66,6 @@ void Experiment::load(const string &filename) {
 	doc["env"] >> envConfig;
 	doc["agent"] >> agentConfig;
 
-	doc["numSecondsPerEnvStep"] >> desc.numSecondsPerEnvStep;
 	doc["numEnvStepsPerRLStep"] >> desc.numEnvStepsPerRLStep;
 
 	// Load the environment

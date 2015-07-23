@@ -11,6 +11,8 @@ class RLEnvironment {
   Scene *scene;
   Creature *creature;
 
+	float envStepSize;
+
 public:
 
   RLEnvironment();
@@ -24,6 +26,10 @@ public:
   Scene* getScene() {
     return scene;
   }
+
+	float getEnvStepSize() const {
+		return envStepSize;
+	}
 
 private:
 

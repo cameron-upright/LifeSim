@@ -35,15 +35,15 @@ void RLExperiment::step(float dt) {
 	remainingTime += dt;
 
 	// while there is more time to simulate
-	while (remainingTime > desc.numSecondsPerEnvStep) {
+	while (remainingTime > env->getEnvStepSize()) {
 
-		env->step(lastState, lastAction, reward, desc.numSecondsPerEnvStep);
+		env->step(lastState, lastAction, reward, env->getEnvStepSize());
 		++envStep %= desc.numEnvStepsPerRLStep;
 
 		if (envStep == 0)
 			stepRL();
 
-		remainingTime -= desc.numSecondsPerEnvStep;
+		remainingTime -= env->getEnvStepSize();
 
 	}
 

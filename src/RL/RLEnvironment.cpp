@@ -47,6 +47,8 @@ void RLEnvironment::load(const string &filename) {
 	scene->load((dir + "/" + desc.scene()).c_str());
 	creature = scene->getCreature(desc.creature());
 
+	envStepSize = desc.env_step_size();
+
 }
 
 void RLEnvironment::start(RLState &state) {

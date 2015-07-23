@@ -222,7 +222,6 @@ int main(int argc, char **argv)
 
 
 	// Create the experiment
-	//	experiment = new RLExperiment();
 	experiment = new Experiment();
 
 	// Create the scene visualizer, and connect to the scene
