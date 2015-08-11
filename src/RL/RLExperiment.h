@@ -8,9 +8,8 @@
 
 #include "RLAgent.h"
 #include "RLEnvironment.h"
-
-#include "RLState.h"
 #include "RLAction.h"
+
 #include "LifeSim.pb.h"
 
 
@@ -23,7 +22,7 @@ class RLExperiment {
   RLAgent       *agent;
   RLEnvironment *env;
 
-  RLState       lastState;
+  RLStateDesc   lastState;
   RLAction      lastAction;
   float         reward;
 

@@ -3,8 +3,11 @@
 
 #include "Scene.h"
 
-#include "RLState.h"
 #include "RLAction.h"
+
+#include "LifeSim.pb.h"
+
+
 
 class RLAgent {
 
@@ -15,7 +18,7 @@ public:
   RLAgent() {}
   ~RLAgent() {}
 
-  void step(const RLState &state, RLAction &action);
+  void step(const LifeSim::RLStateDesc &state, RLAction &action);
 
   void load(Scene *scene, const string &filename);
 

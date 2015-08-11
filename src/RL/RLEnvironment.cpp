@@ -51,13 +51,13 @@ void RLEnvironment::load(const string &filename) {
 
 }
 
-void RLEnvironment::start(RLState &state) {
+void RLEnvironment::start(RLStateDesc &state) {
 
 	
 
 }
 
-void RLEnvironment::step(RLState &state, const RLAction &action, float &reward, float dt) {
+void RLEnvironment::step(RLStateDesc &state, const RLAction &action, float &reward, float dt) {
 
 	static float t = 0.0f;
 

@@ -181,3 +181,9 @@ message RLExperimentDesc {
 	required int32 env_step_per_rl_step = 3;
 
 }
+
+
+message RLStateDesc {
+
+}
+

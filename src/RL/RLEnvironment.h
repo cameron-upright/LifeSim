@@ -3,7 +3,6 @@
 
 #include "Scene.h"
 
-#include "RLState.h"
 #include "RLAction.h"
 
 class RLEnvironment {
@@ -20,8 +19,8 @@ public:
 
   void load(const string &filename);
 
-  void start(RLState &state);
-  void step(RLState &state, const RLAction &action, float &reward, float dt);
+  void start(LifeSim::RLStateDesc &state);
+  void step(LifeSim::RLStateDesc &state, const RLAction &action, float &reward, float dt);
 
   Scene* getScene() {
     return scene;

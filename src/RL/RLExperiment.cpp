@@ -106,5 +106,3 @@ void RLExperiment::stepRL() {
 	agent->step(lastState, lastAction);
 
 }
-
-

@@ -32,7 +32,7 @@ void RLAgent::load(Scene *scene, const string &filename) {
 }
 
 
-void RLAgent::step(const RLState &state, RLAction &action) {
+void RLAgent::step(const LifeSim::RLStateDesc &state, RLAction &action) {
 
 	const float constraintMultiplier = 0.0f;
 	const float constraintStrength = 0.0001;
