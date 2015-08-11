@@ -11,21 +11,12 @@
 
 #include "RLState.h"
 #include "RLAction.h"
+#include "LifeSim.pb.h"
 
 
 using namespace std;
 
-
-
-class RLExperimentDescription {
-
-public:
-
-  // The number of times the environment is stepped, for every RL step
-  int numEnvStepsPerRLStep;
-
-};
-
+using namespace LifeSim;
 
 class RLExperiment {
 
@@ -36,7 +27,7 @@ class RLExperiment {
   RLAction      lastAction;
   float         reward;
 
-  RLExperimentDescription desc;
+  RLExperimentDesc desc;
 
   // envStep increments every environment step, and wraps to 0 after numEnvStepsPerRLStep
   int   envStep;

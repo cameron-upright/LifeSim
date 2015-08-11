@@ -41,12 +41,10 @@ RLExperiment::~RLExperiment() {
 
 void RLExperiment::load(const string &filename) {
 
-	RLExperimentDesc desc2;
-
 	// Load the protobuf
 	int fd = open(filename.c_str(), O_RDONLY);
   google::protobuf::io::FileInputStream fileInput(fd);
-	google::protobuf::TextFormat::Parse(&fileInput, &desc2);
+	google::protobuf::TextFormat::Parse(&fileInput, &desc);
 	close(fd);
 
 	// Get the directory of the file
@@ -55,18 +53,13 @@ void RLExperiment::load(const string &filename) {
   found = filenameStr.find_last_of("/");
 	string dir = filenameStr.substr(0,found);
 
-	const string &envConfig     = desc2.env_config();
-	const string &agentConfig   = desc2.agent_config();
-
-	this->desc.numEnvStepsPerRLStep = desc2.env_step_per_rl_step();
-
 	// Load the environment
-	env->load(dir + "/" + envConfig);
+	env->load(dir + "/" + desc.env_config());
 
 	// Load the agent
 	agent = new RLAgent();
 
-	agent->load(env->getScene(), dir + "/" + agentConfig);
+	agent->load(env->getScene(), dir + "/" + desc.agent_config());
 
 	// TODO : Move out of here
 	start();
@@ -96,7 +89,7 @@ void RLExperiment::step(float dt) {
 	while (remainingTime > env->getEnvStepSize()) {
 
 		env->step(lastState, lastAction, reward, env->getEnvStepSize());
-		++envStep %= desc.numEnvStepsPerRLStep;
+		++envStep %= desc.env_step_per_rl_step();
 
 		if (envStep == 0)
 			stepRL();
