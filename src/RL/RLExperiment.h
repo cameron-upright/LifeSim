@@ -46,12 +46,18 @@ class RLExperiment {
 
 public:
 
-  RLExperiment(RLEnvironment *env, RLAgent *agent, const RLExperimentDescription &desc);
+  RLExperiment();
   ~RLExperiment();
+
+	void load(const string &filename);
 
   void start();
   void step(float dt);
   void stepRL(void);
+
+  Scene* getScene() {
+    return env->getScene();
+  }
 
 };
 

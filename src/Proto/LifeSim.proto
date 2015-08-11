@@ -173,3 +173,11 @@ message RLEnvironmentDesc {
 }
 
 
+message RLExperimentDesc {
+
+	required string env_config = 1;
+	required string agent_config = 2;
+
+	required int32 env_step_per_rl_step = 3;
+
+}

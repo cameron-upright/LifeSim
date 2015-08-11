@@ -26,7 +26,7 @@
 #include "Scene.h"
 #include "SceneVis.h"
 
-#include "Experiment.h"
+#include "RLExperiment.h"
 
 
 using namespace std;
@@ -48,7 +48,7 @@ UserInputManager *userInputManager;
 
 FPScounter fps;
 
-Experiment *experiment;
+RLExperiment *experiment;
 
 void InitGL(int Width, int Height)	        // We call this right after our OpenGL window is created.
 {
@@ -190,8 +190,7 @@ void mouseMotionFunc(int x, int y) {
 
 
 
-int main(int argc, char **argv) 
-{  
+int main(int argc, char **argv) {  
 
 	if (argc != 2) {
 		cout << "USAGE :" << endl << " ./gui res/test.yaml" << endl;
@@ -222,7 +221,7 @@ int main(int argc, char **argv)
 
 
 	// Create the experiment
-	experiment = new Experiment();
+	experiment = new RLExperiment();
 
 	// Create the scene visualizer, and connect to the scene
 	sceneVis = new SceneVis(*(experiment->getScene()));
