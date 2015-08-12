@@ -42,7 +42,7 @@ PROTO_OBJS = src/Proto/LifeSim.pb.o
 CC = g++
 #INCLUDE_OPTS = -I/usr/share/doc/NVIDIA_GLX-1.0/include -I$(HOME)/usr/include $(addprefix -I, $(SRC_DIRS)) -I/usr/local/include/bullet -I/opt/local/include
 INCLUDE_OPTS = -I$(addprefix -I, $(SRC_DIRS)) -I/usr/local/include/bullet -Isrc/Proto
-CFLAGS = $(INCLUDE_OPTS) -Wno-deprecated -LANG:std -c -DdSingle #-D_REENTRANT
+CFLAGS = $(INCLUDE_OPTS) -std=c++11 -Wno-deprecated -LANG:std -c -DdSingle #-D_REENTRANT
 #================================================================
 
 ifdef DEBUG
