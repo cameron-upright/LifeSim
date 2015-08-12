@@ -8,7 +8,6 @@
 
 #include "RLAgent.h"
 #include "RLEnvironment.h"
-#include "RLAction.h"
 
 #include "LifeSim.pb.h"
 

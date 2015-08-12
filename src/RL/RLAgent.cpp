@@ -8,26 +8,8 @@
 
 void RLAgent::load(Scene *scene, const string &filename) {
 
-	// Get the directory of the file
-	string filenameStr = string(filename);
-  size_t found;
-  found = filenameStr.find_last_of("/");
-	string dir = filenameStr.substr(0,found);
-
-  ifstream fin(filename.c_str());
-
-  YAML::Parser parser(fin);
-  YAML::Node doc;
-
-  parser.GetNextDocument(doc);
-
-	string creatureName;
-
-	doc["creature"] >> creatureName;
-
-	creature = scene->getCreature(creatureName);
-
-	fin.close();
+	// TODO : hack
+	creature = scene->getCreature("creature");
 
 }
 

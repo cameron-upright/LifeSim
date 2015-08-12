@@ -56,11 +56,11 @@ X11LIB=/usr/X11R6/lib
   #-lg2c
 ifeq ($(shell uname),Linux)
 LDFLAGS += -L/usr/lib/nvidia-331 -L/usr/lib/nvidia-current -L$(X11LIB) -L$(HOME)/usr/lib \
-    -lglut -lpthread -lGL -lGLU -lXi -lXmu -lX11 -ldl -lm -lstdc++ -lpng -llapack -lyaml-cpp \
+    -lglut -lpthread -lGL -lGLU -lXi -lXmu -lX11 -ldl -lm -lstdc++ -lpng -llapack \
     -lBulletDynamics -lBulletCollision -lLinearMath -lBulletMultiThreaded -lprotobuf
 else
 LDFLAGS += -L$(X11LIB) -L$(HOME)/usr/lib -L/opt/local/lib \
-    -lpthread -lGL -lGLU -lXi -lXmu -lX11 -ldl -lm -lstdc++ -lpng -llapack -lglut -framework Accelerate -lyaml-cpp \
+    -lpthread -lGL -lGLU -lXi -lXmu -lX11 -ldl -lm -lstdc++ -lpng -llapack -lglut -framework Accelerate \
     -lBulletDynamics -lBulletCollision -lLinearMath -lprotobuf
 
 
