@@ -187,3 +187,10 @@ message RLStateDesc {
 
 }
 
+message RLActionDesc {
+
+	repeated float action = 1;
+
+}
+
+

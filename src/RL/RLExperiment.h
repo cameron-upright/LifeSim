@@ -23,7 +23,7 @@ class RLExperiment {
   RLEnvironment *env;
 
   RLStateDesc   lastState;
-  RLAction      lastAction;
+  RLActionDesc  lastAction;
   float         reward;
 
   RLExperimentDesc desc;

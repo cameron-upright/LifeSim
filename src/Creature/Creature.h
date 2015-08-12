@@ -14,8 +14,6 @@
 #include "SceneUniversalConstraint.h"
 
 using namespace std;
-using namespace __gnu_cxx;
-
 
 struct eqstr
 {
@@ -36,7 +34,7 @@ public:
   vector<SceneUniversalConstraint*> universalConstraints;
 
   map<string, SceneConstraint*> constraintMap;
-  hash_map<const char *, SceneRigidBodyObject*, hash<const char *>, eqstr> rigidBodyMap;
+  map<string, SceneRigidBodyObject*> rigidBodyMap;
 
 	Creature() {}
 

@@ -32,31 +32,23 @@ void RLAgent::load(Scene *scene, const string &filename) {
 }
 
 
-void RLAgent::step(const LifeSim::RLStateDesc &state, RLAction &action) {
+void RLAgent::step(const LifeSim::RLStateDesc &state, LifeSim::RLActionDesc &action) {
 
+	// TODO : Refactor
 	const float constraintMultiplier = 0.0f;
 	const float constraintStrength = 0.0001;
 
-	for (unsigned i=0; i<creature->hingeConstraints.size(); i++) {
+	action.Clear();
 
-		string constraintName = creature->hingeConstraints[i]->name;
-		RLConstraintAction constraintAction(-constraintMultiplier * creature->hingeConstraints[i]->getAngle(), 0.0f, constraintStrength, 0.0f);
-
-		action.constraintActions[constraintName] = constraintAction;
-
-  }
-
+	for (unsigned i=0; i<creature->hingeConstraints.size(); i++)
+		action.add_action(-constraintMultiplier * creature->hingeConstraints[i]->getAngle());
 
 
 	for (unsigned i=0; i<creature->universalConstraints.size(); i++) {
+		action.add_action(-constraintMultiplier * creature->universalConstraints[i]->getAngle(0));
+		action.add_action(-constraintMultiplier * creature->universalConstraints[i]->getAngle(1));
+	}
 
-		string constraintName = creature->universalConstraints[i]->name;
-		RLConstraintAction constraintAction(-constraintMultiplier * creature->universalConstraints[i]->getAngle(0),
-																				-constraintMultiplier * creature->universalConstraints[i]->getAngle(1),
-																				constraintStrength, constraintStrength);
-
-		action.constraintActions[constraintName] = constraintAction;
-
-  }
+	assert(action.action_size() == creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
 
 }

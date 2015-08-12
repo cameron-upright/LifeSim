@@ -18,7 +18,7 @@ public:
   RLAgent() {}
   ~RLAgent() {}
 
-  void step(const LifeSim::RLStateDesc &state, RLAction &action);
+  void step(const LifeSim::RLStateDesc &state, LifeSim::RLActionDesc &action);
 
   void load(Scene *scene, const string &filename);
 

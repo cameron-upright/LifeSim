@@ -57,7 +57,7 @@ void RLEnvironment::start(RLStateDesc &state) {
 
 }
 
-void RLEnvironment::step(RLStateDesc &state, const RLAction &action, float &reward, float dt) {
+void RLEnvironment::step(RLStateDesc &state, const RLActionDesc &action, float &reward, float dt) {
 
 	static float t = 0.0f;
 
@@ -79,32 +79,25 @@ void RLEnvironment::step(RLStateDesc &state, const RLAction &action, float &rewa
 
 
 
-void RLEnvironment::applyControl(const RLAction &action) {
+void RLEnvironment::applyControl(const RLActionDesc &action) {
+
+	const float constraintMultiplier = 0.0f;
+	const float constraintStrength = 0.0001;
+
+	assert(action.action_size() == creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
 
 
+	int actionIndex = 0;
 
-  for (vector<SceneHingeConstraint*>::iterator it = creature->hingeConstraints.begin();
-       it != creature->hingeConstraints.end();
-       it++) {
-
-		const RLConstraintAction *constraintAction = action.getConstraintAction((*it)->name);
-
-    (*it)->enableAngularMotor(true, constraintAction->targetVelocity[0], constraintAction->maxMotorImpulse[0]);
-
-  }
+	for (auto hingeConstraint : creature->hingeConstraints)
+		hingeConstraint->enableAngularMotor(true, action.action(actionIndex++), constraintStrength);
 
 
+	for (auto universalConstraint : creature->universalConstraints) {
+		universalConstraint->enableAngularMotor(0, true, action.action(actionIndex++), constraintStrength);
+		universalConstraint->enableAngularMotor(1, true, action.action(actionIndex++), constraintStrength);
+	}
 
-  for (vector<SceneUniversalConstraint*>::iterator it = creature->universalConstraints.begin(); 
-       it != creature->universalConstraints.end(); 
-       it++) {
-
-		const RLConstraintAction *constraintAction = action.getConstraintAction((*it)->name);
-
-    (*it)->enableAngularMotor(0, true, constraintAction->targetVelocity[0], constraintAction->maxMotorImpulse[0]);
-		(*it)->enableAngularMotor(1, true, constraintAction->targetVelocity[1], constraintAction->maxMotorImpulse[1]);
-
-  }
 
 }
 
