@@ -9,17 +9,18 @@
 
 class RLAgent {
 
+protected:
+
   Creature *creature;
 
 public:
 
-  RLAgent() {}
-  ~RLAgent() {}
-
-  void step(const LifeSim::RLStateDesc &state, LifeSim::RLActionDesc &action);
+  RLAgent() : creature(NULL) {}
+  virtual ~RLAgent() {}
 
   void load(Scene *scene, const string &filename);
 
+  virtual void step(const LifeSim::RLStateDesc &state, LifeSim::RLActionDesc &action) = 0;
 
 };
 

@@ -14,6 +14,8 @@
 
 #include "LifeSim.pb.h"
 
+#include "RLAgentDummy.h"
+
 using namespace LifeSim;
 
 
@@ -57,7 +59,7 @@ void RLExperiment::load(const string &filename) {
 	env->load(dir + "/" + desc.env_config());
 
 	// Load the agent
-	agent = new RLAgent();
+	agent = new RLAgentDummy();
 
 	agent->load(env->getScene(), dir + "/" + desc.agent_config());
 
