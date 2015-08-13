@@ -10,7 +10,8 @@ class RLAgentDummy : public RLAgent {
 
 public:
 
-  RLAgentDummy() : RLAgent() {}
+  RLAgentDummy(Scene *scene) : RLAgent(scene) {}
+
   ~RLAgentDummy() {}
 
   void step(const LifeSim::RLStateDesc &state, LifeSim::RLActionDesc &action);

@@ -194,3 +194,38 @@ message RLActionDesc {
 }
 
 
+
+
+
+
+message RLAgentDesc {
+
+  extensions 1000 to max;
+
+	enum Type {
+    DUMMY  = 0;
+    SOCKET = 1;
+	}
+
+	required Type type = 1;
+
+}
+
+message RLAgentDummyDesc {
+
+  extend RLAgentDesc {
+    required RLAgentDummyDesc agent = 1000;
+	}
+
+}
+
+
+message RLAgentSocketDesc {
+
+  extend RLAgentDesc {
+    required RLAgentSocketDesc constraint = 1001;
+	}
+
+}
+
+

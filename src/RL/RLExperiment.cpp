@@ -33,9 +33,6 @@ RLExperiment::RLExperiment() {
 
 RLExperiment::~RLExperiment() {
 
-	if (agent)
-		delete agent;
-
 	if (env)
 		delete env;
 
@@ -59,9 +56,7 @@ void RLExperiment::load(const string &filename) {
 	env->load(dir + "/" + desc.env_config());
 
 	// Load the agent
-	agent = new RLAgentDummy();
-
-	agent->load(env->getScene(), dir + "/" + desc.agent_config());
+	agent = RLAgent::load(env->getScene(), dir + "/" + desc.agent_config());
 
 	// TODO : Move out of here
 	start();

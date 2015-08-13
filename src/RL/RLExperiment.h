@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include <memory>
+
 #include "Scene.h"
 
 
@@ -18,7 +20,7 @@ using namespace LifeSim;
 
 class RLExperiment {
 
-  RLAgent       *agent;
+	std::unique_ptr<RLAgent> agent;
   RLEnvironment *env;
 
   RLStateDesc   lastState;
