@@ -4,6 +4,7 @@ LifeSim/build
 
 gui
 DummyCreatureAgent
+DummyCreatureExperiment
 
 *.o
 *.pb.h
