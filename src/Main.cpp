@@ -17,6 +17,8 @@
 #include <math.h>
 #include <iostream>
 
+#include <thread>
+
 #include "g_axis.h"
 #include "fpscounter.h"
 #include "timer.h"
@@ -27,6 +29,12 @@
 #include "SceneVis.h"
 
 #include "RLExperiment.h"
+
+
+
+#include <rlglue/Environment_common.h>
+#include <rlglue/utils/C/RLStruct_util.h>
+
 
 
 using namespace std;
@@ -66,17 +74,9 @@ void InitGL(int Width, int Height)	        // We call this right after our OpenG
   glMatrixMode(GL_MODELVIEW);
 
 	glEnable(GL_MULTISAMPLE);
-
-	/*
-  int num;
-  glGetIntegerv(GL_MAX_TEXTURE_UNITS, &num);
-
-	glGetIntegerv (GL_SAMPLES_ARB, &num);
-	printf ("number of samples is %d\n", num);
-	*/
 }
 
-/* The function called when our window is resized (which shouldn't happen, because we're fullscreen) */
+// The function called when our window is resized (which shouldn't happen, because we're fullscreen) 
 void ReSizeGLScene(int Width, int Height)
 {
   if (Height==0)				// Prevent A Divide By Zero If The Window Is Too Small
@@ -96,7 +96,7 @@ void ReSizeGLScene(int Width, int Height)
 }
 
 
-/* The main drawing function. */
+// The main drawing function. 
 void DrawGLScene()
 {
 
@@ -130,10 +130,10 @@ void DrawGLScene()
 
 }
 
-/* The function called whenever a key is pressed. */
+// The function called whenever a key is pressed. 
 void keyPressed(unsigned char key, int x, int y) 
 {
-	/* avoid thrashing this call */
+	// avoid thrashing this call 
 	usleep(100);
 
 	switch(key) {
@@ -188,20 +188,15 @@ void mouseMotionFunc(int x, int y) {
 }
 
 
-
-
-int main(int argc, char **argv) {  
-
-	if (argc != 2) {
-		cout << "USAGE :" << endl << " ./gui res/test.yaml" << endl;
-		exit(1);
-	}
+void mainFunction() {
 
   // default random seeds
   srand48(0);
   srand(0);
 
-  glutInit(&argc, argv);  
+	int argc = 1;
+
+  glutInit(&argc, NULL);
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_STENCIL | GLUT_DEPTH | GLUT_MULTISAMPLE);  
   glutInitWindowSize(window_width, window_height);  
   glutInitWindowPosition(0, 0);
@@ -229,7 +224,7 @@ int main(int argc, char **argv) {
 	experiment->getScene()->setObserver(sceneVis);
 
 	// Load the experiment
-	experiment->load(argv[1]);
+	experiment->load("res/test.prototxt");
 
 	userInputManager = new UserInputManager(*sceneVis);
 
@@ -237,11 +232,78 @@ int main(int argc, char **argv) {
 
   glutMainLoop();  
 
-  return 0;
-
 }
 
 
+std::thread mainThread;
+
+observation_t this_observation;
+reward_observation_terminal_t this_reward_observation;
+int current_state=0;
 
 
 
+
+const char* env_init() {
+
+	const char* task_spec="VERSION RL-Glue-3.0 PROBLEMTYPE episodic DISCOUNTFACTOR 1.0 OBSERVATIONS INTS (0 20) ACTIONS INTS (0 1)  REWARDS (-1.0 1.0)  EXTRA skeleton_environment(C/C++) by Brian Tanner.";
+
+	// Allocate the observation variable 
+	allocateRLStruct(&this_observation,1,0,0);
+	// Setup the reward_observation variable 
+	this_reward_observation.observation=&this_observation;
+	this_reward_observation.reward=0;
+	this_reward_observation.terminal=0;
+
+	//	mainThread = std::thread(mainFunction, 1, (char**)NULL);
+	mainThread = std::thread(mainFunction);
+	mainThread.join();
+
+	return task_spec;
+}
+
+const observation_t *env_start() { 
+	current_state=10;
+	this_observation.intArray[0]=current_state;
+  	return &this_observation;
+}
+
+const reward_observation_terminal_t *env_step(const action_t *this_action)
+{
+	int episode_over=0;
+	double the_reward=0;
+	
+	if(this_action->intArray[0]==0)
+		current_state--;
+	if(this_action->intArray[0]==1)
+		current_state++;
+
+	if(current_state<=0){
+		current_state=0;
+		episode_over=1;
+		the_reward=-1;
+	}
+	if(current_state>=20){
+		current_state=20;
+		episode_over=1;
+		the_reward=1;
+	}
+
+	this_reward_observation.observation->intArray[0] = current_state;
+	this_reward_observation.reward = the_reward;
+	this_reward_observation.terminal = episode_over;
+
+	return &this_reward_observation;
+}
+
+void env_cleanup()
+{
+	clearRLStruct(&this_observation);
+}
+
+const char* env_message(const char* inMessage) {
+	if(strcmp(inMessage,"what is your name?")==0)
+		return "my name is skeleton_environment!";
+
+	return "I don't know how to respond to your message";
+}

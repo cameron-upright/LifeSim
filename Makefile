@@ -27,7 +27,9 @@ GRAPHICS_MESH_OBJS = Mesh.o
 GRAPHICS_SHADER_OBJS = VertexProgram.o FragmentProgram.o
 RL_OBJS = RLExperiment.o RLEnvironment.o RLAgent.o RLAgentDummy.o
 
-OBJS = $(addprefix $(SRC_DIR), $(SRC_OBJS)) $(addprefix $(UTIL_GFX_DIR), $(UTIL_GFX_OBJS)) $(addprefix $(SCENE_DIR), $(SCENE_OBJS)) $(addprefix $(SCENE_OBJECTS_DIR), $(SCENE_OBJECTS_OBJS)) $(addprefix $(CREATURE_DIR), $(CREATURE_OBJS)) $(addprefix $(RESOURCE_DIR), $(RESOURCE_OBJS)) $(addprefix $(GRAPHICS_MESH_DIR), $(GRAPHICS_MESH_OBJS)) $(addprefix $(GRAPHICS_SHADER_DIR), $(GRAPHICS_SHADER_OBJS)) $(addprefix $(EXPERIMENT_DIR), $(EXPERIMENT_OBJS)) $(addprefix $(RL_DIR), $(RL_OBJS))
+LIB_OBJS = $(addprefix $(UTIL_GFX_DIR), $(UTIL_GFX_OBJS)) $(addprefix $(SCENE_DIR), $(SCENE_OBJS)) $(addprefix $(SCENE_OBJECTS_DIR), $(SCENE_OBJECTS_OBJS)) $(addprefix $(CREATURE_DIR), $(CREATURE_OBJS)) $(addprefix $(RESOURCE_DIR), $(RESOURCE_OBJS)) $(addprefix $(GRAPHICS_MESH_DIR), $(GRAPHICS_MESH_OBJS)) $(addprefix $(GRAPHICS_SHADER_DIR), $(GRAPHICS_SHADER_OBJS)) $(addprefix $(EXPERIMENT_DIR), $(EXPERIMENT_OBJS)) $(addprefix $(RL_DIR), $(RL_OBJS))
+GUI_OBJS = $(addprefix $(SRC_DIR), $(SRC_OBJS))
+DUMMY_CREATURE_AGENT_OBJS = src/DummyCreatureAgent.o
 PROGRAM = gui
 
 PROTO_DIR = src/Proto
@@ -58,6 +60,7 @@ ifeq ($(shell uname),Linux)
 LDFLAGS += -L/usr/lib/nvidia-331 -L/usr/lib/nvidia-current -L$(X11LIB) -L$(HOME)/usr/lib \
     -lglut -lpthread -lGL -lGLU -lXi -lXmu -lX11 -ldl -lm -lstdc++ -lpng -llapack \
     -lBulletDynamics -lBulletCollision -lLinearMath -lBulletMultiThreaded -lprotobuf
+
 else
 LDFLAGS += -L$(X11LIB) -L$(HOME)/usr/lib -L/opt/local/lib \
     -lpthread -lGL -lGLU -lXi -lXmu -lX11 -ldl -lm -lstdc++ -lpng -llapack -lglut -framework Accelerate \
@@ -69,7 +72,7 @@ endif
 
 #================================================================
 
-ALL: gui
+ALL: gui DummyCreatureAgent
 
 #src/Proto/LifeSim.pb.o: src/Proto/LifeSim.pb.cc src/Proto/LifeSim.pb.h
 #	protoc -I $(PROTO_DIR) --cpp_out $(PROTO_DIR) $(PROTO_DIR)/LifeSim.proto
@@ -77,7 +80,7 @@ ALL: gui
 src/Proto/LifeSim.pb.cc src/Proto/LifeSim.pb.h: src/Proto/LifeSim.proto
 	protoc -I $(PROTO_DIR) --cpp_out $(PROTO_DIR) $(PROTO_DIR)/LifeSim.proto
 
-$(OBJS): $(PROTO_INCLUDES)
+$(GUI_OBJS) $(LIB_OBJS): $(PROTO_INCLUDES)
 
 .cc.o:
 	$(CC) $(OPTFLAGS) $(CFLAGS) -o $@ $<
@@ -86,16 +89,21 @@ $(OBJS): $(PROTO_INCLUDES)
 .cpp.o: $(PROTO_INCLUDES)
 	$(CC) $(OPTFLAGS) $(CFLAGS) -o $@ $<
 
-gui: $(OBJS) $(PROTO_OBJS)
+gui: $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS)
 	$(RM) $@
-	$(CC) -o $@ $(OBJS) $(PROTO_OBJS) $(OPTFLAGS) $(LDFLAGS)
+	$(CC) -o $@ $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(OPTFLAGS) $(LDFLAGS) -lrlutils -lrlenvironment -lrlgluenetdev
+
+
+DummyCreatureAgent: $(DUMMY_CREATURE_AGENT_OBJS) $(PROTO_OBJS)
+	$(RM) $@
+	$(CC) -o $@ $(DUMMY_CREATURE_AGENT_OBJS) $(PROTO_OBJS) $(OPTFLAGS) $(LDFLAGS) -lrlutils -lrlagent -lrlgluenetdev
 
 
 dbg: gui
 opt: gui
 
 clean:
-	rm -f $(OBJS) $(PROTO_OBJS) $(PROTO_INCLUDES) $(PROTO_SOURCES) $(PROGRAM)
+	rm -f $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(PROTO_INCLUDES) $(PROTO_SOURCES) $(PROGRAM)
 
 #-include $(OBJS:.o=.d)
 #================================================================
