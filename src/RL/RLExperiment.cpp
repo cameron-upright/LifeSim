@@ -78,6 +78,7 @@ void RLExperiment::start() {
 
 void RLExperiment::step(float dt) {
 
+	/*
 	float stepsize;
 
 	remainingTime += dt;
@@ -85,8 +86,8 @@ void RLExperiment::step(float dt) {
 	// while there is more time to simulate
 	while (remainingTime > env->getEnvStepSize()) {
 
-		env->step(lastState, lastAction, reward, env->getEnvStepSize());
-		++envStep %= desc.env_step_per_rl_step();
+		//		env->step(lastState, lastAction, reward, env->getEnvStepSize());
+		//		++envStep %= desc.env_step_per_rl_step();
 
 		if (envStep == 0)
 			stepRL();
@@ -94,12 +95,12 @@ void RLExperiment::step(float dt) {
 		remainingTime -= env->getEnvStepSize();
 
 	}
-
+	*/
 }
 
 
 void RLExperiment::stepRL() {
 
-	agent->step(lastState, lastAction);
+	//	agent->step(lastState, lastAction);
 
 }

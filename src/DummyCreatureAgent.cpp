@@ -20,6 +20,9 @@
 #include <rlglue/Agent_common.h>
 #include <rlglue/utils/C/RLStruct_util.h>
 
+#include <iostream>
+
+using namespace std;
 
 action_t this_action;
 action_t last_action;
@@ -36,6 +39,8 @@ int randInRange(int max) {
 void agent_init(const char* task_spec) {
 	/*Seed the random number generator*/
 
+	cerr << "start agent_init" << endl;
+
 	srand(time(0));
 	/*Here is where you might allocate storage for parameters (value function or policy, last action, last observation, etc)*/
 	
@@ -44,6 +49,8 @@ void agent_init(const char* task_spec) {
 	/*Allocate memory for a one-dimensional integer action using utility functions from RLStruct_util*/
 	allocateRLStruct(&this_action,1,0,0);
 	last_observation=allocateRLStructPointer(0,0,0);
+
+	cerr << "done agent_init" << endl;
 	
 	/* That is equivalent to:
 			 this_action.numInts     =  1;
@@ -56,6 +63,9 @@ void agent_init(const char* task_spec) {
 }
 
 const action_t *agent_start(const observation_t *this_observation) {
+
+	cerr << "start agent_start" << endl;
+
 	/* This agent always returns a random number, either 0 or 1 for its action */
 	int theIntAction=randInRange(1);
 	this_action.intArray[0]=theIntAction;
@@ -63,11 +73,17 @@ const action_t *agent_start(const observation_t *this_observation) {
 	/* In a real action you might want to store the last observation and last action*/
 	replaceRLStruct(&this_action, &last_action);
 	replaceRLStruct(this_observation, last_observation);
+
+	cerr << "done agent_start" << endl;
 	
 	return &this_action;
 }
 
 const action_t *agent_step(double reward, const observation_t *this_observation) {
+
+
+	cerr << "start agent_step" << endl;
+
 	/* This agent  returns 0 or 1 randomly for its action */
 	int theIntAction=randInRange(1);
 	this_action.intArray[0]=theIntAction;
@@ -76,6 +92,8 @@ const action_t *agent_step(double reward, const observation_t *this_observation)
 	/* In a real action you might want to store the last observation and last action*/
 	replaceRLStruct(&this_action, &last_action);
 	replaceRLStruct(this_observation, last_observation);
+
+	cerr << "done agent_step" << endl;
 	
 	return &this_action;
 }

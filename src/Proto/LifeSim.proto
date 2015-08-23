@@ -168,7 +168,11 @@ message RLEnvironmentDesc {
   required string scene = 1;
   required string creature = 2;
 
+	// Physics stepsize
 	required float env_step_size = 3;
+
+	// Physics steps per RL step
+	required int32 env_step_per_rl_step = 4;
 
 }
 
@@ -177,8 +181,6 @@ message RLExperimentDesc {
 
 	required string env_config = 1;
 	required string agent_config = 2;
-
-	required int32 env_step_per_rl_step = 3;
 
 }
 
@@ -190,6 +192,8 @@ message RLStateDesc {
 message RLActionDesc {
 
 	repeated float action = 1;
+	//	repeated float float_action = 1;
+	//	repeated int int_action = 2;
 
 }
 

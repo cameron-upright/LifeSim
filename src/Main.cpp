@@ -28,12 +28,10 @@
 #include "Scene.h"
 #include "SceneVis.h"
 
-#include "RLExperiment.h"
-
-
-
 #include <rlglue/Environment_common.h>
 #include <rlglue/utils/C/RLStruct_util.h>
+
+#include "RLEnvironment.h"
 
 
 
@@ -41,6 +39,7 @@ using namespace std;
 
 
 #define ESCAPE 27
+
 
 Timer timer;
 
@@ -56,7 +55,7 @@ UserInputManager *userInputManager;
 
 FPScounter fps;
 
-RLExperiment *experiment;
+RLEnvironment env;
 
 void InitGL(int Width, int Height)	        // We call this right after our OpenGL window is created.
 {
@@ -115,10 +114,7 @@ void DrawGLScene()
   total += elapsed;
   if (total > 2.0) {
 
-		experiment->step(1.0f * elapsed);
-
-		//		for (int i=0; i<60; i++)
-		//			experiment->step(1.0f/60.0f);
+		env.stepSim(elapsed * 1.0f);
 
   }
 
@@ -188,7 +184,7 @@ void mouseMotionFunc(int x, int y) {
 }
 
 
-void mainFunction() {
+void init() {
 
   // default random seeds
   srand48(0);
@@ -214,33 +210,28 @@ void mainFunction() {
 
   InitGL(window_width, window_height);
 
-
-	// Create the experiment
-	experiment = new RLExperiment();
-
 	// Create the scene visualizer, and connect to the scene
-	sceneVis = new SceneVis(*(experiment->getScene()));
+	sceneVis = new SceneVis(*(env.getScene()));
 
-	experiment->getScene()->setObserver(sceneVis);
+	env.getScene()->setObserver(sceneVis);
 
-	// Load the experiment
-	experiment->load("res/test.prototxt");
+	// Load the environment
+	env.load("res/test_env.prototxt");
 
 	userInputManager = new UserInputManager(*sceneVis);
 
   timer.reset();
 
-  glutMainLoop();  
-
 }
+
 
 
 std::thread mainThread;
 
+
 observation_t this_observation;
 reward_observation_terminal_t this_reward_observation;
 int current_state=0;
-
 
 
 
@@ -255,21 +246,26 @@ const char* env_init() {
 	this_reward_observation.reward=0;
 	this_reward_observation.terminal=0;
 
-	//	mainThread = std::thread(mainFunction, 1, (char**)NULL);
-	mainThread = std::thread(mainFunction);
-	mainThread.join();
+
+	// Magic
+	std::thread(init).join();
+
+	// Start up the main loop
+	mainThread = std::thread(glutMainLoop);
+
 
 	return task_spec;
 }
 
 const observation_t *env_start() { 
+
 	current_state=10;
 	this_observation.intArray[0]=current_state;
-  	return &this_observation;
+	return &this_observation;
 }
 
-const reward_observation_terminal_t *env_step(const action_t *this_action)
-{
+const reward_observation_terminal_t *env_step(const action_t *this_action) {
+
 	int episode_over=0;
 	double the_reward=0;
 	
@@ -289,9 +285,30 @@ const reward_observation_terminal_t *env_step(const action_t *this_action)
 		the_reward=1;
 	}
 
+
+
+
+	float reward;
+
+	LifeSim::RLStateDesc state;
+	LifeSim::RLActionDesc action;
+
+	const float constraintMultiplier = 0.0f;
+
+	for (unsigned i=0; i<env.getCreature()->hingeConstraints.size(); i++)
+		action.add_action(-constraintMultiplier * env.getCreature()->hingeConstraints[i]->getAngle());
+
+	for (unsigned i=0; i<env.getCreature()->universalConstraints.size(); i++) {
+		action.add_action(-constraintMultiplier * env.getCreature()->universalConstraints[i]->getAngle(0));
+		action.add_action(-constraintMultiplier * env.getCreature()->universalConstraints[i]->getAngle(1));
+	}
+
+	env.stepRL(state, action, reward);
+
 	this_reward_observation.observation->intArray[0] = current_state;
 	this_reward_observation.reward = the_reward;
 	this_reward_observation.terminal = episode_over;
+
 
 	return &this_reward_observation;
 }
