@@ -9,7 +9,7 @@
 namespace RLGlueCxx {
 
 
-
+	/*
 	class AbstractType { 
 
 
@@ -79,9 +79,50 @@ namespace RLGlueCxx {
 
 
 	};
+	*/
 
 
+	class Observation {
 
+		observation_t observation_;
+
+	public:
+
+		Observation() {
+			observation_.intArray    = NULL;
+			observation_.doubleArray = NULL;
+			observation_.charArray   = NULL;
+		}
+
+		Observation(const int numInts, const int numDoubles, const int numChars) {
+			allocateRLStruct(&observation_, numInts, numDoubles, numChars);
+		}
+
+		~Observation() {
+			clearRLStruct(&observation_);
+		}
+
+
+		void setIntData(const int index, const int value) {
+			observation_.intArray[index] = value;
+		}
+
+		void setDoubleData(const int index, const double value) {
+			observation_.doubleArray[index] = value;
+		}
+
+		void setCharData(const int index, const char value) {
+			observation_.charArray[index] = value;
+		}
+
+		observation_t* getObservationPtr() {
+			return &observation_;
+		}
+
+	};
+
+
+	/*
 	class Action : public AbstractType {
 
 	public:
@@ -91,7 +132,7 @@ namespace RLGlueCxx {
 		Action(const action_t &action) : AbstractType(action) {}
 
 	};
-
+	*/
 
 	/*
 	class ObservationAction {

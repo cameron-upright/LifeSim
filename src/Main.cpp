@@ -254,19 +254,17 @@ const char* env_init() {
 
 	const char* task_spec="VERSION RL-Glue-3.0 PROBLEMTYPE episodic DISCOUNTFACTOR 1.0 OBSERVATIONS INTS (0 20) ACTIONS INTS (0 1)  REWARDS (-1.0 1.0)  EXTRA skeleton_environment(C/C++) by Brian Tanner.";
 
-
 	// Allocate the observation variable 
 	allocateRLStruct(&this_observation,1,0,0);
 	// Setup the reward_observation variable 
-	//	this_reward_observation.observation=&this_observation;
 	//	this_reward_observation.reward=0;
 	//	this_reward_observation.terminal=0;
-
-
-	//	observation = Observation(1,0,0);
 	rewardObservationTerminal = RewardObservationTerminal(0.0, &this_observation, 0);
 
-
+	/*
+	observation = Observation(1,0,0);
+	rewardObservationTerminal = RewardObservationTerminal(0.0, observation.getObservationPtr(), 0);
+	*/
 
 	if (firstInit) {
 		// Magic
@@ -296,7 +294,7 @@ const observation_t *env_start() {
 
 	cerr << "ENV env_start end" << endl;
 
-	//	return observation;
+	//	return observation.getObservationPtr();
 	return &this_observation;
 
 }
