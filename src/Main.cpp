@@ -34,8 +34,11 @@
 #include "RLEnvironment.h"
 
 
+#include "RL-Glue++.h"
+
 
 using namespace std;
+using namespace RLGlueCxx;
 
 
 #define ESCAPE 27
@@ -96,8 +99,9 @@ void ReSizeGLScene(int Width, int Height)
 
 
 // The main drawing function. 
-void DrawGLScene()
-{
+void DrawGLScene() {
+
+	//	cerr << "ENV DrawGLScene start" << endl;
 
   static double total = 0.0;
 
@@ -113,8 +117,9 @@ void DrawGLScene()
 
   total += elapsed;
   if (total > 2.0) {
-
+		//		cerr << "ENV DrawGLScene step start" << endl;
 		env.stepSim(elapsed * 1.0f);
+		//		cerr << "ENV DrawGLScene step done" << endl;
 
   }
 
@@ -123,6 +128,8 @@ void DrawGLScene()
   fps.showFrameRate();
 
   glutSwapBuffers();
+
+	//	cerr << "ENV DrawGLScene end" << endl;
 
 }
 
@@ -229,15 +236,24 @@ void init() {
 std::thread mainThread;
 
 
+//Observation observation;
+//RewardObservationTerminal rewardObservationTerminal;
+
+
 observation_t this_observation;
 reward_observation_terminal_t this_reward_observation;
+
 int current_state=0;
 
+bool firstInit = true;
 
 
 const char* env_init() {
 
+	cerr << "ENV env_init start" << endl;
+
 	const char* task_spec="VERSION RL-Glue-3.0 PROBLEMTYPE episodic DISCOUNTFACTOR 1.0 OBSERVATIONS INTS (0 20) ACTIONS INTS (0 1)  REWARDS (-1.0 1.0)  EXTRA skeleton_environment(C/C++) by Brian Tanner.";
+
 
 	// Allocate the observation variable 
 	allocateRLStruct(&this_observation,1,0,0);
@@ -247,28 +263,53 @@ const char* env_init() {
 	this_reward_observation.terminal=0;
 
 
-	// Magic
-	std::thread(init).join();
+	//	observation = Observation(1,0,0);
+	//	rewardObservationTerminal = RewardObservationTerminal(0.0, observation, 0);
 
-	// Start up the main loop
-	mainThread = std::thread(glutMainLoop);
 
+
+	if (firstInit) {
+		// Magic
+		std::thread(init).join();
+
+		// Start up the main loop
+		mainThread = std::thread(glutMainLoop);
+
+		firstInit = false;
+	}
+
+
+
+	cerr << "ENV env_init end" << endl;
 
 	return task_spec;
+
 }
 
 const observation_t *env_start() { 
 
+	cerr << "ENV env_start start" << endl;
+
 	current_state=10;
 	this_observation.intArray[0]=current_state;
+	//	observation.setIntData(0, current_state);
+
+	cerr << "ENV env_start end" << endl;
+
+	//	return observation;
 	return &this_observation;
+
 }
 
 const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
+	//	cerr << "ENV env_step start" << endl;
+
+
 	int episode_over=0;
 	double the_reward=0;
 	
+
 	if(this_action->intArray[0]==0)
 		current_state--;
 	if(this_action->intArray[0]==1)
@@ -286,6 +327,10 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 	}
 
 
+
+	this_reward_observation.observation->intArray[0] = current_state;
+	this_reward_observation.reward = the_reward;
+	this_reward_observation.terminal = episode_over;
 
 
 	float reward;
@@ -305,24 +350,34 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
 	env.stepRL(state, action, reward);
 
-	this_reward_observation.observation->intArray[0] = current_state;
-	this_reward_observation.reward = the_reward;
-	this_reward_observation.terminal = episode_over;
+
+	//	observation.setIntData(0, current_state);
+	//	rewardObservationTerminal.setReward(the_reward);
+	//	rewardObservationTerminal.setTerminal(episode_over);
 
 
+	//	cerr << "ENV env_step end" << endl;
 	return &this_reward_observation;
+	//	return rewardObservationTerminal;
+
 }
 
-void env_cleanup()
-{
+void env_cleanup() {
+
+	cerr << "ENV env_cleanup start" << endl;
+
 	clearRLStruct(&this_observation);
+
+	cerr << "ENV env_cleanup end" << endl;
 }
 
 const char* env_message(const char* inMessage) {
+
 	if(strcmp(inMessage,"what is your name?")==0)
 		return "my name is skeleton_environment!";
 
 	return "I don't know how to respond to your message";
+
 }
 
 

@@ -32,7 +32,6 @@ RLEnvironment::~RLEnvironment() {
 
 void RLEnvironment::load(const string &filename) {
 
-
   RLEnvironmentDesc desc;
 
   int fd = open(filename.c_str(), O_RDONLY);
@@ -60,11 +59,15 @@ void RLEnvironment::load(const string &filename) {
 
 void RLEnvironment::start(RLStateDesc &state) {
 
-	// Lock the member variables
-	std::unique_lock<std::mutex> lock(mutex);
+	//	cerr << "ENV start start" << endl;
+
+	std::unique_lock<std::mutex> simLock(simMutex);
+	std::unique_lock<std::mutex> rlLock(rlMutex);
 
 	remainingTime = 0.0f;
 	envStep = 0;
+
+	//	cerr << "ENV start done" << endl;
 
 }
 
@@ -72,21 +75,19 @@ void RLEnvironment::start(RLStateDesc &state) {
 
 void RLEnvironment::stepSim(float dt) {
 
-	//	cerr << "stepSim" << endl;
+	//	cerr << "ENV stepSim start" << endl;
 
-	// Update the remaining time to be simulated
-	remainingTime += dt;
-
-	// Lock the member variables
-	std::unique_lock<std::mutex> lock(mutex);
-
-	//	cerr << "stepSim lock" << endl;
+	std::unique_lock<std::mutex> simLock(simMutex);
+	std::unique_lock<std::mutex> rlLock(rlMutex);
 
 	// If there's no action yet, return
 	if (currentAction.get() == nullptr)
 		return;
 
-	//	cerr << "stepSim sim " << remainingTime << " " << envStep << endl;
+	// Update the remaining time to be simulated
+	remainingTime += dt;
+
+	//	cerr << "ENV stepSim sim " << remainingTime << " " << envStep << endl;
 
 	// false false, return, no time to simulate, and no action
 	// false true,  return, action ready but no time to simulate
@@ -121,16 +122,31 @@ void RLEnvironment::stepSim(float dt) {
 
 	}
 
+	//	cerr << "ENV stepSim end" << endl;
+
 }
 
 // void stepRL(LifeSim::RLStateDesc &state, const LifeSim::RLActionDesc &action, float &reward);
 void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float &reward) {
 
+	/*
+  Scene *scene;
+  Creature *creature;
+	float remainingTime;
+  int envStep;
+
+  unique_ptr<LifeSim::RLStateDesc>  currentState;
+  unique_ptr<LifeSim::RLActionDesc> currentAction;
+	float currentReward;
+	*/
+
+	//	cerr << "ENV stepRL start" << endl;
+
 	// Set the new action
 	// This assumes that the simulation is waiting for the action
 	{
 		// The lock
-		std::lock_guard<std::mutex> lock(mutex);
+		std::lock_guard<std::mutex> lock(rlMutex);
 
 		// The simulation should be waiting for an action at this point
 		assert(currentAction.get() == nullptr);
@@ -139,7 +155,8 @@ void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float
 		currentAction.reset(new RLActionDesc(action));
 	}
 
-	//	cerr << "RL wait" << endl;
+	//	cerr << "ENV stepRL wait start" << endl;
+
 
 	// Wait until the simulation is done, and we have a new state and reward
 	{
@@ -147,16 +164,18 @@ void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float
 		stepCond.wait(stepLock);
 	}
 
-	//	cerr << "RL wait done" << endl;
+	//	cerr << "ENV stepRL wait done" << endl;
 
 	// Wait for access to the member variables, then copy the state / reward, and reset the envStep
 	{
-		std::lock_guard<std::mutex> lock(mutex);
+		std::lock_guard<std::mutex> lock(rlMutex);
 		state = *currentState;
 		reward = currentReward;
 
 		envStep = 0;
 	}
+
+	//	cerr << "ENV stepRL done" << endl;
 
 }
 

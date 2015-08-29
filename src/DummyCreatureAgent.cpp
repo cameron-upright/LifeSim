@@ -39,7 +39,7 @@ int randInRange(int max) {
 void agent_init(const char* task_spec) {
 	/*Seed the random number generator*/
 
-	cerr << "start agent_init" << endl;
+	cerr << "AGENT agent_init start" << endl;
 
 	srand(time(0));
 	/*Here is where you might allocate storage for parameters (value function or policy, last action, last observation, etc)*/
@@ -50,7 +50,7 @@ void agent_init(const char* task_spec) {
 	allocateRLStruct(&this_action,1,0,0);
 	last_observation=allocateRLStructPointer(0,0,0);
 
-	cerr << "done agent_init" << endl;
+	cerr << "AGENT agent_init done" << endl;
 	
 	/* That is equivalent to:
 			 this_action.numInts     =  1;
@@ -64,7 +64,7 @@ void agent_init(const char* task_spec) {
 
 const action_t *agent_start(const observation_t *this_observation) {
 
-	cerr << "start agent_start" << endl;
+	cerr << "AGENT agent_start start" << endl;
 
 	/* This agent always returns a random number, either 0 or 1 for its action */
 	int theIntAction=randInRange(1);
@@ -74,7 +74,7 @@ const action_t *agent_start(const observation_t *this_observation) {
 	replaceRLStruct(&this_action, &last_action);
 	replaceRLStruct(this_observation, last_observation);
 
-	cerr << "done agent_start" << endl;
+	cerr << "AGENT agent_start done" << endl;
 	
 	return &this_action;
 }
@@ -82,7 +82,7 @@ const action_t *agent_start(const observation_t *this_observation) {
 const action_t *agent_step(double reward, const observation_t *this_observation) {
 
 
-	cerr << "start agent_step" << endl;
+	//	cerr << "AGENT agent_step start" << endl;
 
 	/* This agent  returns 0 or 1 randomly for its action */
 	int theIntAction=randInRange(1);
@@ -93,20 +93,31 @@ const action_t *agent_step(double reward, const observation_t *this_observation)
 	replaceRLStruct(&this_action, &last_action);
 	replaceRLStruct(this_observation, last_observation);
 
-	cerr << "done agent_step" << endl;
+	//	cerr << "AGENT agent_step done" << endl;
 	
 	return &this_action;
 }
 
 void agent_end(double reward) {
+
+	cerr << "AGENT agent_end start" << endl;
+
 	clearRLStruct(&last_action);
 	clearRLStruct(last_observation);
+
+	cerr << "AGENT agent_end done" << endl;
+
 }
 
 void agent_cleanup() {
+	cerr << "AGENT agent_cleanup start" << endl;
+
 	clearRLStruct(&this_action);
 	clearRLStruct(&last_action);
 	freeRLStructPointer(last_observation);
+
+	cerr << "AGENT agent_cleanup done" << endl;
+
 }
 
 const char* agent_message(const char* inMessage) {

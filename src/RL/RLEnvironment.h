@@ -11,29 +11,54 @@
 
 class RLEnvironment {
 
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Simulation
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// The state of the simulation
   Scene *scene;
   Creature *creature;
-
-	float envStepSize;
-	float envStepPerRLStep;
 
 	// The leftover time that hasn't been simulated
 	float remainingTime;
 
+	// The discrete step size of the simulation
+	float envStepSize;
+
+	// The number of environment steps before we require a new action
+	float envStepPerRLStep;
+
   // This increments every environment step, and wraps to 0 after numEnvStepsPerRLStep
   int envStep;
+
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// RL Info
+	////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// The most recent state, and the action we're currently simulating
   unique_ptr<LifeSim::RLStateDesc>  currentState;
   unique_ptr<LifeSim::RLActionDesc> currentAction;
+
+	// The reward
 	float currentReward;
 
-	// A mutex for updating the state action and reward
-	std::mutex mutex;
 
-	// Used when the simulation is done, and stepRL can continue
+	
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+	// Mutex / Condition
+	////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	// Locks the simulation variables
+	std::mutex simMutex;
+
+	// Locks the RL variables
+	std::mutex rlMutex;
+
+	// Used to notify env_step that the simulation is complete
 	std::mutex stepMutex;
 	std::condition_variable stepCond;
+
 
 
 public:
