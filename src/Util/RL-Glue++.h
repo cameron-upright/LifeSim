@@ -134,11 +134,12 @@ namespace RLGlueCxx {
 			rewardObservationTerminal_.observation = observation;
 		}			
 
-		void setTerminal(double terminal) {
-			rewardObservationTerminal_.terminal = 0.0;
+		void setTerminal(int terminal) {
+			rewardObservationTerminal_.terminal = terminal;
 		}			
 
 
+		
 
 		operator reward_observation_terminal_t*() {
 			return &rewardObservationTerminal_;

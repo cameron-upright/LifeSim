@@ -237,11 +237,11 @@ std::thread mainThread;
 
 
 //Observation observation;
-//RewardObservationTerminal rewardObservationTerminal;
+RewardObservationTerminal rewardObservationTerminal;
 
 
 observation_t this_observation;
-reward_observation_terminal_t this_reward_observation;
+//reward_observation_terminal_t this_reward_observation;
 
 int current_state=0;
 
@@ -258,13 +258,13 @@ const char* env_init() {
 	// Allocate the observation variable 
 	allocateRLStruct(&this_observation,1,0,0);
 	// Setup the reward_observation variable 
-	this_reward_observation.observation=&this_observation;
-	this_reward_observation.reward=0;
-	this_reward_observation.terminal=0;
+	//	this_reward_observation.observation=&this_observation;
+	//	this_reward_observation.reward=0;
+	//	this_reward_observation.terminal=0;
 
 
 	//	observation = Observation(1,0,0);
-	//	rewardObservationTerminal = RewardObservationTerminal(0.0, observation, 0);
+	rewardObservationTerminal = RewardObservationTerminal(0.0, &this_observation, 0);
 
 
 
@@ -308,7 +308,8 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
 	int episode_over=0;
 	double the_reward=0;
-	
+
+	cerr << current_state << endl;
 
 	if(this_action->intArray[0]==0)
 		current_state--;
@@ -327,10 +328,11 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 	}
 
 
+	this_observation.intArray[0] = current_state;
 
-	this_reward_observation.observation->intArray[0] = current_state;
-	this_reward_observation.reward = the_reward;
-	this_reward_observation.terminal = episode_over;
+	//	this_reward_observation.observation->intArray[0] = current_state;
+	//	this_reward_observation.reward = the_reward;
+	//	this_reward_observation.terminal = episode_over;
 
 
 	float reward;
@@ -352,13 +354,13 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
 
 	//	observation.setIntData(0, current_state);
-	//	rewardObservationTerminal.setReward(the_reward);
-	//	rewardObservationTerminal.setTerminal(episode_over);
+	rewardObservationTerminal.setReward(the_reward);
+	rewardObservationTerminal.setTerminal(episode_over);
 
 
 	//	cerr << "ENV env_step end" << endl;
-	return &this_reward_observation;
-	//	return rewardObservationTerminal;
+	//	return &this_reward_observation;
+	return rewardObservationTerminal;
 
 }
 
