@@ -1,6 +1,7 @@
 #ifndef RL_ENVIRONMENT_H
 #define RL_ENVIRONMENT_H
 
+#include <memory>
 #include <mutex>
 #include <condition_variable>
 
@@ -37,8 +38,8 @@ class RLEnvironment {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// The most recent state, and the action we're currently simulating
-  unique_ptr<LifeSim::RLStateDesc>  currentState;
-  unique_ptr<LifeSim::RLActionDesc> currentAction;
+	std::unique_ptr<LifeSim::RLStateDesc>  currentState;
+  std::unique_ptr<LifeSim::RLActionDesc> currentAction;
 
 	// The reward
 	float currentReward;

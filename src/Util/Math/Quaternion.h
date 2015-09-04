@@ -3,7 +3,6 @@
 
 #include <assert.h>
 #include "Vector3.h"
-//#include "matrix3x3.h"
 
 #include <LinearMath/btVector3.h>
 
@@ -234,14 +233,6 @@ template<class S>
 std::ostream&
 operator<<(std::ostream& os, const Quaternion<S>& q) {
   return os << q.v << " " << q.w;
-}
-
-template<class S>
-void operator >> (const YAML::Node& node, Quaternion<S> &q) {
-  node[0] >> q.v[0];
-  node[1] >> q.v[1];
-  node[2] >> q.v[2];
-  node[3] >> q.w;
 }
 
 

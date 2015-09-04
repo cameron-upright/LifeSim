@@ -44,10 +44,6 @@ public:
 
   bool load(const string &filename);
 
-
-  void parseRigidBody(const YAML::Node& node);
-  void parseConstraint(const YAML::Node& node);
-
   void addToScenePhysics(ScenePhysics *scenePhysics);
   void removeFromScenePhysics(ScenePhysics *scenePhysics);
 

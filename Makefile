@@ -44,7 +44,7 @@ PROTO_OBJS = src/Proto/LifeSim.pb.o
 #================================================================
 CC = g++
 #INCLUDE_OPTS = -I/usr/share/doc/NVIDIA_GLX-1.0/include -I$(HOME)/usr/include $(addprefix -I, $(SRC_DIRS)) -I/usr/local/include/bullet -I/opt/local/include
-INCLUDE_OPTS = -I$(addprefix -I, $(SRC_DIRS)) -I/usr/local/include/bullet -Isrc/Proto
+INCLUDE_OPTS = -I$(addprefix -I, $(SRC_DIRS)) -I/usr/local/include/bullet -I/usr/include/bullet -Isrc/Proto
 CFLAGS = $(INCLUDE_OPTS) -std=c++11 -Wno-deprecated -LANG:std -c -DdSingle #-D_REENTRANT
 #================================================================
 
@@ -60,7 +60,7 @@ X11LIB=/usr/X11R6/lib
 ifeq ($(shell uname),Linux)
 LDFLAGS += -L/usr/lib/nvidia-331 -L/usr/lib/nvidia-current -L$(X11LIB) -L$(HOME)/usr/lib \
     -lglut -lpthread -lGL -lGLU -lXi -lXmu -lX11 -ldl -lm -lstdc++ -lpng -llapack \
-    -lBulletDynamics -lBulletCollision -lLinearMath -lBulletMultiThreaded -lprotobuf
+    -lBulletDynamics -lBulletCollision -lLinearMath -lprotobuf
 
 else
 LDFLAGS += -L$(X11LIB) -L$(HOME)/usr/lib -L/opt/local/lib \
@@ -109,6 +109,7 @@ opt: gui
 
 clean:
 	rm -f $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(PROTO_INCLUDES) $(PROTO_SOURCES) $(PROGRAM)
+	rm -f src/DummyCreatureAgent.o src/DummyCreatureExperiment.o
 
 #-include $(OBJS:.o=.d)
 #================================================================

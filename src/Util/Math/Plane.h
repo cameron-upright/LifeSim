@@ -62,17 +62,6 @@ operator<<(std::ostream& os, const Plane<S>& p) {
 }
 
 
-template<class S>
-void operator >> (const YAML::Node& node, Plane<S> &plane) {
-
-  node[0] >> plane.v[0];
-  node[1] >> plane.v[1];
-  node[2] >> plane.v[2];
-  node[3] >> plane.d;
-
-}
-
-
 typedef Plane<float> Planef;
 typedef Plane<double> Planed;
 

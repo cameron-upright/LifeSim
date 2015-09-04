@@ -131,12 +131,6 @@ operator<<(std::ostream& os, const Vector2<S>& v) {
 }
 
 template<class S>
-void operator >> (const YAML::Node& node, Vector2<S> &v) {
-  node[0] >> v[0];
-  node[1] >> v[1];
-}
-
-template<class S>
 Vector2<S> operator*(const S &s, const Vector2<S> &v) {
   return Vector2<S>(v[0]*s, v[1]*s);
 }

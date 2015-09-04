@@ -3,7 +3,6 @@
 
 #include <iostream>
 #include <cmath>
-#include <yaml-cpp/yaml.h>
 #include <LinearMath/btQuaternion.h>
 
 #include "LifeSim.pb.h"
@@ -195,13 +194,6 @@ template<class S>
 std::ostream&
 operator<<(std::ostream& os, const Vector3<S>& v) {
   return os << "( " << v[0] << " " << v[1] << " " << v[2] << " )";
-}
-
-template<class S>
-void operator >> (const YAML::Node& node, Vector3<S> &v) {
-  node[0] >> v[0];
-  node[1] >> v[1];
-  node[2] >> v[2];
 }
 
 template<class S>
