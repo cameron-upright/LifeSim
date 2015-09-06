@@ -266,7 +266,7 @@ const char* env_init() {
 	// Allocate the observation variable 
 	allocateRLStruct(&this_observation,
 									 0,
-									 env.getCreature()->hingeConstraints.size() + env.getCreature()->universalConstraints.size(),
+									 env.getCreature()->hingeConstraints.size() + env.getCreature()->universalConstraints.size() * 2,
 									 0);
 
 
@@ -291,8 +291,13 @@ const observation_t *env_start() {
 
 	cerr << "ENV env_start start" << endl;
 
-	for (int i=0; i<this_observation.numDoubles; i++)
-		this_observation.doubleArray[0] = 0.0;
+	int observationIndex = 0;
+	for (unsigned i=0; i<env.getCreature()->hingeConstraints.size(); i++)
+		this_observation.doubleArray[observationIndex++] = env.getCreature()->hingeConstraints[i]->getAngle();
+	for (unsigned i=0; i<env.getCreature()->universalConstraints.size(); i++) {
+		this_observation.doubleArray[observationIndex++] = env.getCreature()->universalConstraints[i]->getAngle(0);
+		this_observation.doubleArray[observationIndex++] = env.getCreature()->universalConstraints[i]->getAngle(1);
+	}
 
 	cerr << "ENV env_start end" << endl;
 
@@ -331,9 +336,13 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
 
 
-	// Set the observation
-	for (int i=0; i<this_observation.numDoubles; i++)
-		this_observation.doubleArray[0] = 0.0;
+	int observationIndex = 0;
+	for (unsigned i=0; i<env.getCreature()->hingeConstraints.size(); i++)
+		this_observation.doubleArray[observationIndex++] = env.getCreature()->hingeConstraints[i]->getAngle();
+	for (unsigned i=0; i<env.getCreature()->universalConstraints.size(); i++) {
+		this_observation.doubleArray[observationIndex++] = env.getCreature()->universalConstraints[i]->getAngle(0);
+		this_observation.doubleArray[observationIndex++] = env.getCreature()->universalConstraints[i]->getAngle(1);
+	}
 
 	// Set episode_over
 	step++;
