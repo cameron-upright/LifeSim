@@ -51,14 +51,12 @@ int main(int argc, char *argv[]) {
 	printf("Environment responded to \"If at first you don't succeed; call it version 1.0\" with: %s\n",responseMessage);
 
 	printf("\n\n----------Running a few episodes----------\n");
-	runEpisode(100);
-	runEpisode(100);
-	runEpisode(100);
-	runEpisode(100);
-	runEpisode(100);
-	runEpisode(1);
-	/* Remember that stepLimit of 0 means there is no limit at all!*/
+	while (true)
+		runEpisode(100);
+
+	// Remember that stepLimit of 0 means there is no limit at all!
 	runEpisode(0);
+
 	RL_cleanup();
 
 	printf("\n\n----------Stepping through an episode----------\n");
