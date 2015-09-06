@@ -241,9 +241,6 @@ RewardObservationTerminal rewardObservationTerminal;
 
 
 observation_t this_observation;
-//reward_observation_terminal_t this_reward_observation;
-
-int current_state=0;
 
 bool firstInit = true;
 
@@ -256,18 +253,6 @@ const char* env_init() {
 
 	const char* task_spec="VERSION RL-Glue-3.0 PROBLEMTYPE episodic DISCOUNTFACTOR 1.0 OBSERVATIONS INTS (0 20) ACTIONS INTS (0 1)  REWARDS (-1.0 1.0)  EXTRA skeleton_environment(C/C++) by Brian Tanner.";
 
-	// Allocate the observation variable 
-	allocateRLStruct(&this_observation,1,0,0);
-	// Setup the reward_observation variable 
-	//	this_reward_observation.reward=0;
-	//	this_reward_observation.terminal=0;
- 	rewardObservationTerminal = RewardObservationTerminal(0.0, &this_observation, 0);
-
-	/*
-	observation = Observation(1,0,0);
-	rewardObservationTerminal = RewardObservationTerminal(0.0, observation.getObservationPtr(), 0);
-	*/
-
 	if (firstInit) {
 		// Magic
 		std::thread(init).join();
@@ -278,6 +263,21 @@ const char* env_init() {
 		firstInit = false;
 	}
 
+	// Allocate the observation variable 
+	allocateRLStruct(&this_observation,
+									 0,
+									 env.getCreature()->hingeConstraints.size() + env.getCreature()->universalConstraints.size(),
+									 0);
+
+
+	// Setup the reward_observation variable 
+ 	rewardObservationTerminal = RewardObservationTerminal(0.0, &this_observation, 0);
+
+	/*
+	observation = Observation(1,0,0);
+	rewardObservationTerminal = RewardObservationTerminal(0.0, observation.getObservationPtr(), 0);
+	*/
+
 
 
 	cerr << "ENV env_init end" << endl;
@@ -286,13 +286,13 @@ const char* env_init() {
 
 }
 
+
 const observation_t *env_start() { 
 
 	cerr << "ENV env_start start" << endl;
 
-	current_state=10;
-	this_observation.intArray[0]=current_state;
-	//	observation.setIntData(0, current_state);
+	for (int i=0; i<this_observation.numDoubles; i++)
+		this_observation.doubleArray[0] = 0.0;
 
 	cerr << "ENV env_start end" << endl;
 
@@ -303,13 +303,13 @@ const observation_t *env_start() {
 
 }
 
+
 const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
 	//	cerr << "ENV env_step start" << endl;
 
 	float the_reward=0;
 	int episode_over=0;
-
 
 
 	// Prepare the step, creating an action to resist movement
@@ -329,27 +329,27 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 	// Step the environment
 	env.stepRL(state, action, the_reward);
 
+
+
+	// Set the observation
+	for (int i=0; i<this_observation.numDoubles; i++)
+		this_observation.doubleArray[0] = 0.0;
+
 	// Set episode_over
 	step++;
 	episode_over = step == 50;
 	if (episode_over)
 		step = 0;
 
-
-
-	// Set the observation
-	this_observation.intArray[0] = 10;
-
-	//	observation.setIntData(0, current_state);
 	rewardObservationTerminal.setReward(the_reward);
 	rewardObservationTerminal.setTerminal(episode_over);
 
 
 	//	cerr << "ENV env_step end" << endl;
-	//	return &this_reward_observation;
 	return rewardObservationTerminal;
 
 }
+
 
 void env_cleanup() {
 
@@ -359,6 +359,7 @@ void env_cleanup() {
 
 	cerr << "ENV env_cleanup end" << endl;
 }
+
 
 const char* env_message(const char* inMessage) {
 
