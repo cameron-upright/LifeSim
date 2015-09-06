@@ -261,7 +261,7 @@ const char* env_init() {
 	// Setup the reward_observation variable 
 	//	this_reward_observation.reward=0;
 	//	this_reward_observation.terminal=0;
-	rewardObservationTerminal = RewardObservationTerminal(0.0, &this_observation, 0);
+ 	rewardObservationTerminal = RewardObservationTerminal(0.0, &this_observation, 0);
 
 	/*
 	observation = Observation(1,0,0);
@@ -311,6 +311,7 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 	int episode_over=0;
 
 
+
 	// Prepare the step, creating an action to resist movement
 	LifeSim::RLStateDesc state;
 	LifeSim::RLActionDesc action;
@@ -327,16 +328,16 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
 	// Step the environment
 	env.stepRL(state, action, the_reward);
+
+	// Set episode_over
 	step++;
-
-
-
-
 	episode_over = step == 50;
-
 	if (episode_over)
 		step = 0;
 
+
+
+	// Set the observation
 	this_observation.intArray[0] = 10;
 
 	//	observation.setIntData(0, current_state);
