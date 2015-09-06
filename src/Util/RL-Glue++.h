@@ -100,6 +100,9 @@ namespace RLGlueCxx {
 
 		~Observation() {
 			clearRLStruct(&observation_);
+			observation_.intArray    = NULL;
+			observation_.doubleArray = NULL;
+			observation_.charArray   = NULL;
 		}
 
 
