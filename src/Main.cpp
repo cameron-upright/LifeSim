@@ -247,6 +247,8 @@ int current_state=0;
 
 bool firstInit = true;
 
+int step = 0;
+
 
 const char* env_init() {
 
@@ -294,6 +296,8 @@ const observation_t *env_start() {
 
 	cerr << "ENV env_start end" << endl;
 
+	step = 0;
+
 	//	return observation.getObservationPtr();
 	return &this_observation;
 
@@ -303,38 +307,11 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
 	//	cerr << "ENV env_step start" << endl;
 
-
+	float the_reward=0;
 	int episode_over=0;
-	double the_reward=0;
-
-	cerr << current_state << endl;
-
-	if(this_action->intArray[0]==0)
-		current_state--;
-	if(this_action->intArray[0]==1)
-		current_state++;
-
-	if(current_state<=0){
-		current_state=0;
-		episode_over=1;
-		the_reward=-1;
-	}
-	if(current_state>=20){
-		current_state=20;
-		episode_over=1;
-		the_reward=1;
-	}
 
 
-	this_observation.intArray[0] = current_state;
-
-	//	this_reward_observation.observation->intArray[0] = current_state;
-	//	this_reward_observation.reward = the_reward;
-	//	this_reward_observation.terminal = episode_over;
-
-
-	float reward;
-
+	// Prepare the step, creating an action to resist movement
 	LifeSim::RLStateDesc state;
 	LifeSim::RLActionDesc action;
 
@@ -348,8 +325,19 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 		action.add_action(-constraintMultiplier * env.getCreature()->universalConstraints[i]->getAngle(1));
 	}
 
-	env.stepRL(state, action, reward);
+	// Step the environment
+	env.stepRL(state, action, the_reward);
+	step++;
 
+
+
+
+	episode_over = step == 50;
+
+	if (episode_over)
+		step = 0;
+
+	this_observation.intArray[0] = 10;
 
 	//	observation.setIntData(0, current_state);
 	rewardObservationTerminal.setReward(the_reward);
