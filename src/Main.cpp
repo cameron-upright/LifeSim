@@ -242,6 +242,8 @@ RewardObservationTerminal rewardObservationTerminal;
 
 observation_t this_observation;
 
+std::string taskSpec;
+
 bool firstInit = true;
 
 int step = 0;
@@ -251,7 +253,7 @@ const char* env_init() {
 
 	cerr << "ENV env_init start" << endl;
 
-	const char* task_spec="VERSION RL-Glue-3.0 PROBLEMTYPE episodic DISCOUNTFACTOR 1.0 OBSERVATIONS INTS (0 20) ACTIONS INTS (0 1)  REWARDS (-1.0 1.0)  EXTRA skeleton_environment(C/C++) by Brian Tanner.";
+//	const char* task_spec="VERSION RL-Glue-3.0 PROBLEMTYPE episodic DISCOUNTFACTOR 1.0 OBSERVATIONS INTS (0 20) ACTIONS INTS (0 1)  REWARDS (-1.0 1.0)  EXTRA skeleton_environment(C/C++) by Brian Tanner.";
 
 	if (firstInit) {
 		// Magic
@@ -264,11 +266,7 @@ const char* env_init() {
 	}
 
 	// Allocate the observation variable 
-	allocateRLStruct(&this_observation,
-									 0,
-									 env.getCreature()->hingeConstraints.size() + env.getCreature()->universalConstraints.size() * 2,
-									 0);
-
+	allocateRLStruct(&this_observation, 0, env.getCreature()->getNumDOF(), 0);
 
 	// Setup the reward_observation variable 
  	rewardObservationTerminal = RewardObservationTerminal(0.0, &this_observation, 0);
@@ -280,9 +278,22 @@ const char* env_init() {
 
 
 
+
+
+	taskSpec  = "VERSION RL-Glue-3.0";
+	taskSpec += " PROBLEMTYPE episodic";
+	taskSpec += " DISCOUNTFACTOR 1.0";
+	taskSpec += " OBSERVATIONS";
+	taskSpec += " DOUBLES (" + to_string(env.getCreature()->getNumDOF()) + " 0 1)";
+	taskSpec += " ACTIONS";
+	taskSpec += " DOUBLES (" + to_string(env.getCreature()->getNumDOF()) + " 0 1)";
+	taskSpec += " REWARDS (-1.0 1.0)";
+	taskSpec += " EXTRA skeleton_environment(C/C++) by Brian Tanner.";
+
+
 	cerr << "ENV env_init end" << endl;
 
-	return task_spec;
+	return taskSpec.c_str();
 
 }
 
@@ -321,14 +332,14 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 	LifeSim::RLStateDesc state;
 	LifeSim::RLActionDesc action;
 
-	const float constraintMultiplier = 0.0f;
+	const float constraintMultiplier = 5.0f;
 
+	int actionInd = 0;
 	for (unsigned i=0; i<env.getCreature()->hingeConstraints.size(); i++)
-		action.add_action(-constraintMultiplier * env.getCreature()->hingeConstraints[i]->getAngle());
-
+		action.add_action(-constraintMultiplier * this_action->doubleArray[actionInd++]);
 	for (unsigned i=0; i<env.getCreature()->universalConstraints.size(); i++) {
-		action.add_action(-constraintMultiplier * env.getCreature()->universalConstraints[i]->getAngle(0));
-		action.add_action(-constraintMultiplier * env.getCreature()->universalConstraints[i]->getAngle(1));
+		action.add_action(-constraintMultiplier * this_action->doubleArray[actionInd++]);
+		action.add_action(-constraintMultiplier * this_action->doubleArray[actionInd++]);
 	}
 
 	// Step the environment

@@ -47,6 +47,12 @@ public:
   void addToScenePhysics(ScenePhysics *scenePhysics);
   void removeFromScenePhysics(ScenePhysics *scenePhysics);
 
+
+	int getNumDOF() const {
+		return hingeConstraints.size() + universalConstraints.size() * 2;
+	}
+
+
 };
 
 

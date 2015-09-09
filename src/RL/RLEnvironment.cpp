@@ -195,7 +195,6 @@ void RLEnvironment::applyControl(const RLActionDesc &action) {
 	for (auto hingeConstraint : creature->hingeConstraints)
 		hingeConstraint->enableAngularMotor(true, action.action(actionIndex++), constraintStrength);
 
-
 	for (auto universalConstraint : creature->universalConstraints) {
 		universalConstraint->enableAngularMotor(0, true, action.action(actionIndex++), constraintStrength);
 		universalConstraint->enableAngularMotor(1, true, action.action(actionIndex++), constraintStrength);
