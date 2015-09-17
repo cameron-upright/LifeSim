@@ -287,7 +287,7 @@ const char* env_init() {
 	taskSpec += " DOUBLES (" + to_string(env.getCreature()->getNumDOF()) + " 0 1)";
 	taskSpec += " ACTIONS";
 	taskSpec += " DOUBLES (" + to_string(env.getCreature()->getNumDOF()) + " 0 1)";
-	taskSpec += " REWARDS (-1.0 1.0)";
+	taskSpec += " REWARDS (UNSPEC UNSPEC)";
 	taskSpec += " EXTRA skeleton_environment(C/C++) by Brian Tanner.";
 
 
@@ -332,7 +332,7 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 	LifeSim::RLStateDesc state;
 	LifeSim::RLActionDesc action;
 
-	const float constraintMultiplier = 5.0f;
+	const float constraintMultiplier = 1.0f;
 
 	int actionInd = 0;
 	for (unsigned i=0; i<env.getCreature()->hingeConstraints.size(); i++)
