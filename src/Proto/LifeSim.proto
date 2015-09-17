@@ -30,6 +30,7 @@ message SceneObjectDesc {
 	required Type type = 2;
 	required string name = 3;
 
+	optional bool is_foot = 4 [default = false];
 }
 
 

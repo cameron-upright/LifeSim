@@ -1,4 +1,4 @@
-name: "creature"
+name: "Timaaay!"
 type: CREATURE
 [LifeSim.SceneCreatureDesc.scene_object] {
   transform {
@@ -16,10 +16,10 @@ type: CREATURE
           x: 0.960586
         }
         rotation {
-          x: -0.606801
+          x: -0.6068
           x: -0.0
           x: -0.0
-          x: 0.794853
+          x: 0.794855
         }
       }
       half_extents {
@@ -40,7 +40,7 @@ type: CREATURE
           x: 0.557266
         }
         rotation {
-          x: -0.640247
+          x: -0.640246
           x: 0.007603
           x: -0.053564
           x: 0.766262
@@ -64,10 +64,10 @@ type: CREATURE
           x: 0.557266
         }
         rotation {
-          x: -0.640245
+          x: -0.640244
           x: -0.007605
           x: 0.053564
-          x: 0.766263
+          x: 0.766264
         }
       }
       half_extents {
@@ -91,7 +91,7 @@ type: CREATURE
           x: -0.77897
           x: -0.013889
           x: -0.045772
-          x: 0.625235
+          x: 0.625234
         }
       }
       half_extents {
@@ -113,9 +113,9 @@ type: CREATURE
         }
         rotation {
           x: -0.778972
-          x: 0.01389
+          x: 0.013891
           x: 0.045773
-          x: 0.625232
+          x: 0.625231
         }
       }
       half_extents {
@@ -128,6 +128,7 @@ type: CREATURE
   child_scene_object {
     type: BOX
     name: "leg_F_2.L"
+    is_foot: true
     [LifeSim.SceneBoxDesc.scene_object] {
       transform {
         position {
@@ -136,10 +137,10 @@ type: CREATURE
           x: 0.620486
         }
         rotation {
-          x: -0.70605
+          x: -0.706049
           x: -0.038663
           x: -0.038663
-          x: 0.706048
+          x: 0.706049
         }
       }
       half_extents {
@@ -152,6 +153,7 @@ type: CREATURE
   child_scene_object {
     type: BOX
     name: "leg_F_2.L.001"
+    is_foot: true
     [LifeSim.SceneBoxDesc.scene_object] {
       transform {
         position {
@@ -163,7 +165,7 @@ type: CREATURE
           x: -0.706049
           x: 0.038665
           x: 0.038665
-          x: 0.706048
+          x: 0.706049
         }
       }
       half_extents {
@@ -283,7 +285,7 @@ type: CREATURE
           x: -0.827104
           x: 0.054529
           x: 0.122018
-          x: 0.545928
+          x: 0.545927
         }
       }
       half_extents {
@@ -307,7 +309,7 @@ type: CREATURE
           x: -0.827105
           x: -0.054526
           x: -0.122016
-          x: 0.545928
+          x: 0.545927
         }
       }
       half_extents {
@@ -320,6 +322,7 @@ type: CREATURE
   child_scene_object {
     type: BOX
     name: "leg_H_3.L"
+    is_foot: true
     [LifeSim.SceneBoxDesc.scene_object] {
       transform {
         position {
@@ -331,7 +334,7 @@ type: CREATURE
           x: -0.705194
           x: 0.097724
           x: 0.073563
-          x: 0.698383
+          x: 0.698384
         }
       }
       half_extents {
@@ -344,6 +347,7 @@ type: CREATURE
   child_scene_object {
     type: BOX
     name: "leg_H_3.L.001"
+    is_foot: true
     [LifeSim.SceneBoxDesc.scene_object] {
       transform {
         position {
@@ -354,8 +358,8 @@ type: CREATURE
         rotation {
           x: -0.705195
           x: -0.097722
-          x: -0.073565
-          x: 0.698382
+          x: -0.073564
+          x: 0.698383
         }
       }
       half_extents {
@@ -376,16 +380,16 @@ type: CREATURE
           x: 0.731933
         }
         rotation {
-          x: -0.771671
+          x: -0.771673
           x: -0.0
           x: -0.0
-          x: 0.636021
+          x: 0.63602
         }
       }
       half_extents {
-        x: 0.048841999999999997
-        x: 0.048841999999999997
-        x: 0.048841999999999997
+        x: 0.048842
+        x: 0.048842
+        x: 0.048842
       }
     }
   }
@@ -403,7 +407,7 @@ type: CREATURE
           x: -0.725455
           x: -0.0
           x: -0.0
-          x: 0.68827
+          x: 0.688269
         }
       }
       half_extents {
@@ -424,7 +428,7 @@ type: CREATURE
           x: -0.026142
         }
         rotation {
-          x: -0.707106
+          x: -0.707105
           x: -0.0
           x: 0.0
           x: 0.707108
@@ -702,8 +706,8 @@ type: CREATURE
       }
       axis_1 {
         x: 0.0
-        x: 0.992553
-        x: -0.121817
+        x: 0.992552
+        x: -0.121818
       }
       limit_0 {
         x: -0.349066
@@ -734,7 +738,7 @@ type: CREATURE
       axis_1 {
         x: -0.0
         x: 0.999523
-        x: -0.030874
+        x: -0.030875
       }
       limit_0 {
         x: -0.349066
@@ -753,7 +757,7 @@ type: CREATURE
     body: "spine_3"
     [LifeSim.UniversalConstraintDesc.constraint] {
       pivot {
-        x: 0.0
+        x: -0.0
         x: 0.728081
         x: 0.679199
       }
@@ -764,8 +768,8 @@ type: CREATURE
       }
       axis_1 {
         x: 0.0
-        x: 0.982805
-        x: -0.184648
+        x: 0.982804
+        x: -0.184652
       }
       limit_0 {
         x: -0.349066
@@ -784,7 +788,7 @@ type: CREATURE
     body: "neck_0"
     [LifeSim.UniversalConstraintDesc.constraint] {
       pivot {
-        x: 0.0
+        x: -0.0
         x: 0.746666
         x: 0.778116
       }
@@ -796,7 +800,7 @@ type: CREATURE
       axis_1 {
         x: 0.0
         x: 0.999984
-        x: -0.005681
+        x: -0.005683
       }
       limit_0 {
         x: -0.698132
@@ -815,9 +819,9 @@ type: CREATURE
     body: "neck_1"
     [LifeSim.UniversalConstraintDesc.constraint] {
       pivot {
-        x: 0.0
-        x: 0.747265
-        x: 0.883626
+        x: -0.0
+        x: 0.747266
+        x: 0.883627
       }
       axis_0 {
         x: -1.0
@@ -826,8 +830,8 @@ type: CREATURE
       }
       axis_1 {
         x: 0.0
-        x: 0.964345
-        x: 0.26465
+        x: 0.964344
+        x: 0.264654
       }
       limit_0 {
         x: -0.349066
@@ -857,7 +861,7 @@ type: CREATURE
       }
       axis_1 {
         x: 0.007088
-        x: 0.215757
+        x: 0.215759
         x: -0.976421
       }
       limit_0 {
@@ -877,7 +881,7 @@ type: CREATURE
     body: "leg_F_0.L"
     [LifeSim.HingeConstraintDesc.constraint] {
       axis_in_a {
-        x: 0.993432
+        x: 0.993431
         x: 0.114331
         x: 0.004691
       }
@@ -952,7 +956,7 @@ type: CREATURE
       }
       axis_1 {
         x: -0.007088
-        x: 0.215757
+        x: 0.215759
         x: -0.976421
       }
       limit_0 {
@@ -977,7 +981,7 @@ type: CREATURE
         x: -0.004691
       }
       axis_in_b {
-        x: 0.996054
+        x: 0.996053
         x: -0.086199
         x: -0.021155
       }
@@ -1047,7 +1051,7 @@ type: CREATURE
       }
       axis_1 {
         x: -0.171279
-        x: -0.182471
+        x: -0.182472
         x: -0.968177
       }
       limit_0 {
@@ -1099,7 +1103,7 @@ type: CREATURE
     body: "leg_H_1.L"
     [LifeSim.HingeConstraintDesc.constraint] {
       axis_in_a {
-        x: -0.999089
+        x: -0.999088
         x: 0.042074
         x: 0.007173
       }
@@ -1131,7 +1135,7 @@ type: CREATURE
     body: "leg_H_2.L"
     [LifeSim.HingeConstraintDesc.constraint] {
       axis_in_a {
-        x: -0.996626
+        x: -0.996625
         x: 0.072825
         x: -0.037867
       }
@@ -1199,7 +1203,7 @@ type: CREATURE
         x: -0.00894
       }
       axis_in_b {
-        x: -0.982589
+        x: -0.982588
         x: 0.177381
         x: -0.055281
       }
@@ -1297,7 +1301,7 @@ type: CREATURE
       axis_0 {
         x: 1.0
         x: 0.0
-        x: -0.0
+        x: 0.0
       }
       axis_1 {
         x: -0.0
@@ -1384,7 +1388,7 @@ type: CREATURE
     [LifeSim.UniversalConstraintDesc.constraint] {
       pivot {
         x: -0.0
-        x: 0.690961
+        x: 0.69096
         x: -0.573203
       }
       axis_0 {

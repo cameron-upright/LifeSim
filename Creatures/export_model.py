@@ -9,6 +9,8 @@ def write_rigid_bodies(f, rigid_bodies, worldQuat, worldScale):
     
     for rigid_body in rigid_bodies:
 
+        is_foot = "foot" in rigid_body.keys() and rigid_body["foot"] > 0.0
+
         location = worldScale * (worldQuat * rigid_body.location)
         rotation = worldQuat * rigid_body.matrix_world.to_quaternion()
         scale    = worldScale * rigid_body.scale
@@ -18,6 +20,8 @@ def write_rigid_bodies(f, rigid_bodies, worldQuat, worldScale):
         f.write('    position: [%f, %f, %f]\n' % (location.x, location.y, location.z))
         f.write('    rotation: [%f, %f, %f, %f]\n' % (rotation.x, rotation.y, rotation.z, rotation.w))
         f.write('    halfExtents: [%f, %f, %f]\n' % (scale.x, scale.y, scale.z))
+        if is_foot:
+            f.write('    isFoot: YES\n')
         f.write('\n')
 
 def output_model(armature_name, creature_name, output_name, worldScale, worldQuat):
@@ -91,11 +95,11 @@ def output_model(armature_name, creature_name, output_name, worldScale, worldQua
             axisA = invRotation * axis[0]
             axisB = parentInvRotation * axis[0]
 
-            print(bone.name)
-            print(pivot)
-            print(rigidBody.matrix_world.to_translation())
-            print(parentRigidBody.matrix_world.to_translation())
-            print(axis[0])
+#            print(bone.name)
+#            print(pivot)
+#            print(rigidBody.matrix_world.to_translation())
+#            print(parentRigidBody.matrix_world.to_translation())
+#            print(axis[0])
 
             f.write('  - type: hinge\n')
             f.write('    name: "%s"\n' % bone.name)
@@ -110,10 +114,10 @@ def output_model(armature_name, creature_name, output_name, worldScale, worldQua
 
         elif num == 2 :
 
-            print("--------------------------------------------------")
-            print(bone.name)
-            print(axis)
-            print('    axis2: [%f, %f, %f]\n' % (axis[1].x, axis[1].y, axis[1].z))
+#            print("--------------------------------------------------")
+#            print(bone.name)
+#            print(axis)
+#            print('    axis2: [%f, %f, %f]\n' % (axis[1].x, axis[1].y, axis[1].z))
 
             pivotWorld = worldScale * (worldQuat * pivot)
             axisA = worldQuat * axis[0]

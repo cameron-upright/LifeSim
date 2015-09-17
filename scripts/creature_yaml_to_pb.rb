@@ -34,7 +34,10 @@ out = out_file
 rigid_body_type_map = {"box" => "BOX"}
 constraint_type_map = {"hinge" => "HINGE", "universal" => "UNIVERSAL"}
 
-out.puts "name: \"#{yaml["name"]}\""
+#puts yaml.inspect
+
+
+out.puts "name: \"#{yaml["creature_name"]}\""
 out.puts "type: CREATURE"
 out.puts "[LifeSim.SceneCreatureDesc.scene_object] {"
 out.puts "  transform {"
@@ -47,6 +50,7 @@ yaml["rigid_bodies"].each do |rb|
   out.puts "  child_scene_object {"
   out.puts "    type: #{rigid_body_type_map[rb["type"]]}"
   out.puts "    name: \"#{rb["name"]}\""
+  out.puts "    is_foot: true" if rb["isFoot"]
   out.puts "    [LifeSim.SceneBoxDesc.scene_object] {"
   out.puts "      transform {"
   out.puts "        position {"
