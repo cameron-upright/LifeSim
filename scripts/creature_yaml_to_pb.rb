@@ -37,7 +37,7 @@ constraint_type_map = {"hinge" => "HINGE", "universal" => "UNIVERSAL"}
 #puts yaml.inspect
 
 
-out.puts "name: \"#{yaml["creature_name"]}\""
+out.puts "name: \"creature\""
 out.puts "type: CREATURE"
 out.puts "[LifeSim.SceneCreatureDesc.scene_object] {"
 out.puts "  transform {"

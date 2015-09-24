@@ -1,4 +1,4 @@
-name: "Timaaay!"
+name: "creature"
 type: CREATURE
 [LifeSim.SceneCreatureDesc.scene_object] {
   transform {
