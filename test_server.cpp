@@ -16,6 +16,11 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
 
+#include <vector>
+
+
+using namespace std;
+
 using boost::asio::ip::tcp;
 
 std::string make_daytime_string() {
@@ -38,12 +43,14 @@ public:
   }
 
   void start() {
-    message_ = make_daytime_string();
 
-    boost::asio::async_write(socket_, boost::asio::buffer(message_),
-														 boost::bind(&tcp_connection::handle_write, shared_from_this(),
-																				 boost::asio::placeholders::error,
-																				 boost::asio::placeholders::bytes_transferred));
+		read_buffer_.resize(1);
+
+		cout << "READ" << endl;	
+		boost::asio::async_read(socket_, boost::asio::buffer(read_buffer_),
+														boost::bind(&tcp_connection::handle_read, shared_from_this(),
+																				boost::asio::placeholders::error,
+																				boost::asio::placeholders::bytes_transferred));
   }
 
 private:
@@ -51,12 +58,26 @@ private:
     : socket_(io_service) {
   }
 
+	void handle_read(const boost::system::error_code& error, size_t num_bytes) {
+
+    message_ = make_daytime_string();
+
+		cout << read_buffer_[0] << endl;
+
+		cout << "WRITE" << endl;
+    boost::asio::async_write(socket_, boost::asio::buffer(message_),
+														 boost::bind(&tcp_connection::handle_write, shared_from_this(),
+																				 boost::asio::placeholders::error,
+																				 boost::asio::placeholders::bytes_transferred));
+	}
+
   void handle_write(const boost::system::error_code& /*error*/,
 										size_t /*bytes_transferred*/) {
   }
 
   tcp::socket socket_;
   std::string message_;
+	std::vector<int> read_buffer_;
 };
 
 class tcp_server {
