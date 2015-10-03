@@ -19,6 +19,15 @@ namespace RLGlue {
 
 	void writeMessage(boost::asio::ip::tcp::socket &socket, const ::google::protobuf::Message &msg);
 
+
+	class Env {
+	public:
+
+		virtual void step() = 0;
+
+	};
+
+
 	class EnvConnection : public boost::enable_shared_from_this<EnvConnection> {
 
 	public:
@@ -107,8 +116,9 @@ namespace RLGlue {
 
 	class EnvServer {
 	public:
-		EnvServer(boost::asio::io_service& io_service)
-			: acceptor_(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 1337)) {
+		EnvServer(boost::asio::io_service& io_service, Env &env)
+			: acceptor_(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 1337)),
+				env_(env) {
 			start_accept();
 		}
 
@@ -132,6 +142,9 @@ namespace RLGlue {
 		}
 
 		boost::asio::ip::tcp::acceptor acceptor_;
+
+		Env &env_;
+
 	};
 
 
