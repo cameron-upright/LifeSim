@@ -10,10 +10,10 @@
 
 #include "RLEnvironment.h"
 
-#include "LifeSim.pb.h"
+#include "RLGlue.pb.h"
 
 
-using namespace LifeSim;
+using namespace RLGlue;
 
 
 RLEnvironment::RLEnvironment() {
@@ -126,7 +126,7 @@ void RLEnvironment::stepSim(float dt) {
 
 }
 
-// void stepRL(LifeSim::RLStateDesc &state, const LifeSim::RLActionDesc &action, float &reward);
+// void stepRL(RLGlue::RLStateDesc &state, const RLGlue::RLActionDesc &action, float &reward);
 void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float &reward) {
 
 	/*
@@ -135,8 +135,8 @@ void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float
 	float remainingTime;
   int envStep;
 
-  unique_ptr<LifeSim::RLStateDesc>  currentState;
-  unique_ptr<LifeSim::RLActionDesc> currentAction;
+  unique_ptr<RLGlue::RLStateDesc>  currentState;
+  unique_ptr<RLGlue::RLActionDesc> currentAction;
 	float currentReward;
 	*/
 

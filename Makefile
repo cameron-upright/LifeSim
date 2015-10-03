@@ -25,7 +25,7 @@ CREATURE_OBJS = Creature.o
 RESOURCE_OBJS = ResourceManager.o
 GRAPHICS_MESH_OBJS = Mesh.o
 GRAPHICS_SHADER_OBJS = VertexProgram.o FragmentProgram.o
-RL_OBJS = RLExperiment.o RLEnvironment.o RLAgent.o RLAgentDummy.o
+RL_OBJS = RLEnvironment.o # RLExperiment.o RLAgentDummy.o RLAgent.o 
 UTIL_OBJS = RLGlue++.o
 
 LIB_OBJS = $(addprefix $(UTIL_GFX_DIR), $(UTIL_GFX_OBJS)) $(addprefix $(SCENE_DIR), $(SCENE_OBJS)) $(addprefix $(SCENE_OBJECTS_DIR), $(SCENE_OBJECTS_OBJS)) $(addprefix $(CREATURE_DIR), $(CREATURE_OBJS)) $(addprefix $(RESOURCE_DIR), $(RESOURCE_OBJS)) $(addprefix $(GRAPHICS_MESH_DIR), $(GRAPHICS_MESH_OBJS)) $(addprefix $(GRAPHICS_SHADER_DIR), $(GRAPHICS_SHADER_OBJS)) $(addprefix $(EXPERIMENT_DIR), $(EXPERIMENT_OBJS)) $(addprefix $(RL_DIR), $(RL_OBJS)) $(addprefix $(UTIL_DIR), $(UTIL_OBJS))
@@ -60,7 +60,7 @@ X11LIB=/usr/X11R6/lib
 ifeq ($(shell uname),Linux)
 LDFLAGS += -L/usr/lib/nvidia-331 -L/usr/lib/nvidia-current -L$(X11LIB) -L$(HOME)/usr/lib \
     -lglut -lpthread -lGL -lGLU -lXi -lXmu -lX11 -ldl -lm -lstdc++ -lpng -llapack \
-    -lBulletDynamics -lBulletCollision -lLinearMath -lprotobuf
+    -lBulletDynamics -lBulletCollision -lLinearMath -lprotobuf -lboost_system
 
 else
 LDFLAGS += -L$(X11LIB) -L$(HOME)/usr/lib -L/opt/local/lib \
@@ -73,7 +73,7 @@ endif
 
 #================================================================
 
-ALL: gui DummyCreatureAgent DummyCreatureExperiment
+ALL: gui #DummyCreatureAgent DummyCreatureExperiment
 
 src/Proto/LifeSim.pb.cc src/Proto/LifeSim.pb.h: src/Proto/LifeSim.proto
 	protoc -I $(PROTO_DIR) --cpp_out $(PROTO_DIR) $(PROTO_DIR)/LifeSim.proto

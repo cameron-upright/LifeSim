@@ -34,7 +34,7 @@
 #include "RLEnvironment.h"
 
 
-#include "RL-Glue++.h"
+#include "RLGlue++.h"
 
 
 using namespace std;
@@ -117,7 +117,7 @@ void DrawGLScene() {
   total += elapsed;
   if (total > 2.0) {
 		//		cerr << "ENV DrawGLScene step start" << endl;
-		env.stepSim(elapsed * 1.0f);
+		env.stepSim(elapsed * 0.1f);
 		//		cerr << "ENV DrawGLScene step done" << endl;
 
   }
@@ -231,6 +231,70 @@ void init() {
 }
 
 
+void rlLoop() {
+
+	while (true) {
+
+		float the_reward=0;
+		int episode_over=0;
+
+		// Prepare the step, creating an action to resist movement
+		RLGlue::RLStateDesc state;
+		RLGlue::RLActionDesc action;
+
+		const float constraintMultiplier = 1.0f;
+
+		int actionInd = 0;
+		for (unsigned i=0; i<env.getCreature()->hingeConstraints.size(); i++)
+			action.add_action(-constraintMultiplier * 0.0);
+		for (unsigned i=0; i<env.getCreature()->universalConstraints.size(); i++) {
+			action.add_action(-constraintMultiplier * 0.0);
+			action.add_action(-constraintMultiplier * 0.0);
+		}
+
+		// Step the environment
+		env.stepRL(state, action, the_reward);
+
+
+		/*
+			int observationIndex = 0;
+			for (unsigned i=0; i<env.getCreature()->hingeConstraints.size(); i++)
+			this_observation.doubleArray[observationIndex++] = env.getCreature()->hingeConstraints[i]->getAngle();
+			for (unsigned i=0; i<env.getCreature()->universalConstraints.size(); i++) {
+			this_observation.doubleArray[observationIndex++] = env.getCreature()->universalConstraints[i]->getAngle(0);
+			this_observation.doubleArray[observationIndex++] = env.getCreature()->universalConstraints[i]->getAngle(1);
+			}
+
+			// Set episode_over
+			step++;
+			episode_over = step == 50;
+			if (episode_over)
+			step = 0;
+
+			rewardObservationTerminal.setReward(the_reward);
+			rewardObservationTerminal.setTerminal(episode_over);
+		*/
+
+	}
+
+}
+
+
+int main(int argc, char **argv) {
+
+	init();
+
+	std::thread rlThread(rlLoop);
+
+	glutMainLoop();
+
+	return 0;
+
+}
+
+
+
+/*
 
 std::thread mainThread;
 
@@ -272,10 +336,9 @@ const char* env_init() {
 
 	
 
-	/*
-	observation = Observation(1,0,0);
-	rewardObservationTerminal = RewardObservationTerminal(0.0, observation.getObservationPtr(), 0);
-	*/
+//	observation = Observation(1,0,0);
+//	rewardObservationTerminal = RewardObservationTerminal(0.0, observation.getObservationPtr(), 0);
+
 
 
 
@@ -392,3 +455,4 @@ const char* env_message(const char* inMessage) {
 }
 
 
+*/

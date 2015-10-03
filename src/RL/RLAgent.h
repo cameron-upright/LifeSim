@@ -5,7 +5,7 @@
 
 #include "Scene.h"
 
-#include "LifeSim.pb.h"
+#include "RLGlue.pb.h"
 
 
 
@@ -22,7 +22,7 @@ public:
 
   static std::unique_ptr<RLAgent> load(Scene *scene, const string &filename);
 
-  virtual void step(const LifeSim::RLStateDesc &state, LifeSim::RLActionDesc &action) = 0;
+  virtual void step(const RLGlue::RLStateDesc &state, RLGlue::RLActionDesc &action) = 0;
 
 };
 

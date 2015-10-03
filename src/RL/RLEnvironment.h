@@ -7,7 +7,7 @@
 
 #include "Scene.h"
 
-#include "LifeSim.pb.h"
+#include "RLGlue.pb.h"
 
 
 class RLEnvironment {
@@ -38,8 +38,8 @@ class RLEnvironment {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// The most recent state, and the action we're currently simulating
-	std::unique_ptr<LifeSim::RLStateDesc>  currentState;
-  std::unique_ptr<LifeSim::RLActionDesc> currentAction;
+	std::unique_ptr<RLGlue::RLStateDesc>  currentState;
+  std::unique_ptr<RLGlue::RLActionDesc> currentAction;
 
 	// The reward
 	float currentReward;
@@ -69,10 +69,10 @@ public:
 
   void load(const string &filename);
 
-  void start(LifeSim::RLStateDesc &state);
+  void start(RLGlue::RLStateDesc &state);
 
 	void stepSim(const float dt);
-  void stepRL(LifeSim::RLStateDesc &state, const LifeSim::RLActionDesc &action, float &reward);
+  void stepRL(RLGlue::RLStateDesc &state, const RLGlue::RLActionDesc &action, float &reward);
 
   Scene* getScene() {
     return scene;
@@ -88,7 +88,7 @@ public:
 
 private:
 
-  void applyControl(const LifeSim::RLActionDesc &action);
+  void applyControl(const RLGlue::RLActionDesc &action);
 
 };
 

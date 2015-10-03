@@ -11,12 +11,12 @@
 #include "RLAgent.h"
 #include "RLEnvironment.h"
 
-#include "LifeSim.pb.h"
+#include "RLGlue.pb.h"
 
 
 using namespace std;
 
-using namespace LifeSim;
+using namespace RLGlue;
 
 class RLExperiment {
 

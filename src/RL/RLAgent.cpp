@@ -31,7 +31,7 @@ std::unique_ptr<RLAgent> RLAgent::load(Scene *scene, const string &filename) {
 	string dir = filenameStr.substr(0,found);
 
 
-	LifeSim::RLAgentDesc desc;
+	RLGlue::RLAgentDesc desc;
 
   int fd = open(filename.c_str(), O_RDONLY);
 
@@ -41,7 +41,7 @@ std::unique_ptr<RLAgent> RLAgent::load(Scene *scene, const string &filename) {
 	close(fd);
 
 
-	if (desc.type() == LifeSim::RLAgentDesc_Type_DUMMY)
+	if (desc.type() == RLGlue::RLAgentDesc_Type_DUMMY)
 		return std::unique_ptr<RLAgent>(new RLAgentDummy(scene));
 
 	abort();
