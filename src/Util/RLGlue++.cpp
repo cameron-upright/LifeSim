@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-#include "RL-Glue++.h"
+#include "RLGlue++.h"
 
 using namespace std;
 

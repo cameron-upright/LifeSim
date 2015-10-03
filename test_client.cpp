@@ -21,7 +21,7 @@
 #include <boost/asio.hpp>
 
 #include "src/Proto/LifeSim.pb.h"
-#include "src/Util/RL-Glue++.h"
+#include "src/Util/RLGlue++.h"
 
 using namespace std;
 using boost::asio::ip::tcp;
