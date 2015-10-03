@@ -26,8 +26,9 @@ RESOURCE_OBJS = ResourceManager.o
 GRAPHICS_MESH_OBJS = Mesh.o
 GRAPHICS_SHADER_OBJS = VertexProgram.o FragmentProgram.o
 RL_OBJS = RLExperiment.o RLEnvironment.o RLAgent.o RLAgentDummy.o
+UTIL_OBJS = RL-Glue++.o
 
-LIB_OBJS = $(addprefix $(UTIL_GFX_DIR), $(UTIL_GFX_OBJS)) $(addprefix $(SCENE_DIR), $(SCENE_OBJS)) $(addprefix $(SCENE_OBJECTS_DIR), $(SCENE_OBJECTS_OBJS)) $(addprefix $(CREATURE_DIR), $(CREATURE_OBJS)) $(addprefix $(RESOURCE_DIR), $(RESOURCE_OBJS)) $(addprefix $(GRAPHICS_MESH_DIR), $(GRAPHICS_MESH_OBJS)) $(addprefix $(GRAPHICS_SHADER_DIR), $(GRAPHICS_SHADER_OBJS)) $(addprefix $(EXPERIMENT_DIR), $(EXPERIMENT_OBJS)) $(addprefix $(RL_DIR), $(RL_OBJS))
+LIB_OBJS = $(addprefix $(UTIL_GFX_DIR), $(UTIL_GFX_OBJS)) $(addprefix $(SCENE_DIR), $(SCENE_OBJS)) $(addprefix $(SCENE_OBJECTS_DIR), $(SCENE_OBJECTS_OBJS)) $(addprefix $(CREATURE_DIR), $(CREATURE_OBJS)) $(addprefix $(RESOURCE_DIR), $(RESOURCE_OBJS)) $(addprefix $(GRAPHICS_MESH_DIR), $(GRAPHICS_MESH_OBJS)) $(addprefix $(GRAPHICS_SHADER_DIR), $(GRAPHICS_SHADER_OBJS)) $(addprefix $(EXPERIMENT_DIR), $(EXPERIMENT_OBJS)) $(addprefix $(RL_DIR), $(RL_OBJS)) $(addprefix $(UTIL_DIR), $(UTIL_OBJS))
 GUI_OBJS = $(addprefix $(SRC_DIR), $(SRC_OBJS))
 DUMMY_CREATURE_AGENT_OBJS = src/DummyCreatureAgent.o
 DUMMY_CREATURE_EXPERIMENT_OBJS = src/DummyCreatureExperiment.o

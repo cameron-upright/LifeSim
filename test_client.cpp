@@ -20,6 +20,8 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
 
+#include "src/Proto/LifeSim.pb.h"
+#include "src/Util/RL-Glue++.h"
 
 using namespace std;
 using boost::asio::ip::tcp;
@@ -106,6 +108,7 @@ private:
 
 
 
+
 int main(int argc, char **argv) {
 
   try {
@@ -121,13 +124,23 @@ int main(int argc, char **argv) {
     tcp::socket socket(io_service);
     boost::asio::connect(socket, endpoint_iterator);
 
+
+		LifeSim::RLEnvironmentCommand cmd;
+		LifeSim::RLEnvironmentCommand::InitCommand initCmd;
+
+		cmd.set_type(LifeSim::RLEnvironmentCommand_Type_ENV_INIT);
+		cmd.mutable_stepcommand();
+
+		RLGlue::writeMessage(socket, cmd);
+
+		/*
+
 		vector<int> cmd = {42};
 		socket.write_some(boost::asio::buffer(cmd));
 
 		//		tcp_connection::pointer connection = tcp_connection::create(io_service, endpoint_iterator);
 
 		cout << "CLIENT CREATE DONE" << endl;
-
 
 
 
@@ -145,7 +158,7 @@ int main(int argc, char **argv) {
 
       std::cout.write(buf.data(), len);
     }
-
+		*/
 	}
 	catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;

@@ -38,7 +38,6 @@
 
 
 using namespace std;
-using namespace RLGlueCxx;
 
 
 #define ESCAPE 27
@@ -237,7 +236,7 @@ std::thread mainThread;
 
 
 //Observation observation;
-RewardObservationTerminal rewardObservationTerminal;
+//RewardObservationTerminal rewardObservationTerminal;
 
 
 observation_t this_observation;
@@ -270,6 +269,8 @@ const char* env_init() {
 
 	// Setup the reward_observation variable 
  	rewardObservationTerminal = RewardObservationTerminal(0.0, &this_observation, 0);
+
+	
 
 	/*
 	observation = Observation(1,0,0);
