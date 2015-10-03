@@ -103,7 +103,7 @@ scene_object {
     [LifeSim.SceneBoxDesc.scene_object] {
       transform {
         position {
-          x: 0.5
+          x: 0.1
           x: 100
           x: 0.2
         }

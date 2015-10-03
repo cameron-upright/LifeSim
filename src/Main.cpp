@@ -117,7 +117,7 @@ void DrawGLScene() {
   total += elapsed;
   if (total > 2.0) {
 		//		cerr << "ENV DrawGLScene step start" << endl;
-		env.stepSim(elapsed * 0.1f);
+		env.stepSim(elapsed * 1.0f);
 		//		cerr << "ENV DrawGLScene step done" << endl;
 
   }
@@ -233,6 +233,8 @@ void init() {
 
 void rlLoop() {
 
+	vector<float> actionVal(env.getCreature()->hingeConstraints.size() + env.getCreature()->universalConstraints.size());
+
 	while (true) {
 
 		float the_reward=0;
@@ -242,14 +244,24 @@ void rlLoop() {
 		RLGlue::RLStateDesc state;
 		RLGlue::RLActionDesc action;
 
-		const float constraintMultiplier = 1.0f;
+		const float constraintMultiplier = 0.5f;
+
+
+
+		for (auto &a : actionVal) {
+			a *= 0.95;
+			if (lrand48() % 4 == 0)
+				a += 15.0*(drand48()-0.5);
+		}
+				
+
 
 		int actionInd = 0;
 		for (unsigned i=0; i<env.getCreature()->hingeConstraints.size(); i++)
-			action.add_action(-constraintMultiplier * 0.0);
+			action.add_action(-constraintMultiplier * actionVal[actionInd++]);
 		for (unsigned i=0; i<env.getCreature()->universalConstraints.size(); i++) {
-			action.add_action(-constraintMultiplier * 0.0);
-			action.add_action(-constraintMultiplier * 0.0);
+			action.add_action(-constraintMultiplier * actionVal[actionInd++]);
+			action.add_action(-constraintMultiplier * actionVal[actionInd++]);
 		}
 
 		// Step the environment
