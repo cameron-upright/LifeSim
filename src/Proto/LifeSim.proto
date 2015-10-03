@@ -199,30 +199,18 @@ message RLActionDesc {
 
 
 
+message CreatureEnvDesc {
 
+  required string scene = 1;
+  required string creature = 2;
 
+	// Physics stepsize
+	required float env_step_size = 3;
 
-message RLAgentDesc {
-
-  extensions 1000 to max;
-
-	enum Type {
-    DUMMY  = 0;
-    SOCKET = 1;
-	}
-
-	required Type type = 1;
+	// Physics steps per RL step
+	required int32 env_step_per_rl_step = 4;
 
 }
-
-message RLAgentDummyDesc {
-
-  extend RLAgentDesc {
-    required RLAgentDummyDesc agent = 1000;
-	}
-
-}
-
 
 
 

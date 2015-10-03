@@ -31,7 +31,7 @@
 #include <rlglue/Environment_common.h>
 #include <rlglue/utils/C/RLStruct_util.h>
 
-#include "RLEnvironment.h"
+#include "CreatureEnv.h"
 
 
 #include "RLGlue++.h"
@@ -57,7 +57,7 @@ UserInputManager *userInputManager;
 
 FPScounter fps;
 
-RLEnvironment env;
+CreatureEnv env;
 
 void InitGL(int Width, int Height)	        // We call this right after our OpenGL window is created.
 {
@@ -232,45 +232,8 @@ void init() {
 
 
 
-class CreatureEnv : public RLGlue::Env {
-
-public:
-
-	void step() override {
-
-		const float constraintMultiplier = 0.5f;
-
-
-		RLGlue::RLActionDesc action;
-
-		static vector<float> actionVal(env.getCreature()->hingeConstraints.size() + env.getCreature()->universalConstraints.size()*2);
-
-
-		int actionIndex = 0;
-		for (auto &a : actionVal) {
-			a *= 0.95;
-			if (lrand48() % 4 == 0)
-				a += 15.0*(drand48()-0.5);
-			action.add_action(-constraintMultiplier * a);
-		}
-
-
-		// Prepare the step, creating an action to resist movement
-		RLGlue::RLStateDesc state;
-		float the_reward=0;
-
-		// Step the environment
-		env.stepRL(state, action, the_reward);
-
-	}
-
-
-};
-
 
 void rlLoop() {
-
-	CreatureEnv env;
 
 	while(true) {
 		env.step();

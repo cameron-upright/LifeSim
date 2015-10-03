@@ -8,15 +8,16 @@
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 
-#include "RLEnvironment.h"
+#include "CreatureEnv.h"
 
 #include "RLGlue.pb.h"
+#include "LifeSim.pb.h"
 
 
 using namespace RLGlue;
 
 
-RLEnvironment::RLEnvironment() {
+CreatureEnv::CreatureEnv() {
 
   scene = new Scene();
 
@@ -25,14 +26,14 @@ RLEnvironment::RLEnvironment() {
 
 }
 
-RLEnvironment::~RLEnvironment() {
+CreatureEnv::~CreatureEnv() {
   delete scene;
 }
 
 
-void RLEnvironment::load(const string &filename) {
+void CreatureEnv::load(const string &filename) {
 
-  RLEnvironmentDesc desc;
+	LifeSim::CreatureEnvDesc desc;
 
   int fd = open(filename.c_str(), O_RDONLY);
 
@@ -57,7 +58,7 @@ void RLEnvironment::load(const string &filename) {
 
 
 
-void RLEnvironment::start(RLStateDesc &state) {
+void CreatureEnv::start(RLStateDesc &state) {
 
 	//	cerr << "ENV start start" << endl;
 
@@ -73,7 +74,7 @@ void RLEnvironment::start(RLStateDesc &state) {
 
 
 
-void RLEnvironment::stepSim(float dt) {
+void CreatureEnv::stepSim(float dt) {
 
 	//	cerr << "ENV stepSim start" << endl;
 
@@ -127,7 +128,7 @@ void RLEnvironment::stepSim(float dt) {
 }
 
 // void stepRL(RLGlue::RLStateDesc &state, const RLGlue::RLActionDesc &action, float &reward);
-void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float &reward) {
+void CreatureEnv::stepRL(RLStateDesc &state, const RLActionDesc &action, float &reward) {
 
 	/*
   Scene *scene;
@@ -182,7 +183,7 @@ void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float
 
 
 
-void RLEnvironment::applyControl(const RLActionDesc &action) {
+void CreatureEnv::applyControl(const RLActionDesc &action) {
 
 	const float constraintMultiplier = 0.0f;
 	const float constraintStrength = 0.0001;

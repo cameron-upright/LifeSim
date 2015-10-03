@@ -1,5 +1,5 @@
-#ifndef RL_ENVIRONMENT_H
-#define RL_ENVIRONMENT_H
+#ifndef CREATURE_ENV_H
+#define CREATURE_ENV_H
 
 #include <memory>
 #include <mutex>
@@ -7,10 +7,11 @@
 
 #include "Scene.h"
 
+#include "RLGlue++.h"
 #include "RLGlue.pb.h"
 
 
-class RLEnvironment {
+class CreatureEnv : public RLGlue::Env {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Simulation
@@ -64,8 +65,8 @@ class RLEnvironment {
 
 public:
 
-  RLEnvironment();
-  ~RLEnvironment();
+  CreatureEnv();
+  ~CreatureEnv();
 
   void load(const string &filename);
 
@@ -86,6 +87,42 @@ public:
 		return envStepSize;
 	}
 
+
+
+	// RLGlue overrides
+	void step() override {
+
+		const float constraintMultiplier = 0.5f;
+
+
+		RLGlue::RLActionDesc action;
+
+		static vector<float> actionVal(getCreature()->hingeConstraints.size() + getCreature()->universalConstraints.size()*2);
+
+
+		int actionIndex = 0;
+		for (auto &a : actionVal) {
+			a *= 0.95;
+			if (lrand48() % 4 == 0)
+				a += 15.0*(drand48()-0.5);
+			action.add_action(-constraintMultiplier * a);
+		}
+
+
+		// Prepare the step, creating an action to resist movement
+		RLGlue::RLStateDesc state;
+		float the_reward=0;
+
+		// Step the environment
+		stepRL(state, action, the_reward);
+
+	}
+
+
+
+
+
+
 private:
 
   void applyControl(const RLGlue::RLActionDesc &action);
@@ -95,4 +132,4 @@ private:
 
 
 
-#endif // RL_ENVIRONMENT_H
+#endif // CREATURE_ENV_H
