@@ -124,15 +124,17 @@ namespace RLGlue {
 					RewardStateTerminal rst = env_.step();
 
 					// Serialize the response
-					rst.SerializeToString(&messageWriteBuffer_);
+					std::shared_ptr<std::string> messageWriteBuffer(new std::string());
+					rst.SerializeToString(messageWriteBuffer.get());
 
 					// Setup the header (size) and body buffers
-					headerWriteBuffer_ = {messageWriteBuffer_.size()};
-					bodyWriteBuffer_   = std::vector<char>(messageWriteBuffer_.begin(), messageWriteBuffer_.end());
+					headerWriteBuffer_ = {messageWriteBuffer->size()};
+					bodyWriteBuffer_   = std::vector<char>(messageWriteBuffer->begin(), messageWriteBuffer->end());
 
 					// Write the header size first
 					boost::asio::async_write(socket_, boost::asio::buffer(headerWriteBuffer_),
 																	 boost::bind(&EnvConnection::handleWriteResponseHeader, shared_from_this(),
+																							 messageWriteBuffer,
 																							 boost::asio::placeholders::error,
 																							 boost::asio::placeholders::bytes_transferred));
 
@@ -148,11 +150,10 @@ namespace RLGlue {
 
 		}
 
-		void handleWriteResponseHeader(const boost::system::error_code& error, size_t num_bytes) {
+		void handleWriteResponseHeader(std::shared_ptr<std::string> &messageWriteBuffer, const boost::system::error_code& error, size_t num_bytes) {
 
 			if (error)
 				return;
-
 
 			// Write the body, then when done read the next command
 			boost::asio::async_write(socket_, boost::asio::buffer(bodyWriteBuffer_),
@@ -170,9 +171,6 @@ namespace RLGlue {
 
 		std::vector<size_t> headerReadBuffer_;
 		std::vector<char> bodyReadBuffer_;
-
-
-		std::string messageWriteBuffer_;
 
 		std::vector<size_t> headerWriteBuffer_;
 		std::vector<char> bodyWriteBuffer_;
