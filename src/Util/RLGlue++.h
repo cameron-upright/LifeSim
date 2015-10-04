@@ -19,6 +19,28 @@ namespace RLGlue {
 
 	void writeMessage(boost::asio::ip::tcp::socket &socket, const ::google::protobuf::Message &msg);
 
+	template <class MessageType>
+	MessageType readMessage(boost::asio::ip::tcp::socket &socket) {
+
+		// Read the header
+		std::vector<size_t> headerReadBuffer(1);
+		boost::asio::read(socket, boost::asio::buffer(headerReadBuffer));
+
+		// Read the body
+		std::vector<char> bodyReadBuffer(headerReadBuffer[0]);
+		boost::asio::read(socket, boost::asio::buffer(bodyReadBuffer));
+
+
+		// Convert to string, and then MessageType
+		std::string msgData(bodyReadBuffer.begin(), bodyReadBuffer.end());
+
+		MessageType msg;
+		msg.ParseFromString(msgData);
+
+		return msg;
+
+	}
+
 
 	class Env {
 	public:
@@ -57,10 +79,9 @@ namespace RLGlue {
 
 		void readCommand() {
 
-			cmdReadBuffer_.resize(1);
+			headerReadBuffer_.resize(1);
 
-			cout << "START READ COMMAND" << endl;	
-			boost::asio::async_read(socket_, boost::asio::buffer(cmdReadBuffer_),
+			boost::asio::async_read(socket_, boost::asio::buffer(headerReadBuffer_),
 															boost::bind(&EnvConnection::handleReadCommand, shared_from_this(),
 																					boost::asio::placeholders::error,
 																					boost::asio::placeholders::bytes_transferred));
@@ -68,12 +89,12 @@ namespace RLGlue {
 
 		void handleReadCommand(const boost::system::error_code& error, size_t num_bytes) {
 
-			cout << "SERVER HEADER " << (int)cmdReadBuffer_[0] << endl;
+			if (error)
+				return;
 
-			cmdBodyReadBuffer_.resize(cmdReadBuffer_[0]);
+			bodyReadBuffer_.resize(headerReadBuffer_[0]);
 
-			cout << "START READ COMMAND BODY" << endl;	
-			boost::asio::async_read(socket_, boost::asio::buffer(cmdBodyReadBuffer_),
+			boost::asio::async_read(socket_, boost::asio::buffer(bodyReadBuffer_),
 															boost::bind(&EnvConnection::handleReadCommandBody, shared_from_this(),
 																					boost::asio::placeholders::error,
 																					boost::asio::placeholders::bytes_transferred));
@@ -83,50 +104,82 @@ namespace RLGlue {
 
 		void handleReadCommandBody(const boost::system::error_code& error, size_t num_bytes) {
 
-			std::string cmdBodyStr(cmdBodyReadBuffer_.begin(), cmdBodyReadBuffer_.end());
+			if (error)
+				return;
+
+			std::string cmdBodyStr(bodyReadBuffer_.begin(), bodyReadBuffer_.end());
 
 			RLGlue::EnvironmentCommand cmd;
 
+
 			cmd.ParseFromString(cmdBodyStr);
 
-			cout << "YAY " << (int)cmd.type() << endl;
-
-			cout << "WRITE RESPONSE" << endl;
 
 			switch (cmd.type()) {
 
 			case RLGlue::EnvironmentCommand_Type_ENV_STEP:
 
-				cout << "STEP" << endl;
-				env_.step();
+				{
 
-				break;
+					// Step the environment
+					RewardStateTerminal rst = env_.step();
+
+					// Serialize the response
+					rst.SerializeToString(&messageWriteBuffer_);
+
+					// Setup the buffers
+					headerWriteBuffer_ = {messageWriteBuffer_.size()};
+					bodyWriteBuffer_   = std::vector<char>(messageWriteBuffer_.begin(), messageWriteBuffer_.end());
+
+					// Write the header size first
+					boost::asio::async_write(socket_, boost::asio::buffer(headerWriteBuffer_),
+																	 boost::bind(&EnvConnection::handleWriteResponseHeader, shared_from_this(),
+																							 boost::asio::placeholders::error,
+																							 boost::asio::placeholders::bytes_transferred));
+
+					break;
+				}
+
 
 			default:
 				break;
+
 			}
 
 
-			/*
-				cout << "WRITE" << endl;
-				boost::asio::async_write(socket_, boost::asio::buffer(message_),
-				boost::bind(&EnvConnection::handle_write, shared_from_this(),
-				boost::asio::placeholders::error,
-				boost::asio::placeholders::bytes_transferred));
-			*/
+		}
+
+		void handleWriteResponseHeader(const boost::system::error_code& error, size_t num_bytes) {
+
+			if (error)
+				return;
+
+
+			// Write the body, then when done read the next command
+			boost::asio::async_write(socket_, boost::asio::buffer(bodyWriteBuffer_),
+															 boost::bind(&EnvConnection::readCommand, shared_from_this()));
 
 		}
 
-		void handle_write(const boost::system::error_code& /*error*/,
-											size_t /*bytes_transferred*/) {
-		}
+
+
+
 
 		Env &env_;
 
 		boost::asio::ip::tcp::socket socket_;
-		std::string message_;
-		std::vector<size_t> cmdReadBuffer_;
-		std::vector<char> cmdBodyReadBuffer_;
+
+		std::vector<size_t> headerReadBuffer_;
+		std::vector<char> bodyReadBuffer_;
+
+
+		std::string messageWriteBuffer_;
+
+		std::vector<size_t> headerWriteBuffer_;
+		std::vector<char> bodyWriteBuffer_;
+
+		
+
 	};
 
 

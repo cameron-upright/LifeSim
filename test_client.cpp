@@ -32,82 +32,6 @@ using namespace std;
 
 using boost::asio::ip::tcp;
 
-class tcp_connection {
-
-public:
-  typedef boost::shared_ptr<tcp_connection> pointer;
-
-  static pointer create(boost::asio::io_service& io_service, tcp::resolver::iterator &endpoint_iterator) {
-    return pointer(new tcp_connection(io_service, endpoint_iterator));
-  }
-
-  tcp::socket& socket() {
-    return socket_;
-  }
-
-private:
-
-
-  tcp_connection(boost::asio::io_service& io_service, tcp::resolver::iterator &endpoint_iterator)
-    : socket_(io_service) {
-
-		cout << "CLIENT CONNECT START" << endl;
-    boost::asio::connect(socket_, endpoint_iterator);
-		cout << "CLIENT CONNECT DONE" << endl;
-
-		start();
-
-  }
-
-  void start() {
-
-		write_buffer_ = {42};
-
-		cout << "CLIENT ASYNC WRITE START" << endl;
-
-		//		auto sft = shared_from_this();
-		//		cout << "WTF" << endl
-
-    boost::asio::async_write(socket_, boost::asio::buffer(write_buffer_),
-														 boost::bind(&tcp_connection::handle_write, this,
-																				 boost::asio::placeholders::error,
-																				 boost::asio::placeholders::bytes_transferred));
-		cout << "CLIENT ASYNC WRITE DONE" << endl;
-  }
-
-	void handle_read(const boost::system::error_code& error, size_t bytes_transferred) {
-
-		cout << "CLIENT READ" << endl;
-    for (;;)
-    {
-      boost::array<char, 128> buf;
-      boost::system::error_code error;
-
-      size_t len = socket_.read_some(boost::asio::buffer(buf), error);
-
-      if (error == boost::asio::error::eof)
-        break; // Connection closed cleanly by peer.
-      else if (error)
-        throw boost::system::system_error(error); // Some other error.
-
-      std::cout.write(buf.data(), len);
-    }
-
-	}
-
-	void handle_write(const boost::system::error_code& error, size_t bytes_transferred) {
-		cout << "CLIENT HANDLE WRITE" << endl;
-
-	}
-
-
-  tcp::socket socket_;
-  std::string message_;
-	std::vector<int> write_buffer_;
-};
-
-
-
 
 int main(int argc, char **argv) {
 
@@ -119,52 +43,40 @@ int main(int argc, char **argv) {
     tcp::resolver::query query(argv[1], "1337");
     tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
 
-		cout << "CLIENT CREATE START" << endl;
-
     tcp::socket socket(io_service);
     boost::asio::connect(socket, endpoint_iterator);
 
 
-		RLGlue::EnvironmentCommand cmd;
-		RLGlue::EnvironmentCommand::InitCommand initCmd;
 
-		cmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_STEP);
-		cmd.mutable_stepcommand()->mutable_action();
+		// Initialize the environment
+		RLGlue::EnvironmentCommand initCmd;
 
-		RLGlue::writeMessage(socket, cmd);
+		//		initCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_INIT);
 
-		/*
-
-		vector<int> cmd = {42};
-		socket.write_some(boost::asio::buffer(cmd));
-
-		//		tcp_connection::pointer connection = tcp_connection::create(io_service, endpoint_iterator);
-
-		cout << "CLIENT CREATE DONE" << endl;
+		//		RLGlue::writeMessage(socket, initCmd);
 
 
+		// Step the environment
+		while (true) {
 
-    for (;;)
-    {
-      boost::array<char, 128> buf;
-      boost::system::error_code error;
+			// Write a step command
+			RLGlue::EnvironmentCommand stepCmd;
 
-      size_t len = socket.read_some(boost::asio::buffer(buf), error);
+			stepCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_STEP);
+			stepCmd.mutable_stepcommand()->mutable_action();
 
-      if (error == boost::asio::error::eof)
-        break; // Connection closed cleanly by peer.
-      else if (error)
-        throw boost::system::system_error(error); // Some other error.
+			RLGlue::writeMessage(socket, stepCmd);
 
-      std::cout.write(buf.data(), len);
-    }
-		*/
+
+			// Get the response
+			RLGlue::RewardStateTerminal state = RLGlue::readMessage<RLGlue::RewardStateTerminal>(socket);
+
+		}
+
 	}
 	catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
-
-	cout << "BLAH" << endl;
 
   return 0;
 }
