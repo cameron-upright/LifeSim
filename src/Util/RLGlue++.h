@@ -126,7 +126,7 @@ namespace RLGlue {
 					// Serialize the response
 					rst.SerializeToString(&messageWriteBuffer_);
 
-					// Setup the buffers
+					// Setup the header (size) and body buffers
 					headerWriteBuffer_ = {messageWriteBuffer_.size()};
 					bodyWriteBuffer_   = std::vector<char>(messageWriteBuffer_.begin(), messageWriteBuffer_.end());
 
