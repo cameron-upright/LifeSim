@@ -58,7 +58,7 @@ void CreatureEnv::load(const string &filename) {
 
 
 
-void CreatureEnv::start(RLStateDesc &state) {
+void CreatureEnv::start(StateDesc &state) {
 
 	//	cerr << "ENV start start" << endl;
 
@@ -115,7 +115,7 @@ void CreatureEnv::stepSim(float dt) {
 	if (envStep == envStepPerRLStep) {
 
 		currentAction.release();
-		currentState.reset(new RLStateDesc());
+		currentState.reset(new StateDesc());
 		currentReward = 0.0f;
 
 		// Notify the RL that the step is done
@@ -127,8 +127,8 @@ void CreatureEnv::stepSim(float dt) {
 
 }
 
-// void stepRL(RLGlue::RLStateDesc &state, const RLGlue::RLActionDesc &action, float &reward);
-void CreatureEnv::stepRL(RLStateDesc &state, const RLActionDesc &action, float &reward) {
+// void stepRL(RLGlue::StateDesc &state, const RLGlue::ActionDesc &action, float &reward);
+void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &reward) {
 
 	//	cerr << "ENV stepRL start" << endl;
 
@@ -142,7 +142,7 @@ void CreatureEnv::stepRL(RLStateDesc &state, const RLActionDesc &action, float &
 		assert(currentAction.get() == nullptr);
 
 		// Set the action
-		currentAction.reset(new RLActionDesc(action));
+		currentAction.reset(new ActionDesc(action));
 	}
 
 	//	cerr << "ENV stepRL wait start" << endl;
@@ -172,22 +172,22 @@ void CreatureEnv::stepRL(RLStateDesc &state, const RLActionDesc &action, float &
 
 
 
-void CreatureEnv::applyControl(const RLActionDesc &action) {
+void CreatureEnv::applyControl(const ActionDesc &action) {
 
 	const float constraintMultiplier = 0.0f;
 	const float constraintStrength = 0.0001;
 
-	assert(action.action_size() == creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
+	assert(action.float_action_size() == creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
 
 
 	int actionIndex = 0;
 
 	for (auto hingeConstraint : creature->hingeConstraints)
-		hingeConstraint->enableAngularMotor(true, action.action(actionIndex++), constraintStrength);
+		hingeConstraint->enableAngularMotor(true, action.float_action(actionIndex++), constraintStrength);
 
 	for (auto universalConstraint : creature->universalConstraints) {
-		universalConstraint->enableAngularMotor(0, true, action.action(actionIndex++), constraintStrength);
-		universalConstraint->enableAngularMotor(1, true, action.action(actionIndex++), constraintStrength);
+		universalConstraint->enableAngularMotor(0, true, action.float_action(actionIndex++), constraintStrength);
+		universalConstraint->enableAngularMotor(1, true, action.float_action(actionIndex++), constraintStrength);
 	}
 
 

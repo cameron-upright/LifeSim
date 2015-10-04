@@ -9,48 +9,31 @@ message RLExperimentDesc {
 }
 
 
-message RLStateDesc {
+message StateDesc {
+  
+}
+
+message ActionDesc {
+
+	repeated float float_action = 1;
+	repeated int32 int_action   = 2;
 
 }
 
-message RLActionDesc {
+message RewardStateTerminal {
 
-	repeated float action = 1;
-	//	repeated float float_action = 1;
-	//	repeated int int_action = 2;
-
-}
-
-
-
-
-
-
-message RLAgentDesc {
-
-  extensions 1000 to max;
-
-	enum Type {
-    DUMMY  = 0;
-    SOCKET = 1;
-	}
-
-	required Type type = 1;
-
-}
-
-message RLAgentDummyDesc {
-
-  extend RLAgentDesc {
-    required RLAgentDummyDesc agent = 1000;
-	}
+	required float     reward   = 1;
+  required StateDesc state    = 2;
+  required bool      terminal = 3;
 
 }
 
 
 
 
-message RLEnvironmentCommand {
+
+
+message EnvironmentCommand {
 
 	enum Type {
     ENV_INIT    = 0;
@@ -74,6 +57,7 @@ message RLEnvironmentCommand {
 	}
 
 	message StepCommand {
+		required ActionDesc action = 1;
 	}
 
 	message CleanupCommand {

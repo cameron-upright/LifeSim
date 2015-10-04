@@ -23,7 +23,13 @@ namespace RLGlue {
 	class Env {
 	public:
 
-		virtual void step() = 0;
+		virtual void init() {}
+
+		virtual StateDesc start() = 0;
+
+		virtual RewardStateTerminal step() = 0;
+
+		virtual void cleanup() {}
 
 	};
 
@@ -79,7 +85,7 @@ namespace RLGlue {
 
 			std::string cmdBodyStr(cmdBodyReadBuffer_.begin(), cmdBodyReadBuffer_.end());
 
-			RLGlue::RLEnvironmentCommand cmd;
+			RLGlue::EnvironmentCommand cmd;
 
 			cmd.ParseFromString(cmdBodyStr);
 
@@ -89,10 +95,11 @@ namespace RLGlue {
 
 			switch (cmd.type()) {
 
-			case RLGlue::RLEnvironmentCommand_Type_ENV_STEP:
+			case RLGlue::EnvironmentCommand_Type_ENV_STEP:
 
 				cout << "STEP" << endl;
 				env_.step();
+
 				break;
 
 			default:

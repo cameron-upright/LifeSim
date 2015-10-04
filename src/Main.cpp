@@ -361,7 +361,7 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
 
 	// Prepare the step, creating an action to resist movement
-	LifeSim::RLStateDesc state;
+	LifeSim::StateDesc state;
 	LifeSim::RLActionDesc action;
 
 	const float constraintMultiplier = 1.0f;

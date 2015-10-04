@@ -39,8 +39,8 @@ class CreatureEnv : public RLGlue::Env {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// The most recent state, and the action we're currently simulating
-	std::unique_ptr<RLGlue::RLStateDesc>  currentState;
-  std::unique_ptr<RLGlue::RLActionDesc> currentAction;
+	std::unique_ptr<RLGlue::StateDesc>  currentState;
+  std::unique_ptr<RLGlue::ActionDesc> currentAction;
 
 	// The reward
 	float currentReward;
@@ -70,10 +70,10 @@ public:
 
   void load(const string &filename);
 
-  void start(RLGlue::RLStateDesc &state);
+  void start(RLGlue::StateDesc &state);
 
 	void stepSim(const float dt);
-  void stepRL(RLGlue::RLStateDesc &state, const RLGlue::RLActionDesc &action, float &reward);
+  void stepRL(RLGlue::StateDesc &state, const RLGlue::ActionDesc &action, float &reward);
 
   Scene* getScene() {
     return scene;
@@ -90,12 +90,16 @@ public:
 
 
 	// RLGlue overrides
-	void step() override {
+
+	RLGlue::StateDesc start() override {
+	}
+
+	RLGlue::RewardStateTerminal step() override {
 
 		const float constraintMultiplier = 0.5f;
 
 
-		RLGlue::RLActionDesc action;
+		RLGlue::ActionDesc action;
 
 		static vector<float> actionVal(getCreature()->hingeConstraints.size() + getCreature()->universalConstraints.size()*2);
 
@@ -105,16 +109,25 @@ public:
 			a *= 0.95;
 			if (lrand48() % 4 == 0)
 				a += 15.0*(drand48()-0.5);
-			action.add_action(-constraintMultiplier * a);
+			action.add_float_action(-constraintMultiplier * a);
 		}
 
 
 		// Prepare the step, creating an action to resist movement
-		RLGlue::RLStateDesc state;
+		RLGlue::StateDesc state;
 		float the_reward=0;
 
 		// Step the environment
 		stepRL(state, action, the_reward);
+
+
+		RLGlue::RewardStateTerminal rst;
+
+		rst.set_reward(0.0);
+		rst.mutable_state();
+		rst.set_terminal(false);
+
+		return rst;
 
 	}
 
@@ -125,7 +138,7 @@ public:
 
 private:
 
-  void applyControl(const RLGlue::RLActionDesc &action);
+  void applyControl(const RLGlue::ActionDesc &action);
 
 };
 

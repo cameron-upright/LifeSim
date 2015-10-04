@@ -125,11 +125,11 @@ int main(int argc, char **argv) {
     boost::asio::connect(socket, endpoint_iterator);
 
 
-		RLGlue::RLEnvironmentCommand cmd;
-		RLGlue::RLEnvironmentCommand::InitCommand initCmd;
+		RLGlue::EnvironmentCommand cmd;
+		RLGlue::EnvironmentCommand::InitCommand initCmd;
 
-		cmd.set_type(RLGlue::RLEnvironmentCommand_Type_ENV_STEP);
-		cmd.mutable_stepcommand();
+		cmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_STEP);
+		cmd.mutable_stepcommand()->mutable_action();
 
 		RLGlue::writeMessage(socket, cmd);
 

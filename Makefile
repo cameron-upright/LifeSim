@@ -111,6 +111,7 @@ opt: gui
 clean:
 	rm -f $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(PROTO_INCLUDES) $(PROTO_SOURCES) $(PROGRAM)
 	rm -f src/DummyCreatureAgent.o src/DummyCreatureExperiment.o
+	rm -f $(PROTO_DIR)/*.pb.cc $(PROTO_DIR)/*.pb.h
 
 #-include $(OBJS:.o=.d)
 #================================================================
