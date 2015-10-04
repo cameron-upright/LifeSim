@@ -30,7 +30,7 @@ namespace RLGlue {
 		std::vector<char> bodyReadBuffer(headerReadBuffer[0]);
 		boost::asio::read(socket, boost::asio::buffer(bodyReadBuffer));
 
-		// Convert to string, and then MessageType
+		// Convert to string and then MessageType
 		std::string msgData(bodyReadBuffer.begin(), bodyReadBuffer.end());
 
 		MessageType msg;
