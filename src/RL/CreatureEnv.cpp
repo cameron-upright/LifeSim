@@ -130,17 +130,6 @@ void CreatureEnv::stepSim(float dt) {
 // void stepRL(RLGlue::RLStateDesc &state, const RLGlue::RLActionDesc &action, float &reward);
 void CreatureEnv::stepRL(RLStateDesc &state, const RLActionDesc &action, float &reward) {
 
-	/*
-  Scene *scene;
-  Creature *creature;
-	float remainingTime;
-  int envStep;
-
-  unique_ptr<RLGlue::RLStateDesc>  currentState;
-  unique_ptr<RLGlue::RLActionDesc> currentAction;
-	float currentReward;
-	*/
-
 	//	cerr << "ENV stepRL start" << endl;
 
 	// Set the new action

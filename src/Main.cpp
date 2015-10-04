@@ -235,15 +235,10 @@ void init() {
 
 void rlLoop() {
 
-	while(true) {
-		env.step();
-	}
-
   try {
 		boost::asio::io_service io_service;
 		RLGlue::EnvServer server(io_service, env);
 		io_service.run();
-		cout << "SERVER DONE RUN" << endl;
 	}
 
   catch (std::exception& e) {

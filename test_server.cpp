@@ -11,7 +11,7 @@
 #include <iostream>
 #include <boost/asio.hpp>
 
-#include "src/Proto/LifeSim.pb.h"
+#include "src/Proto/RLGlue.pb.h"
 
 #include "src/Util/RLGlue++.h"
 

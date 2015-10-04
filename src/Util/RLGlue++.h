@@ -33,8 +33,8 @@ namespace RLGlue {
 	public:
 		typedef boost::shared_ptr<EnvConnection> pointer;
 
-		static pointer create(boost::asio::io_service& io_service) {
-			return pointer(new EnvConnection(io_service));
+		static pointer create(boost::asio::io_service& io_service, Env &env) {
+			return pointer(new EnvConnection(io_service, env));
 		}
 
 		boost::asio::ip::tcp::socket& socket() {
@@ -42,15 +42,12 @@ namespace RLGlue {
 		}
 
 		void start() {
-
 			readCommand();
-
 		}
 
 	private:
-		EnvConnection(boost::asio::io_service& io_service)
-			: socket_(io_service) {
-		}
+		EnvConnection(boost::asio::io_service& io_service, Env &env)
+			: socket_(io_service), env_(env) {}
 
 		void readCommand() {
 
@@ -90,6 +87,19 @@ namespace RLGlue {
 
 			cout << "WRITE RESPONSE" << endl;
 
+			switch (cmd.type()) {
+
+			case RLGlue::RLEnvironmentCommand_Type_ENV_STEP:
+
+				cout << "STEP" << endl;
+				env_.step();
+				break;
+
+			default:
+				break;
+			}
+
+
 			/*
 				cout << "WRITE" << endl;
 				boost::asio::async_write(socket_, boost::asio::buffer(message_),
@@ -103,6 +113,8 @@ namespace RLGlue {
 		void handle_write(const boost::system::error_code& /*error*/,
 											size_t /*bytes_transferred*/) {
 		}
+
+		Env &env_;
 
 		boost::asio::ip::tcp::socket socket_;
 		std::string message_;
@@ -125,7 +137,7 @@ namespace RLGlue {
 	private:
 		void start_accept() {
 			RLGlue::EnvConnection::pointer new_connection =
-				RLGlue::EnvConnection::create(acceptor_.get_io_service());
+				RLGlue::EnvConnection::create(acceptor_.get_io_service(), env_);
 
 			acceptor_.async_accept(new_connection->socket(),
 														 boost::bind(&EnvServer::handle_accept, this, new_connection,

@@ -211,36 +211,3 @@ message CreatureEnvDesc {
 	required int32 env_step_per_rl_step = 4;
 
 }
-
-
-
-message RLEnvironmentCommand {
-
-	enum Type {
-    ENV_INIT    = 0;
-		ENV_START   = 1;
-    ENV_STEP    = 2;
-    ENV_CLEANUP = 3;
-	}
-
-	required Type type = 1;
-
-	optional InitCommand    initCommand = 2;
-	optional StartCommand   startCommand = 3;
-	optional StepCommand    stepCommand = 4;
-	optional CleanupCommand cleanupCommand = 5;
-
-
-	message InitCommand {
-	}
-
-	message StartCommand {
-	}
-
-	message StepCommand {
-	}
-
-	message CleanupCommand {
-	}
-
-}
