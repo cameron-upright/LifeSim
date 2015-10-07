@@ -7,7 +7,7 @@
 
 #include "Scene.h"
 
-#include "RLGlue++.h"
+#include "RLGlue/RLGlue++.h"
 #include "RLGlue.pb.h"
 
 

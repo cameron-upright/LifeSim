@@ -34,7 +34,7 @@
 #include "CreatureEnv.h"
 
 
-#include "RLGlue++.h"
+#include "RLGlue/RLGlue++.h"
 
 
 using namespace std;
