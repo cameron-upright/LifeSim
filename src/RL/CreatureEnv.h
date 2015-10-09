@@ -70,7 +70,7 @@ public:
 
   void load(const string &filename);
 
-  void start(RLGlue::StateDesc &state);
+	//  void start(RLGlue::StateDesc &state);
 
 	void stepSim(const float dt);
   void stepRL(RLGlue::StateDesc &state, const RLGlue::ActionDesc &action, float &reward);
@@ -91,46 +91,9 @@ public:
 
 	// RLGlue overrides
 
-	RLGlue::StateDesc start() override {
-	}
+	RLGlue::StateDesc start() override;
 
-	RLGlue::RewardStateTerminal step() override {
-
-		const float constraintMultiplier = 0.5f;
-
-
-		RLGlue::ActionDesc action;
-
-		static vector<float> actionVal(getCreature()->hingeConstraints.size() + getCreature()->universalConstraints.size()*2);
-
-
-		int actionIndex = 0;
-		for (auto &a : actionVal) {
-			a *= 0.95;
-			if (lrand48() % 4 == 0)
-				a += 15.0*(drand48()-0.5);
-			action.add_float_action(-constraintMultiplier * a);
-		}
-
-
-		// Prepare the step, creating an action to resist movement
-		RLGlue::StateDesc state;
-		float the_reward=0;
-
-		// Step the environment
-		stepRL(state, action, the_reward);
-
-
-		RLGlue::RewardStateTerminal rst;
-
-		rst.set_reward(0.0);
-		rst.mutable_state();
-		rst.set_terminal(false);
-
-		return rst;
-
-	}
-
+	RLGlue::RewardStateTerminal step() override;
 
 
 

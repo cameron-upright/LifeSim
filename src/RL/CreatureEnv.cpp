@@ -58,7 +58,7 @@ void CreatureEnv::load(const string &filename) {
 
 
 
-void CreatureEnv::start(StateDesc &state) {
+RLGlue::StateDesc CreatureEnv::start() {
 
 	//	cerr << "ENV start start" << endl;
 
@@ -68,10 +68,60 @@ void CreatureEnv::start(StateDesc &state) {
 	remainingTime = 0.0f;
 	envStep = 0;
 
+	RLGlue::EnvironmentCommand startCmd;
+	startCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_START);
+
+	// Initialize a new currentState
+	currentState.reset(new StateDesc());
+
 	//	cerr << "ENV start done" << endl;
 
+	return *currentState;
 }
 
+
+/*
+void CreatureEnv::start(StateDesc &state) {
+
+}
+*/
+
+RLGlue::RewardStateTerminal CreatureEnv::step() {
+
+	const float constraintMultiplier = 0.5f;
+
+
+	RLGlue::ActionDesc action;
+
+	static vector<float> actionVal(getCreature()->hingeConstraints.size() + getCreature()->universalConstraints.size()*2);
+
+
+	int actionIndex = 0;
+	for (auto &a : actionVal) {
+		a *= 0.95;
+		if (lrand48() % 4 == 0)
+			a += 15.0*(drand48()-0.5);
+		action.add_float_action(-constraintMultiplier * a);
+	}
+
+
+	// Prepare the step, creating an action to resist movement
+	RLGlue::StateDesc state;
+	float the_reward=0;
+
+	// Step the environment
+	stepRL(state, action, the_reward);
+
+
+	RLGlue::RewardStateTerminal rst;
+
+	rst.set_reward(0.0);
+	rst.mutable_state();
+	rst.set_terminal(false);
+
+	return rst;
+
+}
 
 
 void CreatureEnv::stepSim(float dt) {
