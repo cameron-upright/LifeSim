@@ -28,11 +28,7 @@
 #include "Scene.h"
 #include "SceneVis.h"
 
-#include <rlglue/Environment_common.h>
-#include <rlglue/utils/C/RLStruct_util.h>
-
 #include "CreatureEnv.h"
-
 
 #include "RLGlue/RLGlue++.h"
 

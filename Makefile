@@ -34,7 +34,8 @@ LIB_OBJS = $(addprefix $(UTIL_GFX_DIR), $(UTIL_GFX_OBJS)) $(addprefix $(SCENE_DI
 GUI_OBJS = $(addprefix $(SRC_DIR), $(SRC_OBJS))
 DUMMY_CREATURE_AGENT_OBJS = src/DummyCreatureAgent.o
 DUMMY_CREATURE_EXPERIMENT_OBJS = src/DummyCreatureExperiment.o
-PROGRAM = gui
+
+PROGRAMS = gui DummyCreatureExperiment DummyCreatureAgent
 
 PROTO_DIR = src/Proto
 PROTO_INCLUDES = src/Proto/LifeSim.pb.h src/Proto/RLGlue.pb.h
@@ -46,7 +47,7 @@ PROTO_OBJS = src/Proto/LifeSim.pb.o src/Proto/RLGlue.pb.o
 #================================================================
 CC = g++
 #INCLUDE_OPTS = -I/usr/share/doc/NVIDIA_GLX-1.0/include -I$(HOME)/usr/include $(addprefix -I, $(SRC_DIRS)) -I/usr/local/include/bullet -I/opt/local/include
-INCLUDE_OPTS = -I$(addprefix -I, $(SRC_DIRS)) -I/usr/local/include/bullet -I/usr/include/bullet -Isrc/Proto
+INCLUDE_OPTS = $(addprefix -I, $(SRC_DIRS)) -I/usr/local/include/bullet -I/usr/include/bullet -Isrc/Proto
 CFLAGS = $(INCLUDE_OPTS) -std=c++11 -Wno-deprecated -LANG:std -c -DdSingle #-D_REENTRANT
 #================================================================
 
@@ -75,7 +76,10 @@ endif
 
 #================================================================
 
-ALL: gui #DummyCreatureAgent DummyCreatureExperiment
+.PRECIOUS: %.pb.cc %.pb.h
+
+
+ALL: gui DummyCreatureExperiment #DummyCreatureAgent
 
 src/Proto/LifeSim.pb.cc src/Proto/LifeSim.pb.h: src/Proto/LifeSim.proto
 	protoc -I $(PROTO_DIR) --cpp_out $(PROTO_DIR) $(PROTO_DIR)/LifeSim.proto
@@ -84,9 +88,9 @@ src/Proto/RLGlue.pb.cc src/Proto/RLGlue.pb.h: src/Proto/RLGlue.proto
 	protoc -I $(PROTO_DIR) --cpp_out $(PROTO_DIR) $(PROTO_DIR)/RLGlue.proto
 
 
-$(GUI_OBJS) $(LIB_OBJS): $(PROTO_INCLUDES)
+$(GUI_OBJS) $(LIB_OBJS) $(DUMMY_CREATURE_EXPERIMENT_OBJS) $(DUMMY_CREATURE_AGENT_OBJS): $(PROTO_INCLUDES)
 
-.cc.o:
+.cc.o: $(PROTO_INCLUDES)
 	$(CC) $(OPTFLAGS) $(CFLAGS) -o $@ $<
 .C.o: $(PROTO_INCLUDES)
 	$(CC) $(OPTFLAGS) $(CFLAGS) -o $@ $<
@@ -95,23 +99,23 @@ $(GUI_OBJS) $(LIB_OBJS): $(PROTO_INCLUDES)
 
 gui: $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS)
 	$(RM) $@
-	$(CC) -o $@ $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(OPTFLAGS) $(LDFLAGS) -lrlutils -lrlenvironment -lrlgluenetdev
+	$(CC) -o $@ $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(OPTFLAGS) $(LDFLAGS)
 
 
-DummyCreatureAgent: $(DUMMY_CREATURE_AGENT_OBJS) $(PROTO_OBJS)
+DummyCreatureAgent: $(DUMMY_CREATURE_AGENT_OBJS) $(LIB_OBJS) $(PROTO_OBJS)
 	$(RM) $@
-	$(CC) -o $@ $(DUMMY_CREATURE_AGENT_OBJS) $(PROTO_OBJS) $(OPTFLAGS) $(LDFLAGS) -lrlutils -lrlagent -lrlgluenetdev
+	$(CC) -o $@ $(DUMMY_CREATURE_AGENT_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(OPTFLAGS) $(LDFLAGS)
 
-DummyCreatureExperiment: $(DUMMY_CREATURE_EXPERIMENT_OBJS) $(PROTO_OBJS)
+DummyCreatureExperiment: $(DUMMY_CREATURE_EXPERIMENT_OBJS) $(LIB_OBJS) $(PROTO_OBJS)
 	$(RM) $@
-	$(CC) -o $@ $(DUMMY_CREATURE_EXPERIMENT_OBJS) $(PROTO_OBJS) $(OPTFLAGS) $(LDFLAGS) -lrlutils -lrlexperiment -lrlgluenetdev
+	$(CC) -o $@ $(DUMMY_CREATURE_EXPERIMENT_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(OPTFLAGS) $(LDFLAGS)
 
 
 dbg: gui
 opt: gui
 
 clean:
-	rm -f $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(PROTO_INCLUDES) $(PROTO_SOURCES) $(PROGRAM)
+	rm -f $(GUI_OBJS) $(LIB_OBJS) $(PROTO_OBJS) $(PROTO_INCLUDES) $(PROTO_SOURCES) $(PROGRAMS)
 	rm -f src/DummyCreatureAgent.o src/DummyCreatureExperiment.o
 	rm -f $(PROTO_DIR)/*.pb.cc $(PROTO_DIR)/*.pb.h
 
