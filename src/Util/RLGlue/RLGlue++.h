@@ -53,9 +53,8 @@ namespace RLGlue {
 		static pointer create(boost::asio::ip::tcp::socket &socket,
 													BOOST_ASIO_MOVE_ARG(WriteHandler) handler) {
 
-			pointer ptr = pointer(new AsyncWriteMessage<WriteHandler>(socket, std::move(handler)));
+			return pointer(new AsyncWriteMessage<WriteHandler>(socket, std::move(handler)));
 
-			return ptr;
 		}
 
 
@@ -90,7 +89,6 @@ namespace RLGlue {
 		void handleWriteResponseHeader(std::shared_ptr<std::string> &messageWriteBuffer,
 																	 std::shared_ptr<std::vector<size_t> > &headerWriteBuffer,
 																	 const boost::system::error_code& error, size_t num_bytes) {
-					
 
 			if (error)
 				return;
@@ -134,6 +132,7 @@ namespace RLGlue {
 	}
 
 
+
 	class Env {
 	public:
 
@@ -148,13 +147,13 @@ namespace RLGlue {
 	};
 
 
-	class EnvConnection : public boost::enable_shared_from_this<EnvConnection> {
+	class EnvServerConnection : public boost::enable_shared_from_this<EnvServerConnection> {
 
 	public:
-		typedef boost::shared_ptr<EnvConnection> pointer;
+		typedef boost::shared_ptr<EnvServerConnection> pointer;
 
 		static pointer create(boost::asio::io_service& io_service, Env &env) {
-			return pointer(new EnvConnection(io_service, env));
+			return pointer(new EnvServerConnection(io_service, env));
 		}
 
 		boost::asio::ip::tcp::socket& socket() {
@@ -166,7 +165,7 @@ namespace RLGlue {
 		}
 
 	private:
-		EnvConnection(boost::asio::io_service& io_service, Env &env)
+		EnvServerConnection(boost::asio::io_service& io_service, Env &env)
 			: socket_(io_service), env_(env) {}
 
 		void readCommand() {
@@ -174,12 +173,14 @@ namespace RLGlue {
 			headerReadBuffer_.resize(1);
 
 			boost::asio::async_read(socket_, boost::asio::buffer(headerReadBuffer_),
-															boost::bind(&EnvConnection::handleReadCommand, shared_from_this(),
+															boost::bind(&EnvServerConnection::handleReadCommand, shared_from_this(),
 																					boost::asio::placeholders::error,
 																					boost::asio::placeholders::bytes_transferred));
 
 		}
 
+
+		// TODO : Refactor to an asyncReadCommand function
 		void handleReadCommand(const boost::system::error_code& error, size_t num_bytes) {
 
 			if (error)
@@ -188,7 +189,7 @@ namespace RLGlue {
 			bodyReadBuffer_.resize(headerReadBuffer_[0]);
 
 			boost::asio::async_read(socket_, boost::asio::buffer(bodyReadBuffer_),
-															boost::bind(&EnvConnection::handleReadCommandBody, shared_from_this(),
+															boost::bind(&EnvServerConnection::handleReadCommandBody, shared_from_this(),
 																					boost::asio::placeholders::error,
 																					boost::asio::placeholders::bytes_transferred));
 
@@ -211,20 +212,48 @@ namespace RLGlue {
 
 			switch (cmd.type()) {
 
+
+			case RLGlue::EnvironmentCommand_Type_ENV_INIT:
+
+				// TODO : Initialize the environment
+
+				// Wait for the next command
+				readCommand();
+
+				break;
+
+
+			case RLGlue::EnvironmentCommand_Type_ENV_START:
+
+				// Start a new episode, and send the start state back
+				asyncWriteMessage(socket_, env_.start(), 
+													boost::bind(&EnvServerConnection::handleWriteResponse, shared_from_this(),
+																			boost::asio::placeholders::error,
+																			boost::asio::placeholders::bytes_transferred));
+
+				break;
+
+
 			case RLGlue::EnvironmentCommand_Type_ENV_STEP:
 
-				{
+				// Step the environment, and send the resulting RewardStateTerminal message
+				asyncWriteMessage(socket_, env_.step(), 
+													boost::bind(&EnvServerConnection::handleWriteResponse, shared_from_this(),
+																			boost::asio::placeholders::error,
+																			boost::asio::placeholders::bytes_transferred));
 
-					// Step the environment
-					RewardStateTerminal rst = env_.step();
+				break;
 
-					asyncWriteMessage(socket_, rst, 
-						boost::bind(&EnvConnection::handleWriteResponse, shared_from_this(),
-												boost::asio::placeholders::error,
-												boost::asio::placeholders::bytes_transferred));
 
-					break;
-				}
+			case RLGlue::EnvironmentCommand_Type_ENV_CLEANUP:
+
+				// TODO : Cleanup the environment
+
+				// Wait for the next command
+				readCommand();
+
+				break;
+
 
 			default:
 				break;
@@ -236,58 +265,18 @@ namespace RLGlue {
 
 
 		void handleWriteResponse(const boost::system::error_code& error, size_t num_bytes) {
-			readCommand();
-		}
-
-
-		/*
-		void asyncWriteMessage(boost::asio::ip::tcp::socket &socket, const ::google::protobuf::Message &msg) {
-		
-			// Serialize the response
-			std::shared_ptr<std::string> messageWriteBuffer(new std::string());
-			msg.SerializeToString(messageWriteBuffer.get());
-
-			// Setup the header (size)
-			std::shared_ptr<std::vector<size_t> > headerWriteBuffer(new std::vector<size_t>({messageWriteBuffer->size()}));
-
-			// Write the header size first
-			boost::asio::async_write(socket_, boost::asio::buffer(*headerWriteBuffer),
-															 boost::bind(&EnvConnection::handleWriteResponseHeader, shared_from_this(),
-																					 messageWriteBuffer,
-																					 headerWriteBuffer,
-																					 boost::asio::placeholders::error,
-																					 boost::asio::placeholders::bytes_transferred));
-
-		
-		}
-
-
-		void handleWriteResponseHeader(std::shared_ptr<std::string> &messageWriteBuffer,
-																	 std::shared_ptr<std::vector<size_t> > &headerWriteBuffer,
-																	 const boost::system::error_code& error, size_t num_bytes) {
 
 			if (error)
 				return;
 
-			// Setup the body buffer
-			std::shared_ptr<vector<char> > bodyWriteBuffer(new std::vector<char>(messageWriteBuffer->begin(), messageWriteBuffer->end()));
-
-			// Write the body, then when done read the next command
-			boost::asio::async_write(socket_, boost::asio::buffer(*bodyWriteBuffer),
-															 boost::bind(&EnvConnection::handleWriteResponseBody, shared_from_this(),
-																					 bodyWriteBuffer,
-																					 boost::asio::placeholders::error,
-																					 boost::asio::placeholders::bytes_transferred));
-
-		}
-
-		void handleWriteResponseBody(std::shared_ptr<std::vector<char> > &bodyWriteBuffer,
-																 const boost::system::error_code& error, size_t num_bytes) {
-
 			readCommand();
 
 		}
-		*/
+
+
+
+
+
 
 
 		Env &env_;
@@ -313,15 +302,15 @@ namespace RLGlue {
 
 	private:
 		void start_accept() {
-			RLGlue::EnvConnection::pointer new_connection =
-				RLGlue::EnvConnection::create(acceptor_.get_io_service(), env_);
+			RLGlue::EnvServerConnection::pointer new_connection =
+				RLGlue::EnvServerConnection::create(acceptor_.get_io_service(), env_);
 
 			acceptor_.async_accept(new_connection->socket(),
 														 boost::bind(&EnvServer::handle_accept, this, new_connection,
 																				 boost::asio::placeholders::error));
 		}
 
-		void handle_accept(RLGlue::EnvConnection::pointer new_connection,
+		void handle_accept(RLGlue::EnvServerConnection::pointer new_connection,
 											 const boost::system::error_code& error) {
 			if (!error)
 				{
