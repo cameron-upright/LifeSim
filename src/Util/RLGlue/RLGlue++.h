@@ -373,6 +373,21 @@ namespace RLGlue {
 
 		}
 
+		RewardStateTerminal step() {
+		
+			// Write a step command
+			EnvironmentCommand stepCmd;
+
+			stepCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_STEP);
+			stepCmd.mutable_stepcommand()->mutable_action();
+
+			writeMessage(socket_, stepCmd);
+
+			return readMessage<RewardStateTerminal>(socket_);
+
+
+		}
+
 
 		/*
 	private:

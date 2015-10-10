@@ -51,19 +51,10 @@ int main(int argc, char **argv) {
 		RLGlue::StateDesc state = client.start();
 
 
-		// Step the environment for 50 steps
-		for (int i=0; i<10; i++) {
+		// Step the environment for 20 steps
+		for (int i=0; i<20; i++) {
 
-			// Write a step command
-			RLGlue::EnvironmentCommand stepCmd;
-
-			stepCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_STEP);
-			stepCmd.mutable_stepcommand()->mutable_action();
-
-			RLGlue::writeMessage(socket, stepCmd);
-
-			// Get the response
-			RLGlue::RewardStateTerminal rewardStateTerminal = RLGlue::readMessage<RLGlue::RewardStateTerminal>(socket);
+			RLGlue::RewardStateTerminal rewardStateTerminal = client.step();
 
 		}
 
