@@ -351,6 +351,17 @@ namespace RLGlue {
 			return socket_;
 		}
 
+		void init() {
+
+			// Initialize the environment
+			RLGlue::EnvironmentCommand initCmd;
+			initCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_INIT);
+		
+			RLGlue::writeMessage(socket_, initCmd);
+
+		}
+
+
 		/*
 	private:
 		void start_accept() {

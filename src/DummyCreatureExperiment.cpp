@@ -46,11 +46,7 @@ int main(int argc, char **argv) {
 
 		tcp::socket &socket = client.getSocket();
 
-		// Initialize the environment
-		RLGlue::EnvironmentCommand initCmd;
-		initCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_INIT);
-		
-		RLGlue::writeMessage(socket, initCmd);
+		client.init();
 
 
 		// Start the environment
@@ -80,9 +76,9 @@ int main(int argc, char **argv) {
 
 		// Cleanup the environment
 		RLGlue::EnvironmentCommand cleanupCmd;
-		initCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_CLEANUP);
+		cleanupCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_CLEANUP);
 
-		RLGlue::writeMessage(socket, initCmd);
+		RLGlue::writeMessage(socket, cleanupCmd);
 
 	}
 	catch (std::exception& e) {
