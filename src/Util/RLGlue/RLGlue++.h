@@ -292,6 +292,7 @@ namespace RLGlue {
 
 
 
+
 	class EnvServer {
 	public:
 		EnvServer(boost::asio::io_service& io_service, Env &env)
@@ -325,6 +326,55 @@ namespace RLGlue {
 
 	};
 
+
+
+
+
+
+	class EnvClient {
+	public:
+		EnvClient(boost::asio::io_service& io_service,
+							const std::string &host,
+							const std::string &service) :
+			socket_(io_service) {
+
+			boost::asio::ip::tcp::resolver resolver(io_service);
+			boost::asio::ip::tcp::resolver::query query(host, service);
+			boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
+
+			boost::asio::connect(socket_, endpoint_iterator);
+
+		}
+
+
+		boost::asio::ip::tcp::socket& getSocket() {
+			return socket_;
+		}
+
+		/*
+	private:
+		void start_accept() {
+			RLGlue::EnvClientConnection::pointer new_connection =
+				RLGlue::EnvClientConnection::create(acceptor_.get_io_service(), env_);
+
+			acceptor_.async_accept(new_connection->socket(),
+														 boost::bind(&EnvClient::handle_accept, this, new_connection,
+																				 boost::asio::placeholders::error));
+		}
+
+		void handle_accept(RLGlue::EnvClientConnection::pointer new_connection,
+											 const boost::system::error_code& error) {
+			if (!error)
+				{
+					new_connection->start();
+					start_accept();
+				}
+		}
+		*/
+
+		boost::asio::ip::tcp::socket socket_;
+
+	};
 
 }
 

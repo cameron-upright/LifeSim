@@ -26,12 +26,25 @@ int main(int argc, char **argv) {
 
     boost::asio::io_service io_service;
 
+		std::string host(argv[1]);
+		std::string service = "1337";
+
+		RLGlue::EnvClient client(io_service, host, service);
+
+
+
+		/*
     tcp::resolver resolver(io_service);
     tcp::resolver::query query(argv[1], "1337");
     tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
 
     tcp::socket socket(io_service);
     boost::asio::connect(socket, endpoint_iterator);
+
+    ////
+		*/
+
+		tcp::socket &socket = client.getSocket();
 
 		// Initialize the environment
 		RLGlue::EnvironmentCommand initCmd;
@@ -50,7 +63,7 @@ int main(int argc, char **argv) {
 
 
 		// Step the environment for 50 steps
-		for (int i=0; i<5; i++) {
+		for (int i=0; i<10; i++) {
 
 			// Write a step command
 			RLGlue::EnvironmentCommand stepCmd;
@@ -70,7 +83,6 @@ int main(int argc, char **argv) {
 		initCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_CLEANUP);
 
 		RLGlue::writeMessage(socket, initCmd);
-
 
 	}
 	catch (std::exception& e) {
