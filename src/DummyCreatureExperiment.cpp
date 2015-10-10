@@ -12,6 +12,7 @@
 
 #include "Proto/LifeSim.pb.h"
 #include "Util/RLGlue/RLGlue++.h"
+#include "Util/RLGlue/EnvClient.h"
 
 using namespace std;
 using boost::asio::ip::tcp;
