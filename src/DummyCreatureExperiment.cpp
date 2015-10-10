@@ -26,10 +26,7 @@ int main(int argc, char **argv) {
 
     boost::asio::io_service io_service;
 
-		std::string host(argv[1]);
-		std::string service = "1337";
-
-		RLGlue::EnvClient client(io_service, host, service);
+		RLGlue::EnvClient client(io_service, argv[1], "1337");
 
 
 		tcp::socket &socket = client.getSocket();
