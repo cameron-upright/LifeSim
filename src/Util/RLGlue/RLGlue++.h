@@ -361,6 +361,18 @@ namespace RLGlue {
 
 		}
 
+		StateDesc start() {
+
+			// Start the environment
+			EnvironmentCommand startCmd;
+			startCmd.set_type(EnvironmentCommand_Type_ENV_START);
+		
+			writeMessage(socket_, startCmd);
+
+			return readMessage<StateDesc>(socket_);
+
+		}
+
 
 		/*
 	private:

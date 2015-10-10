@@ -48,14 +48,7 @@ int main(int argc, char **argv) {
 
 		client.init();
 
-
-		// Start the environment
-		RLGlue::EnvironmentCommand startCmd;
-		startCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_START);
-		
-		RLGlue::writeMessage(socket, startCmd);
-
-		RLGlue::StateDesc state = RLGlue::readMessage<RLGlue::StateDesc>(socket);
+		RLGlue::StateDesc state = client.start();
 
 
 		// Step the environment for 50 steps
