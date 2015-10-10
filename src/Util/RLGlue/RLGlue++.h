@@ -388,27 +388,16 @@ namespace RLGlue {
 
 		}
 
+		void cleanup() {
 
-		/*
-	private:
-		void start_accept() {
-			RLGlue::EnvClientConnection::pointer new_connection =
-				RLGlue::EnvClientConnection::create(acceptor_.get_io_service(), env_);
+			// Cleanup the environment
+			RLGlue::EnvironmentCommand cleanupCmd;
+			cleanupCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_CLEANUP);
 
-			acceptor_.async_accept(new_connection->socket(),
-														 boost::bind(&EnvClient::handle_accept, this, new_connection,
-																				 boost::asio::placeholders::error));
+			RLGlue::writeMessage(socket_, cleanupCmd);
+
 		}
 
-		void handle_accept(RLGlue::EnvClientConnection::pointer new_connection,
-											 const boost::system::error_code& error) {
-			if (!error)
-				{
-					new_connection->start();
-					start_accept();
-				}
-		}
-		*/
 
 		boost::asio::ip::tcp::socket socket_;
 

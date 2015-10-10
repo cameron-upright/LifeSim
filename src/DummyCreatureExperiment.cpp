@@ -32,18 +32,6 @@ int main(int argc, char **argv) {
 		RLGlue::EnvClient client(io_service, host, service);
 
 
-
-		/*
-    tcp::resolver resolver(io_service);
-    tcp::resolver::query query(argv[1], "1337");
-    tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
-
-    tcp::socket socket(io_service);
-    boost::asio::connect(socket, endpoint_iterator);
-
-    ////
-		*/
-
 		tcp::socket &socket = client.getSocket();
 
 		client.init();
@@ -58,11 +46,7 @@ int main(int argc, char **argv) {
 
 		}
 
-		// Cleanup the environment
-		RLGlue::EnvironmentCommand cleanupCmd;
-		cleanupCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_CLEANUP);
-
-		RLGlue::writeMessage(socket, cleanupCmd);
+		client.cleanup();
 
 	}
 	catch (std::exception& e) {
