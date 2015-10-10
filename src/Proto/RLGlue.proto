@@ -32,7 +32,6 @@ message RewardStateTerminal {
 
 
 
-
 message EnvironmentCommand {
 
 	enum Type {
@@ -64,3 +63,45 @@ message EnvironmentCommand {
 	}
 
 }
+
+
+
+
+
+message AgentCommand {
+
+	enum Type {
+    AGENT_INIT    = 0;
+		AGENT_START   = 1;
+    AGENT_STEP    = 2;
+    AGENT_END     = 3;
+    AGENT_CLEANUP = 4;
+	}
+
+	required Type type = 1;
+
+	optional InitCommand    initCommand = 2;
+	optional StartCommand   startCommand = 3;
+	optional StepCommand    stepCommand = 4;
+	optional EndCommand     endCommand = 5;
+	optional CleanupCommand cleanupCommand = 6;
+
+
+	message InitCommand {
+	}
+
+	message StartCommand {
+	}
+
+	message StepCommand {
+		required ActionDesc action = 1;
+	}
+
+	message EndCommand {
+	}
+
+	message CleanupCommand {
+	}
+
+}
+
