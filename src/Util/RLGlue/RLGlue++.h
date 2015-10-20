@@ -147,6 +147,22 @@ namespace RLGlue {
 	};
 
 
+	class Agent {
+	public:
+
+		virtual void init() {}
+
+		virtual ActionDesc start() = 0;
+
+		virtual ActionDesc step() = 0;
+
+		virtual void end() = 0;
+
+		virtual void cleanup() {}
+
+	};
+
+
 
 
 
