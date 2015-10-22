@@ -21,7 +21,6 @@ namespace RLGlue {
 
 		void runEpisode(const int stepLimit = std::numeric_limits<int>::max());
 
-
 	};
 
 }

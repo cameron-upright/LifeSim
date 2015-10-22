@@ -83,11 +83,15 @@ namespace RLGlue {
 
 			case RLGlue::AgentCommand_Type_AGENT_START:
 
+				/*
 				// Start a new episode, and send the action back
 				asyncWriteMessage(socket_, agent_.start(), 
 													boost::bind(&AgentServerConnection::handleWriteResponse, shared_from_this(),
 																			boost::asio::placeholders::error,
 																			boost::asio::placeholders::bytes_transferred));
+				*/
+
+				readCommand();
 
 				break;
 

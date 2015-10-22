@@ -35,10 +35,10 @@ namespace RLGlue {
 			// Start the agent
 			AgentCommand startCmd;
 			startCmd.set_type(AgentCommand_Type_AGENT_START);
-		
+
 			writeMessage(socket_, startCmd);
 
-			return readMessage<ActionDesc>(socket_);
+			return ActionDesc();//readMessage<ActionDesc>(socket_);
 
 		}
 
@@ -50,7 +50,7 @@ namespace RLGlue {
 
 			writeMessage(socket_, stepCmd);
 
-			return readMessage<ActionDesc>(socket_);
+			return ActionDesc();//readMessage<ActionDesc>(socket_);
 
 
 		}

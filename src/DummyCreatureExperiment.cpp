@@ -27,12 +27,11 @@ int main(int argc, char **argv) {
 
     boost::asio::io_service io_service;
 
-
 		// Create the env and agent clients
 		RLGlue::EnvClient envClient(io_service, argv[1], "1337");
 		RLGlue::AgentClient agentClient(io_service, argv[1], "1338");
 
-		// init
+		// Init
 		envClient.init();
 		agentClient.init();
 
