@@ -19,6 +19,9 @@ using namespace RLGlue;
 
 CreatureAgent::CreatureAgent() {}
 CreatureAgent::~CreatureAgent() {}
+
+
+
 RLGlue::ActionDesc CreatureAgent::start() {}
 RLGlue::ActionDesc CreatureAgent::step() {}
 void CreatureAgent::end() {}

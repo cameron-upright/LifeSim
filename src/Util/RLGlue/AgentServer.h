@@ -162,7 +162,7 @@ namespace RLGlue {
 	class AgentServer {
 	public:
 		AgentServer(boost::asio::io_service& io_service, Agent &agent)
-			: acceptor_(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 1337)),
+			: acceptor_(io_service, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), 1338)),
 				agent_(agent) {
 			start_accept();
 		}

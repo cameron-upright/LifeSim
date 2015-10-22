@@ -13,6 +13,7 @@
 #include "Proto/LifeSim.pb.h"
 #include "Util/RLGlue/RLGlue++.h"
 #include "Util/RLGlue/EnvClient.h"
+#include "Util/RLGlue/AgentClient.h"
 
 using namespace std;
 using boost::asio::ip::tcp;
@@ -27,24 +28,29 @@ int main(int argc, char **argv) {
 
     boost::asio::io_service io_service;
 
-		RLGlue::EnvClient client(io_service, argv[1], "1337");
+		RLGlue::EnvClient envClient(io_service, argv[1], "1337");
+		RLGlue::AgentClient agentClient(io_service, argv[1], "1338");
 
+    /*
+		tcp::socket &envSocket = envClient.getSocket();
+		tcp::socket &agentSocket = agentClient.getSocket();
+		*/
 
-		tcp::socket &socket = client.getSocket();
+		envClient.init();
+		agentClient.init();
 
-		client.init();
-
-		RLGlue::StateDesc state = client.start();
+		RLGlue::StateDesc state = envClient.start();
 
 
 		// Step the environment for 20 steps
 		for (int i=0; i<20; i++) {
 
-			RLGlue::RewardStateTerminal rewardStateTerminal = client.step();
+			RLGlue::RewardStateTerminal rewardStateTerminal = envClient.step();
 
 		}
 
-		client.cleanup();
+		envClient.cleanup();
+		agentClient.cleanup();
 
 	}
 	catch (std::exception& e) {
