@@ -1,32 +1,80 @@
-/* 
-* Copyright (C) 2008, Brian Tanner
 
- Licensed under the Apache License, Version 2.0 (the "License");
- you may not use this file except in compliance with the License.
- You may obtain a copy of the License at
-
-     http://www.apache.org/licenses/LICENSE-2.0
-
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.
- */
-
-#include <stdio.h>
-#include <string.h>
-#include <time.h>
-#include <rlglue/Agent_common.h>
-#include <rlglue/utils/C/RLStruct_util.h>
+#include <ctime>
 
 #include <iostream>
 #include <vector>
 
-#include "string_split.h"
+#include <boost/bind.hpp>
+#include <boost/array.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/enable_shared_from_this.hpp>
+#include <boost/asio.hpp>
+
+#include "Proto/LifeSim.pb.h"
+#include "Util/RLGlue/RLGlue++.h"
+#include "Util/RLGlue/AgentServer.h"
+
+#include "CreatureAgent.h"
+
 
 using namespace std;
+using boost::asio::ip::tcp;
 
+
+CreatureAgent agent;
+
+int main(int argc, char **argv) {
+
+  try {
+		boost::asio::io_service io_service;
+		RLGlue::AgentServer server(io_service, agent);
+		io_service.run();
+	}
+
+  catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+
+
+	/*
+  try {
+
+    boost::asio::io_service io_service;
+
+		RLGlue::AgentEnv client(io_service, argv[1], "1338");
+
+
+		tcp::socket &socket = client.getSocket();
+
+		client.init();
+
+		RLGlue::StateDesc state = client.start();
+
+
+		// Step the environment for 20 steps
+		for (int i=0; i<20; i++) {
+
+			RLGlue::RewardStateTerminal rewardStateTerminal = client.step();
+
+		}
+
+		client.cleanup();
+
+	}
+	catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+	*/
+
+  return 0;
+
+}
+
+
+
+
+
+/*
 action_t this_action;
 action_t last_action;
 
@@ -54,14 +102,14 @@ int randInRange(int max) {
 }
 
 void agent_init(const char* task_spec) {
-	/*Seed the random number generator*/
+	// Seed the random number generator
 
 	cerr << "AGENT agent_init start" << endl;
 
 	srand(time(0));
-	/*Here is where you might allocate storage for parameters (value function or policy, last action, last observation, etc)*/
+	// Here is where you might allocate storage for parameters (value function or policy, last action, last observation, etc)
 	
-	/*Here you would parse the task spec if you felt like it*/
+	// Here you would parse the task spec if you felt like it
 	string taskSpec(task_spec);
 
 	vector<string> taskSpecParts = string_split(taskSpec, " ");
@@ -143,31 +191,31 @@ void agent_init(const char* task_spec) {
 
 	cerr << "AGENT task_spec " << task_spec << endl;
 
-	/*Allocate memory for a one-dimensional integer action using utility functions from RLStruct_util*/
+	// Allocate memory for a one-dimensional integer action using utility functions from RLStruct_util
 	allocateRLStruct(&this_action,0,numDoubleObservations,0);
 	last_observation=allocateRLStructPointer(0,0,0);
 
 	cerr << "AGENT agent_init done" << endl;
 	
-	/* That is equivalent to:
-			 this_action.numInts     =  1;
-			 this_action.intArray    = (int*)calloc(1,sizeof(int));
-			 this_action.numDoubles  = 0;
-			 this_action.doubleArray = 0;
-			 this_action.numChars    = 0;
-			 this_action.charArray   = 0;
-	*/
+	// That is equivalent to:
+	//			 this_action.numInts     =  1;
+	//			 this_action.intArray    = (int*)calloc(1,sizeof(int));
+	//			 this_action.numDoubles  = 0;
+	//			 this_action.doubleArray = 0;
+	//			 this_action.numChars    = 0;
+	//			 this_action.charArray   = 0;
+
 }
 
 const action_t *agent_start(const observation_t *this_observation) {
 
 	cerr << "AGENT agent_start start" << endl;
 
-	/* This agent always returns zero double actions */
+	//  This agent always returns zero double actions 
 	for (int i=0; i<this_action.numDoubles; i++)
 		this_action.doubleArray[i] = drand48()-0.5;
 
-	/* In a real action you might want to store the last observation and last action*/
+	//  In a real action you might want to store the last observation and last action
 	replaceRLStruct(&this_action, &last_action);
 	replaceRLStruct(this_observation, last_observation);
 
@@ -181,11 +229,11 @@ const action_t *agent_step(double reward, const observation_t *this_observation)
 
 	cerr << "AGENT agent_step start" << endl;
 
-	/* This agent always returns zero double actions */
+	//  This agent always returns zero double actions 
 	for (int i=0; i<this_action.numDoubles; i++)
 		this_action.doubleArray[i] = drand48()-0.5;
 
-	/* In a real action you might want to store the last observation and last action*/
+	//  In a real action you might want to store the last observation and last action
 	replaceRLStruct(&this_action, &last_action);
 	replaceRLStruct(this_observation, last_observation);
 
@@ -222,3 +270,4 @@ const char* agent_message(const char* inMessage) {
 
 	return "I don't know how to respond to your message";
 }
+*/

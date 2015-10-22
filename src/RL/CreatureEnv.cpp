@@ -8,15 +8,16 @@
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 
-#include "RLEnvironment.h"
+#include "CreatureEnv.h"
 
+#include "RLGlue.pb.h"
 #include "LifeSim.pb.h"
 
 
-using namespace LifeSim;
+using namespace RLGlue;
 
 
-RLEnvironment::RLEnvironment() {
+CreatureEnv::CreatureEnv() {
 
   scene = new Scene();
 
@@ -25,14 +26,14 @@ RLEnvironment::RLEnvironment() {
 
 }
 
-RLEnvironment::~RLEnvironment() {
+CreatureEnv::~CreatureEnv() {
   delete scene;
 }
 
 
-void RLEnvironment::load(const string &filename) {
+void CreatureEnv::load(const string &filename) {
 
-  RLEnvironmentDesc desc;
+	LifeSim::CreatureEnvDesc desc;
 
   int fd = open(filename.c_str(), O_RDONLY);
 
@@ -57,7 +58,7 @@ void RLEnvironment::load(const string &filename) {
 
 
 
-void RLEnvironment::start(RLStateDesc &state) {
+RLGlue::StateDesc CreatureEnv::start() {
 
 	//	cerr << "ENV start start" << endl;
 
@@ -67,13 +68,63 @@ void RLEnvironment::start(RLStateDesc &state) {
 	remainingTime = 0.0f;
 	envStep = 0;
 
+	RLGlue::EnvironmentCommand startCmd;
+	startCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_START);
+
+	// Initialize a new currentState
+	currentState.reset(new StateDesc());
+
 	//	cerr << "ENV start done" << endl;
+
+	return *currentState;
+}
+
+
+/*
+void CreatureEnv::start(StateDesc &state) {
+
+}
+*/
+
+RLGlue::RewardStateTerminal CreatureEnv::step() {
+
+	const float constraintMultiplier = 0.5f;
+
+
+	RLGlue::ActionDesc action;
+
+	static vector<float> actionVal(getCreature()->hingeConstraints.size() + getCreature()->universalConstraints.size()*2);
+
+
+	int actionIndex = 0;
+	for (auto &a : actionVal) {
+		a *= 0.95;
+		if (lrand48() % 4 == 0)
+			a += 15.0*(drand48()-0.5);
+		action.add_float_action(-constraintMultiplier * a);
+	}
+
+
+	// Prepare the step, creating an action to resist movement
+	RLGlue::StateDesc state;
+	float the_reward=0;
+
+	// Step the environment
+	stepRL(state, action, the_reward);
+
+
+	RLGlue::RewardStateTerminal rst;
+
+	rst.set_reward(0.0);
+	rst.mutable_state();
+	rst.set_terminal(false);
+
+	return rst;
 
 }
 
 
-
-void RLEnvironment::stepSim(float dt) {
+void CreatureEnv::stepSim(float dt) {
 
 	//	cerr << "ENV stepSim start" << endl;
 
@@ -114,7 +165,7 @@ void RLEnvironment::stepSim(float dt) {
 	if (envStep == envStepPerRLStep) {
 
 		currentAction.release();
-		currentState.reset(new RLStateDesc());
+		currentState.reset(new StateDesc());
 		currentReward = 0.0f;
 
 		// Notify the RL that the step is done
@@ -126,19 +177,8 @@ void RLEnvironment::stepSim(float dt) {
 
 }
 
-// void stepRL(LifeSim::RLStateDesc &state, const LifeSim::RLActionDesc &action, float &reward);
-void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float &reward) {
-
-	/*
-  Scene *scene;
-  Creature *creature;
-	float remainingTime;
-  int envStep;
-
-  unique_ptr<LifeSim::RLStateDesc>  currentState;
-  unique_ptr<LifeSim::RLActionDesc> currentAction;
-	float currentReward;
-	*/
+// void stepRL(RLGlue::StateDesc &state, const RLGlue::ActionDesc &action, float &reward);
+void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &reward) {
 
 	//	cerr << "ENV stepRL start" << endl;
 
@@ -152,7 +192,7 @@ void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float
 		assert(currentAction.get() == nullptr);
 
 		// Set the action
-		currentAction.reset(new RLActionDesc(action));
+		currentAction.reset(new ActionDesc(action));
 	}
 
 	//	cerr << "ENV stepRL wait start" << endl;
@@ -182,22 +222,22 @@ void RLEnvironment::stepRL(RLStateDesc &state, const RLActionDesc &action, float
 
 
 
-void RLEnvironment::applyControl(const RLActionDesc &action) {
+void CreatureEnv::applyControl(const ActionDesc &action) {
 
 	const float constraintMultiplier = 0.0f;
 	const float constraintStrength = 0.0001;
 
-	assert(action.action_size() == creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
+	assert(action.float_action_size() == creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
 
 
 	int actionIndex = 0;
 
 	for (auto hingeConstraint : creature->hingeConstraints)
-		hingeConstraint->enableAngularMotor(true, action.action(actionIndex++), constraintStrength);
+		hingeConstraint->enableAngularMotor(true, action.float_action(actionIndex++), constraintStrength);
 
 	for (auto universalConstraint : creature->universalConstraints) {
-		universalConstraint->enableAngularMotor(0, true, action.action(actionIndex++), constraintStrength);
-		universalConstraint->enableAngularMotor(1, true, action.action(actionIndex++), constraintStrength);
+		universalConstraint->enableAngularMotor(0, true, action.float_action(actionIndex++), constraintStrength);
+		universalConstraint->enableAngularMotor(1, true, action.float_action(actionIndex++), constraintStrength);
 	}
 
 

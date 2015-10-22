@@ -1,5 +1,5 @@
-#ifndef RL_ENVIRONMENT_H
-#define RL_ENVIRONMENT_H
+#ifndef CREATURE_ENV_H
+#define CREATURE_ENV_H
 
 #include <memory>
 #include <mutex>
@@ -7,10 +7,11 @@
 
 #include "Scene.h"
 
-#include "LifeSim.pb.h"
+#include "RLGlue/RLGlue++.h"
+#include "RLGlue.pb.h"
 
 
-class RLEnvironment {
+class CreatureEnv : public RLGlue::Env {
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Simulation
@@ -38,8 +39,8 @@ class RLEnvironment {
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	// The most recent state, and the action we're currently simulating
-	std::unique_ptr<LifeSim::RLStateDesc>  currentState;
-  std::unique_ptr<LifeSim::RLActionDesc> currentAction;
+	std::unique_ptr<RLGlue::StateDesc>  currentState;
+  std::unique_ptr<RLGlue::ActionDesc> currentAction;
 
 	// The reward
 	float currentReward;
@@ -64,15 +65,15 @@ class RLEnvironment {
 
 public:
 
-  RLEnvironment();
-  ~RLEnvironment();
+  CreatureEnv();
+  ~CreatureEnv();
 
   void load(const string &filename);
 
-  void start(LifeSim::RLStateDesc &state);
+	//  void start(RLGlue::StateDesc &state);
 
 	void stepSim(const float dt);
-  void stepRL(LifeSim::RLStateDesc &state, const LifeSim::RLActionDesc &action, float &reward);
+  void stepRL(RLGlue::StateDesc &state, const RLGlue::ActionDesc &action, float &reward);
 
   Scene* getScene() {
     return scene;
@@ -86,13 +87,25 @@ public:
 		return envStepSize;
 	}
 
+
+
+	// RLGlue overrides
+
+	RLGlue::StateDesc start() override;
+
+	RLGlue::RewardStateTerminal step() override;
+
+
+
+
+
 private:
 
-  void applyControl(const LifeSim::RLActionDesc &action);
+  void applyControl(const RLGlue::ActionDesc &action);
 
 };
 
 
 
 
-#endif // RL_ENVIRONMENT_H
+#endif // CREATURE_ENV_H

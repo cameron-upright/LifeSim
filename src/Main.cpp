@@ -28,17 +28,13 @@
 #include "Scene.h"
 #include "SceneVis.h"
 
-#include <rlglue/Environment_common.h>
-#include <rlglue/utils/C/RLStruct_util.h>
+#include "CreatureEnv.h"
 
-#include "RLEnvironment.h"
-
-
-#include "RL-Glue++.h"
+#include "RLGlue/RLGlue++.h"
+#include "RLGlue/EnvServer.h"
 
 
 using namespace std;
-using namespace RLGlueCxx;
 
 
 #define ESCAPE 27
@@ -58,7 +54,7 @@ UserInputManager *userInputManager;
 
 FPScounter fps;
 
-RLEnvironment env;
+CreatureEnv env;
 
 void InitGL(int Width, int Height)	        // We call this right after our OpenGL window is created.
 {
@@ -118,7 +114,7 @@ void DrawGLScene() {
   total += elapsed;
   if (total > 2.0) {
 		//		cerr << "ENV DrawGLScene step start" << endl;
-		env.stepSim(elapsed * 1.0f);
+		env.stepSim(elapsed * 0.35f);
 		//		cerr << "ENV DrawGLScene step done" << endl;
 
   }
@@ -233,11 +229,43 @@ void init() {
 
 
 
+
+void rlLoop() {
+
+  try {
+		boost::asio::io_service io_service;
+		RLGlue::EnvServer server(io_service, env);
+		io_service.run();
+	}
+
+  catch (std::exception& e) {
+		std::cerr << e.what() << std::endl;
+	}
+
+}
+
+
+int main(int argc, char **argv) {
+
+	init();
+
+	std::thread rlThread(rlLoop);
+
+	glutMainLoop();
+
+	return 0;
+
+}
+
+
+
+/*
+
 std::thread mainThread;
 
 
 //Observation observation;
-RewardObservationTerminal rewardObservationTerminal;
+//RewardObservationTerminal rewardObservationTerminal;
 
 
 observation_t this_observation;
@@ -271,10 +299,11 @@ const char* env_init() {
 	// Setup the reward_observation variable 
  	rewardObservationTerminal = RewardObservationTerminal(0.0, &this_observation, 0);
 
-	/*
-	observation = Observation(1,0,0);
-	rewardObservationTerminal = RewardObservationTerminal(0.0, observation.getObservationPtr(), 0);
-	*/
+	
+
+//	observation = Observation(1,0,0);
+//	rewardObservationTerminal = RewardObservationTerminal(0.0, observation.getObservationPtr(), 0);
+
 
 
 
@@ -329,7 +358,7 @@ const reward_observation_terminal_t *env_step(const action_t *this_action) {
 
 
 	// Prepare the step, creating an action to resist movement
-	LifeSim::RLStateDesc state;
+	LifeSim::StateDesc state;
 	LifeSim::RLActionDesc action;
 
 	const float constraintMultiplier = 1.0f;
@@ -391,3 +420,4 @@ const char* env_message(const char* inMessage) {
 }
 
 
+*/
