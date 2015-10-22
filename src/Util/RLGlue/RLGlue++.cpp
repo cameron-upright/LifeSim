@@ -8,14 +8,17 @@
 using namespace std;
 
 
-void RLGlue::writeMessage(boost::asio::ip::tcp::socket &socket, const ::google::protobuf::Message &msg) {
+namespace RLGlue {
 
-	std::string msgData;
+	void writeMessage(boost::asio::ip::tcp::socket &socket, const ::google::protobuf::Message &msg) {
 
-	msg.SerializeToString(&msgData);
+		std::string msgData;
 
-	socket.write_some(boost::asio::buffer(std::vector<size_t>{msgData.size()}));
-	socket.write_some(boost::asio::buffer(msgData));
+		msg.SerializeToString(&msgData);
+
+		socket.write_some(boost::asio::buffer(std::vector<size_t>{msgData.size()}));
+		socket.write_some(boost::asio::buffer(msgData));
+
+	}
 
 }
-

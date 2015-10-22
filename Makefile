@@ -28,7 +28,7 @@ GRAPHICS_MESH_OBJS = Mesh.o
 GRAPHICS_SHADER_OBJS = VertexProgram.o FragmentProgram.o
 RL_OBJS = CreatureEnv.o CreatureAgent.o # RLExperiment.o RLAgentDummy.o RLAgent.o 
 #UTIL_OBJS = RLGlue++.o
-UTIL_RLGLUE_OBJS = RLGlue++.o
+UTIL_RLGLUE_OBJS = RLGlue++.o Experiment.o
 
 LIB_OBJS = $(addprefix $(UTIL_GFX_DIR), $(UTIL_GFX_OBJS)) $(addprefix $(SCENE_DIR), $(SCENE_OBJS)) $(addprefix $(SCENE_OBJECTS_DIR), $(SCENE_OBJECTS_OBJS)) $(addprefix $(CREATURE_DIR), $(CREATURE_OBJS)) $(addprefix $(RESOURCE_DIR), $(RESOURCE_OBJS)) $(addprefix $(GRAPHICS_MESH_DIR), $(GRAPHICS_MESH_OBJS)) $(addprefix $(GRAPHICS_SHADER_DIR), $(GRAPHICS_SHADER_OBJS)) $(addprefix $(EXPERIMENT_DIR), $(EXPERIMENT_OBJS)) $(addprefix $(RL_DIR), $(RL_OBJS)) $(addprefix $(UTIL_DIR), $(UTIL_OBJS)) $(addprefix $(UTIL_RLGLUE_DIR), $(UTIL_RLGLUE_OBJS))
 GUI_OBJS = $(addprefix $(SRC_DIR), $(SRC_OBJS))

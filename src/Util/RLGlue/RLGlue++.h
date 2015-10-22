@@ -9,8 +9,8 @@
 
 #include <iostream>
 
-
 #include "../../Proto/RLGlue.pb.h"
+
 
 using namespace std;
 
@@ -133,6 +133,7 @@ namespace RLGlue {
 
 
 
+
 	class Env {
 	public:
 
@@ -161,6 +162,7 @@ namespace RLGlue {
 		virtual void cleanup() {}
 
 	};
+
 
 
 
