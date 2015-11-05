@@ -122,10 +122,8 @@ namespace RLGlue {
 
 			case RLGlue::AgentCommand_Type_AGENT_CLEANUP:
 
-				// TODO : Cleanup the agent
-
-				// Wait for the next command
-				readCommand();
+				// Cleanup the agent, and then do nothing (ending the ASIO run loop)
+				agent_.cleanup();
 
 				break;
 
