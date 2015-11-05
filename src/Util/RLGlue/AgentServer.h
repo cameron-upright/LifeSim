@@ -22,9 +22,11 @@ namespace RLGlue {
 			readCommand();
 		}
 
+		~AgentServerConnection() {}
+
 	private:
 		AgentServerConnection(boost::asio::io_service& io_service, Agent &agent)
-			: socket_(io_service), agent_(agent) {}
+			: agent_(agent), socket_(io_service) {}
 
 		void readCommand() {
 
@@ -82,30 +84,33 @@ namespace RLGlue {
 
 
 			case RLGlue::AgentCommand_Type_AGENT_START:
+				{
+					// TODO : Fix this
+					std::shared_ptr<::google::protobuf::Message> actionDesc(new ActionDesc(agent_.start()));
 
-				/*
-				// Start a new episode, and send the action back
-				asyncWriteMessage(socket_, agent_.start(), 
-													boost::bind(&AgentServerConnection::handleWriteResponse, shared_from_this(),
-																			boost::asio::placeholders::error,
-																			boost::asio::placeholders::bytes_transferred));
-				*/
+					// Start a new episode, and send the action back
+					asyncWriteMessage(socket_, actionDesc,
+														boost::bind(&AgentServerConnection::handleWriteResponse, shared_from_this(),
+																				boost::asio::placeholders::error,
+																				boost::asio::placeholders::bytes_transferred));
 
-				readCommand();
-
-				break;
-
+					break;
+				}
 
 			case RLGlue::AgentCommand_Type_AGENT_STEP:
 
-				// Step the agent, and send the resulting RewardStateTerminal message
-				asyncWriteMessage(socket_, agent_.step(), 
-													boost::bind(&AgentServerConnection::handleWriteResponse, shared_from_this(),
-																			boost::asio::placeholders::error,
-																			boost::asio::placeholders::bytes_transferred));
+				{
+					// TODO : Fix this
+					std::shared_ptr<::google::protobuf::Message> actionDesc(new ActionDesc(agent_.step()));
 
-				break;
+					// Step the agent, and send the resulting RewardStateTerminal message
+					asyncWriteMessage(socket_, actionDesc,
+														boost::bind(&AgentServerConnection::handleWriteResponse, shared_from_this(),
+																				boost::asio::placeholders::error,
+																				boost::asio::placeholders::bytes_transferred));
 
+					break;
+				}
 
 			case RLGlue::AgentCommand_Type_AGENT_END:
 

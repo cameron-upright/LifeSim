@@ -1,6 +1,9 @@
 #ifndef RL_GLUE_AGENT_CLIENT_H
 #define RL_GLUE_AGENT_CLIENT_H
 
+#include <iostream>
+using namespace std;
+
 #include "RLGlue++.h"
 
 namespace RLGlue {
@@ -38,7 +41,7 @@ namespace RLGlue {
 
 			writeMessage(socket_, startCmd);
 
-			return ActionDesc();//readMessage<ActionDesc>(socket_);
+			return readMessage<ActionDesc>(socket_);
 
 		}
 
@@ -50,7 +53,7 @@ namespace RLGlue {
 
 			writeMessage(socket_, stepCmd);
 
-			return ActionDesc();//readMessage<ActionDesc>(socket_);
+			return readMessage<ActionDesc>(socket_);
 
 
 		}
@@ -65,7 +68,7 @@ namespace RLGlue {
 			RLGlue::AgentCommand cleanupCmd;
 			cleanupCmd.set_type(RLGlue::AgentCommand_Type_AGENT_CLEANUP);
 
-			RLGlue::writeMessage(socket_, cleanupCmd);
+			writeMessage(socket_, cleanupCmd);
 
 		}
 

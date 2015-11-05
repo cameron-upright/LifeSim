@@ -58,11 +58,11 @@ namespace RLGlue {
 		}
 
 
-		void start(const ::google::protobuf::Message &msg) {
+		void start(std::shared_ptr<::google::protobuf::Message> &msg) {
 
 			// Serialize the response
 			std::shared_ptr<std::string> messageWriteBuffer(new std::string());
-			msg.SerializeToString(messageWriteBuffer.get());
+			msg->SerializeToString(messageWriteBuffer.get());
 
 			// Setup the header (size)
 			std::shared_ptr<std::vector<size_t> > headerWriteBuffer(new std::vector<size_t>({messageWriteBuffer->size()}));
@@ -76,6 +76,8 @@ namespace RLGlue {
 																					 boost::asio::placeholders::bytes_transferred));
 
 		}
+
+		~AsyncWriteMessage() {}
 
 	private:
 
@@ -124,7 +126,7 @@ namespace RLGlue {
 
 	template <typename WriteHandler>
 	void asyncWriteMessage(boost::asio::ip::tcp::socket &socket,
-												 const ::google::protobuf::Message &msg,
+												 shared_ptr<::google::protobuf::Message> &msg,
 												 BOOST_ASIO_MOVE_ARG(WriteHandler) handler) {
 
 		AsyncWriteMessage<WriteHandler>::create(socket, std::move(handler))->start(msg);

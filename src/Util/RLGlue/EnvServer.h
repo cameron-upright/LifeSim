@@ -24,7 +24,7 @@ namespace RLGlue {
 
 	private:
 		EnvServerConnection(boost::asio::io_service& io_service, Env &env)
-			: socket_(io_service), env_(env) {}
+			: env_(env), socket_(io_service) {}
 
 		void readCommand() {
 
@@ -82,26 +82,34 @@ namespace RLGlue {
 
 
 			case RLGlue::EnvironmentCommand_Type_ENV_START:
+				{
+					// TODO : Fix this
+					std::shared_ptr<::google::protobuf::Message> stateDesc(new StateDesc(env_.start()));
 
-				// Start a new episode, and send the start state back
-				asyncWriteMessage(socket_, env_.start(), 
-													boost::bind(&EnvServerConnection::handleWriteResponse, shared_from_this(),
-																			boost::asio::placeholders::error,
-																			boost::asio::placeholders::bytes_transferred));
+					// Start a new episode, and send the start state back
+					asyncWriteMessage(socket_, stateDesc,
+														boost::bind(&EnvServerConnection::handleWriteResponse, shared_from_this(),
+																				boost::asio::placeholders::error,
+																				boost::asio::placeholders::bytes_transferred));
 
-				break;
+					break;
+				}
 
 
 			case RLGlue::EnvironmentCommand_Type_ENV_STEP:
+				{
 
-				// Step the environment, and send the resulting RewardStateTerminal message
-				asyncWriteMessage(socket_, env_.step(), 
-													boost::bind(&EnvServerConnection::handleWriteResponse, shared_from_this(),
-																			boost::asio::placeholders::error,
-																			boost::asio::placeholders::bytes_transferred));
+					// TODO : Fix this
+					std::shared_ptr<::google::protobuf::Message> rewardStateTerminal(new RewardStateTerminal(env_.step()));
 
-				break;
+					// Step the environment, and send the resulting RewardStateTerminal message
+					asyncWriteMessage(socket_, rewardStateTerminal,
+														boost::bind(&EnvServerConnection::handleWriteResponse, shared_from_this(),
+																				boost::asio::placeholders::error,
+																				boost::asio::placeholders::bytes_transferred));
 
+					break;
+				}
 
 			case RLGlue::EnvironmentCommand_Type_ENV_CLEANUP:
 

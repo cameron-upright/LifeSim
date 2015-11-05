@@ -16,9 +16,8 @@ namespace RLGlue {
 
 		msg.SerializeToString(&msgData);
 
-		socket.write_some(boost::asio::buffer(std::vector<size_t>{msgData.size()}));
-		socket.write_some(boost::asio::buffer(msgData));
-
+		write(socket, boost::asio::buffer(std::vector<size_t>{msgData.size()}));
+		write(socket, boost::asio::buffer(msgData));
 	}
 
 }
