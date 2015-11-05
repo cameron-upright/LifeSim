@@ -180,10 +180,7 @@ namespace RLGlue {
 		void handle_accept(RLGlue::EnvServerConnection::pointer new_connection,
 											 const boost::system::error_code& error) {
 			if (!error)
-				{
-					new_connection->start();
-					start_accept();
-				}
+				new_connection->start();
 		}
 
 		boost::asio::ip::tcp::acceptor acceptor_;

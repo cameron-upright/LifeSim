@@ -56,6 +56,11 @@ FPScounter fps;
 
 CreatureEnv env;
 
+
+std::mutex quitMutex;
+bool quit = false;
+
+
 void InitGL(int Width, int Height)	        // We call this right after our OpenGL window is created.
 {
   glClearColor(0.0f, 0.0f, 0.0f, 0.0f);		// This Will Clear The Background Color To Black
@@ -98,6 +103,14 @@ void ReSizeGLScene(int Width, int Height)
 void DrawGLScene() {
 
 	//	cerr << "ENV DrawGLScene start" << endl;
+
+	{
+		std::lock_guard<std::mutex> guard(quitMutex);
+		if (quit) {
+			glutDestroyWindow(window);
+			return;
+		}
+	}
 
   static double total = 0.0;
 
@@ -230,6 +243,7 @@ void init() {
 
 
 
+
 void rlLoop() {
 
   try {
@@ -242,8 +256,12 @@ void rlLoop() {
 		std::cerr << e.what() << std::endl;
 	}
 
-}
+	{
+		std::lock_guard<std::mutex> guard(quitMutex);
+		quit = true;
+	}
 
+}
 
 int main(int argc, char **argv) {
 
@@ -252,6 +270,8 @@ int main(int argc, char **argv) {
 	std::thread rlThread(rlLoop);
 
 	glutMainLoop();
+
+	rlThread.join();
 
 	return 0;
 
