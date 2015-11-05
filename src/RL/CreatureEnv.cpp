@@ -96,7 +96,6 @@ RLGlue::RewardStateTerminal CreatureEnv::step() {
 	static vector<float> actionVal(getCreature()->hingeConstraints.size() + getCreature()->universalConstraints.size()*2);
 
 
-	int actionIndex = 0;
 	for (auto &a : actionVal) {
 		a *= 0.95;
 		if (lrand48() % 4 == 0)
@@ -224,10 +223,10 @@ void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &rewa
 
 void CreatureEnv::applyControl(const ActionDesc &action) {
 
-	const float constraintMultiplier = 0.0f;
+	//	const float constraintMultiplier = 0.0f;
 	const float constraintStrength = 0.0001;
 
-	assert(action.float_action_size() == creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
+	assert((unsigned)action.float_action_size() == creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
 
 
 	int actionIndex = 0;

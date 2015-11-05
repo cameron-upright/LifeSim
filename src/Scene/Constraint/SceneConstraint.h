@@ -19,6 +19,8 @@ public:
 
   SceneConstraint(string name) : name(name) {}
 
+	virtual ~SceneConstraint() {}
+
   virtual btTypedConstraint *getConstraint() = 0;
   virtual SceneConstraintType getConstraintType() = 0;
 

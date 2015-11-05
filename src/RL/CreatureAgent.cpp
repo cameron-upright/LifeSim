@@ -21,7 +21,11 @@ CreatureAgent::CreatureAgent() {}
 CreatureAgent::~CreatureAgent() {}
 
 
+RLGlue::ActionDesc CreatureAgent::start() {
+	return ActionDesc();
+}
+RLGlue::ActionDesc CreatureAgent::step() {
+	return ActionDesc();
+}
 
-RLGlue::ActionDesc CreatureAgent::start() {}
-RLGlue::ActionDesc CreatureAgent::step() {}
 void CreatureAgent::end() {}

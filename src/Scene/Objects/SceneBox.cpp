@@ -16,7 +16,7 @@ SceneBox::SceneBox(const string &name_, const Vector3f &halfExtents_, const Tran
   //  boxRigidBodyCI.m_friction = 2.0;
   boxRigidBody = new btRigidBody(boxRigidBodyCI);
 
-  btVector3 origin = boxRigidBody->getCenterOfMassTransform().getOrigin();
+	//  btVector3 origin = boxRigidBody->getCenterOfMassTransform().getOrigin();
 
   //  boxRigidBody->setDamping(0.95, 0.95);
 

@@ -16,6 +16,8 @@ public:
     name = name_;
   }
 
+	virtual ~SceneObject() {}
+
   const string getName() const {
     return name;
   }
