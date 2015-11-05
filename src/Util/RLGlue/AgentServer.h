@@ -104,8 +104,12 @@ namespace RLGlue {
 			case AgentCommand_Type_AGENT_STEP:
 
 				{
+
+					// Get the reward state
+					const RewardState &rewardState = cmd.stepcommand().rewardstate();
+
 					// TODO : Fix this
-					std::shared_ptr<::google::protobuf::Message> actionDesc(new ActionDesc(agent_.step()));
+					std::shared_ptr<::google::protobuf::Message> actionDesc(new ActionDesc(agent_.step(rewardState)));
 
 					// Step the agent, and send the resulting RewardStateTerminal message
 					asyncWriteMessage(socket_, actionDesc,

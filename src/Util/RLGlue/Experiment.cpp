@@ -14,8 +14,14 @@ namespace RLGlue {
 			// Step the environment
 			RewardStateTerminal rewardStateTerminal = envClient_.step();
 
+			// Create the RewardState
+			RewardState rewardState;
+
+			rewardState.set_reward(rewardStateTerminal.reward());
+			*(rewardState.mutable_state()) = rewardStateTerminal.state();
+
 			// Step the action
-			action = agentClient_.step();
+			action = agentClient_.step(rewardState);
 
 		}
 

@@ -157,7 +157,7 @@ namespace RLGlue {
 
 		virtual ActionDesc start(const StateDesc &state) = 0;
 
- 		virtual ActionDesc step() = 0;
+ 		virtual ActionDesc step(const RewardState &rewardState) = 0;
 
 		virtual void end() = 0;
 

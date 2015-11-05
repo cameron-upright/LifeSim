@@ -19,7 +19,7 @@ public:
   ~CreatureAgent();
 
 	RLGlue::ActionDesc start(const RLGlue::StateDesc &state);
-	RLGlue::ActionDesc step();
+	RLGlue::ActionDesc step(const RLGlue::RewardState &rewardState);
 	void end();
 
 

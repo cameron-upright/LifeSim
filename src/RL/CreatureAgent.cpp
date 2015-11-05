@@ -24,7 +24,7 @@ CreatureAgent::~CreatureAgent() {}
 RLGlue::ActionDesc CreatureAgent::start(const RLGlue::StateDesc &state) {
 	return ActionDesc();
 }
-RLGlue::ActionDesc CreatureAgent::step() {
+RLGlue::ActionDesc CreatureAgent::step(const RLGlue::RewardState &rewardState) {
 	return ActionDesc();
 }
 

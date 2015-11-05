@@ -50,13 +50,18 @@ namespace RLGlue {
 
 		}
 
-		ActionDesc step() {
+		ActionDesc step(const RewardState &rewardState) {
 		
 			// Write a step command
-			AgentCommand stepCmd;
-			stepCmd.set_type(RLGlue::AgentCommand_Type_AGENT_STEP);
+			AgentCommand cmd;
+			cmd.set_type(RLGlue::AgentCommand_Type_AGENT_STEP);
 
-			writeMessage(socket_, stepCmd);
+			RewardState rewardStateCopy(rewardState);
+
+			AgentCommand_StepCommand *stepCmd = cmd.mutable_stepcommand();
+			*(stepCmd->mutable_rewardstate()) = rewardStateCopy;
+
+			writeMessage(socket_, cmd);
 
 			return readMessage<ActionDesc>(socket_);
 

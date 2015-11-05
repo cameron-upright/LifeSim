@@ -20,6 +20,13 @@ message ActionDesc {
 
 }
 
+message RewardState {
+
+	required float     reward   = 1;
+	required StateDesc state    = 2;
+
+}
+
 message RewardStateTerminal {
 
 	required float     reward   = 1;
@@ -95,7 +102,7 @@ message AgentCommand {
 	}
 
 	message StepCommand {
-		required ActionDesc action = 1;
+		required RewardState rewardState = 1;
 	}
 
 	message EndCommand {
