@@ -59,8 +59,7 @@ namespace RLGlue {
 		}
 
 
-		void end(float reward) {
-		}
+		void end(float reward) {}
 
 		void cleanup() {
 

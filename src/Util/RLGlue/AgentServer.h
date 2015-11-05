@@ -75,9 +75,9 @@ namespace RLGlue {
 
 			case RLGlue::AgentCommand_Type_AGENT_INIT:
 
-				// TODO : Initialize the agent
+				// Init and then wait for the next command
+				agent_.init();
 
-				// Wait for the next command
 				readCommand();
 
 				break;
@@ -114,7 +114,9 @@ namespace RLGlue {
 
 			case RLGlue::AgentCommand_Type_AGENT_END:
 
-				// Wait for the next command
+				// End and then wait for the next command
+				agent_.end();
+
 				readCommand();
 
 				break;
