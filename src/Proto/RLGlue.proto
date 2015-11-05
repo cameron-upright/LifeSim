@@ -106,6 +106,7 @@ message AgentCommand {
 	}
 
 	message EndCommand {
+		required float reward = 1;
 	}
 
 	message CleanupCommand {

@@ -65,11 +65,21 @@ namespace RLGlue {
 
 			return readMessage<ActionDesc>(socket_);
 
-
 		}
 
 
-		void end(float reward) {}
+		void end(const float &reward) {
+
+			// Write a step command
+			AgentCommand cmd;
+			cmd.set_type(RLGlue::AgentCommand_Type_AGENT_END);
+
+			AgentCommand_EndCommand *endCmd = cmd.mutable_endcommand();
+			endCmd->set_reward(reward);
+
+			writeMessage(socket_, cmd);
+
+		}
 
 		void cleanup() {
 

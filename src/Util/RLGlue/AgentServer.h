@@ -122,12 +122,18 @@ namespace RLGlue {
 
 			case AgentCommand_Type_AGENT_END:
 
-				// End and then wait for the next command
-				agent_.end();
+				{
 
-				readCommand();
+					// Get the reward
+					const float &reward = cmd.endcommand().reward();
 
-				break;
+					// End and then wait for the next command
+					agent_.end(reward);
+
+					readCommand();
+
+					break;
+				}
 
 
 			case AgentCommand_Type_AGENT_CLEANUP:

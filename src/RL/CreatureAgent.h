@@ -20,7 +20,7 @@ public:
 
 	RLGlue::ActionDesc start(const RLGlue::StateDesc &state);
 	RLGlue::ActionDesc step(const RLGlue::RewardState &rewardState);
-	void end();
+	void end(const float &reward);
 
 
 private:

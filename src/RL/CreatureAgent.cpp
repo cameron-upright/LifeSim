@@ -28,4 +28,4 @@ RLGlue::ActionDesc CreatureAgent::step(const RLGlue::RewardState &rewardState) {
 	return ActionDesc();
 }
 
-void CreatureAgent::end() {}
+void CreatureAgent::end(const float &reward) {}

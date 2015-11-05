@@ -26,7 +26,7 @@ namespace RLGlue {
 		}
 
 		// End the episode
-		//		agentClient_.end(0.0);
+		agentClient_.end(0.0);
 
 	}
 
