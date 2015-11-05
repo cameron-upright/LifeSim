@@ -64,7 +64,7 @@ namespace RLGlue {
 
 			std::string cmdBodyStr(bodyReadBuffer_.begin(), bodyReadBuffer_.end());
 
-			RLGlue::AgentCommand cmd;
+			AgentCommand cmd;
 
 
 			cmd.ParseFromString(cmdBodyStr);
@@ -73,7 +73,7 @@ namespace RLGlue {
 			switch (cmd.type()) {
 
 
-			case RLGlue::AgentCommand_Type_AGENT_INIT:
+			case AgentCommand_Type_AGENT_INIT:
 
 				// Init and then wait for the next command
 				agent_.init();
@@ -83,10 +83,14 @@ namespace RLGlue {
 				break;
 
 
-			case RLGlue::AgentCommand_Type_AGENT_START:
+			case AgentCommand_Type_AGENT_START:
 				{
+
+					// Get the state
+					const StateDesc &state = cmd.startcommand().state();
+
 					// TODO : Fix this
-					std::shared_ptr<::google::protobuf::Message> actionDesc(new ActionDesc(agent_.start()));
+					std::shared_ptr<::google::protobuf::Message> actionDesc(new ActionDesc(agent_.start(state)));
 
 					// Start a new episode, and send the action back
 					asyncWriteMessage(socket_, actionDesc,
@@ -97,7 +101,7 @@ namespace RLGlue {
 					break;
 				}
 
-			case RLGlue::AgentCommand_Type_AGENT_STEP:
+			case AgentCommand_Type_AGENT_STEP:
 
 				{
 					// TODO : Fix this
@@ -112,7 +116,7 @@ namespace RLGlue {
 					break;
 				}
 
-			case RLGlue::AgentCommand_Type_AGENT_END:
+			case AgentCommand_Type_AGENT_END:
 
 				// End and then wait for the next command
 				agent_.end();
@@ -122,7 +126,7 @@ namespace RLGlue {
 				break;
 
 
-			case RLGlue::AgentCommand_Type_AGENT_CLEANUP:
+			case AgentCommand_Type_AGENT_CLEANUP:
 
 				// Cleanup the agent, and then do nothing (ending the ASIO run loop)
 				agent_.cleanup();
@@ -178,15 +182,15 @@ namespace RLGlue {
 
 	private:
 		void start_accept() {
-			RLGlue::AgentServerConnection::pointer new_connection =
-				RLGlue::AgentServerConnection::create(acceptor_.get_io_service(), agent_);
+			AgentServerConnection::pointer new_connection =
+				AgentServerConnection::create(acceptor_.get_io_service(), agent_);
 
 			acceptor_.async_accept(new_connection->socket(),
 														 boost::bind(&AgentServer::handle_accept, this, new_connection,
 																				 boost::asio::placeholders::error));
 		}
 
-		void handle_accept(RLGlue::AgentServerConnection::pointer new_connection,
+		void handle_accept(AgentServerConnection::pointer new_connection,
 											 const boost::system::error_code& error) {
 			if (!error)
 				new_connection->start();

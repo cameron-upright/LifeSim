@@ -18,7 +18,7 @@ public:
   CreatureAgent();
   ~CreatureAgent();
 
-	RLGlue::ActionDesc start();
+	RLGlue::ActionDesc start(const RLGlue::StateDesc &state);
 	RLGlue::ActionDesc step();
 	void end();
 

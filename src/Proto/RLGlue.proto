@@ -91,6 +91,7 @@ message AgentCommand {
 	}
 
 	message StartCommand {
+		required StateDesc state = 1;
 	}
 
 	message StepCommand {

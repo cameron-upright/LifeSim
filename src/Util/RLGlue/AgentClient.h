@@ -33,13 +33,18 @@ namespace RLGlue {
 
 		}
 
-		ActionDesc start() {
+		ActionDesc start(const StateDesc &state) {
 
 			// Start the agent
-			AgentCommand startCmd;
-			startCmd.set_type(AgentCommand_Type_AGENT_START);
+			AgentCommand cmd;
+			cmd.set_type(AgentCommand_Type_AGENT_START);
 
-			writeMessage(socket_, startCmd);
+			StateDesc stateCopy(state);
+
+			AgentCommand_StartCommand *startCmd = cmd.mutable_startcommand();
+			*(startCmd->mutable_state()) = stateCopy;
+
+			writeMessage(socket_, cmd);
 
 			return readMessage<ActionDesc>(socket_);
 

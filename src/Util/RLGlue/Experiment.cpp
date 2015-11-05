@@ -6,13 +6,16 @@ namespace RLGlue {
 	void Experiment::runEpisode(const int stepLimit) {
 
 		StateDesc state = envClient_.start();
-		ActionDesc action = agentClient_.start();
-
+		ActionDesc action = agentClient_.start(state);
 
 		// Step the episode
 		for (int i=0; i<stepLimit; i++) {
 
-			RLGlue::RewardStateTerminal rewardStateTerminal = envClient_.step();
+			// Step the environment
+			RewardStateTerminal rewardStateTerminal = envClient_.step();
+
+			// Step the action
+			action = agentClient_.step();
 
 		}
 

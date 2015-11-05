@@ -73,9 +73,9 @@ namespace RLGlue {
 
 			case RLGlue::EnvironmentCommand_Type_ENV_INIT:
 
-				// TODO : Initialize the environment
+				// Init and then wait for the next command
+				env_.init();
 
-				// Wait for the next command
 				readCommand();
 
 				break;
@@ -113,10 +113,8 @@ namespace RLGlue {
 
 			case RLGlue::EnvironmentCommand_Type_ENV_CLEANUP:
 
-				// TODO : Cleanup the environment
-
-				// Wait for the next command
-				readCommand();
+				// Cleanup the env, and then do nothing (ending the ASIO run loop)
+				env_.cleanup();
 
 				break;
 
@@ -138,11 +136,6 @@ namespace RLGlue {
 			readCommand();
 
 		}
-
-
-
-
-
 
 
 		Env &env_;
