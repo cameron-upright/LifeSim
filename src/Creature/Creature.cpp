@@ -172,33 +172,7 @@ bool Creature::load(const string &filename) {
 		}
 	}
 
-
-
-	/*
-  ifstream fin(filename.c_str());
-
-  YAML::Parser parser(fin);
-  YAML::Node doc;
-
-  parser.GetNextDocument(doc);
-
-  string creatureName;
-  doc["creature_name"] >> creatureName;
-
-  const YAML::Node& rigid_bodies = doc["rigid_bodies"];
-
-  for(unsigned i=0;i<rigid_bodies.size();i++)
-    parseRigidBody(rigid_bodies[i]);
-
-  const YAML::Node* constraints = doc.FindValue("constraints");
-
-  
-  if (constraints)
-    for(unsigned i=0;i<constraints->size();i++)
-      parseConstraint((*constraints)[i]);
-
-  return true;
-	*/
+	return true;
 
 }
 
