@@ -86,12 +86,12 @@ void CreatureEnv::start(StateDesc &state) {
 }
 */
 
-RLGlue::RewardStateTerminal CreatureEnv::step() {
+RLGlue::RewardStateTerminal CreatureEnv::step(const RLGlue::ActionDesc &action) {
 
 	const float constraintMultiplier = 0.5f;
 
 
-	RLGlue::ActionDesc action;
+	RLGlue::ActionDesc actionCopy = action;
 
 	static vector<float> actionVal(getCreature()->hingeConstraints.size() + getCreature()->universalConstraints.size()*2);
 
@@ -100,7 +100,7 @@ RLGlue::RewardStateTerminal CreatureEnv::step() {
 		a *= 0.95;
 		if (lrand48() % 4 == 0)
 			a += 15.0*(drand48()-0.5);
-		action.add_float_action(-constraintMultiplier * a);
+		actionCopy.add_float_action(-constraintMultiplier * a);
 	}
 
 
@@ -109,7 +109,7 @@ RLGlue::RewardStateTerminal CreatureEnv::step() {
 	float the_reward=0;
 
 	// Step the environment
-	stepRL(state, action, the_reward);
+	stepRL(state, actionCopy, the_reward);
 
 
 	RLGlue::RewardStateTerminal rst;

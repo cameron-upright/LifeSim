@@ -93,7 +93,7 @@ public:
 
 	RLGlue::StateDesc start() override;
 
-	RLGlue::RewardStateTerminal step() override;
+	RLGlue::RewardStateTerminal step(const RLGlue::ActionDesc &action) override;
 
 
 

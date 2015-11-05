@@ -143,7 +143,7 @@ namespace RLGlue {
 
 		virtual StateDesc start() = 0;
 
-		virtual RewardStateTerminal step() = 0;
+		virtual RewardStateTerminal step(const ActionDesc &action) = 0;
 
 		virtual void cleanup() {}
 

@@ -99,8 +99,11 @@ namespace RLGlue {
 			case RLGlue::EnvironmentCommand_Type_ENV_STEP:
 				{
 
+					// Get the action
+					const ActionDesc &action = cmd.stepcommand().action();
+
 					// TODO : Fix this
-					std::shared_ptr<::google::protobuf::Message> rewardStateTerminal(new RewardStateTerminal(env_.step()));
+					std::shared_ptr<::google::protobuf::Message> rewardStateTerminal(new RewardStateTerminal(env_.step(action)));
 
 					// Step the environment, and send the resulting RewardStateTerminal message
 					asyncWriteMessage(socket_, rewardStateTerminal,

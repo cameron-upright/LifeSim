@@ -12,7 +12,7 @@ namespace RLGlue {
 		for (int i=0; i<stepLimit; i++) {
 
 			// Step the environment
-			RewardStateTerminal rewardStateTerminal = envClient_.step();
+			RewardStateTerminal rewardStateTerminal = envClient_.step(action);
 
 			// Create the RewardState
 			RewardState rewardState;

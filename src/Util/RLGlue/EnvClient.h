@@ -47,15 +47,20 @@ namespace RLGlue {
 
 		}
 
-		RewardStateTerminal step() {
+		RewardStateTerminal step(const RLGlue::ActionDesc &action) {
 		
 			// Write a step command
-			EnvironmentCommand stepCmd;
+			EnvironmentCommand cmd;
 
-			stepCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_STEP);
-			stepCmd.mutable_stepcommand()->mutable_action();
+			cmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_STEP);
+			cmd.mutable_stepcommand()->mutable_action();
 
-			writeMessage(socket_, stepCmd);
+			ActionDesc actionCopy(action);
+
+			EnvironmentCommand_StepCommand *stepCmd = cmd.mutable_stepcommand();
+			*(stepCmd->mutable_action()) = actionCopy;
+
+			writeMessage(socket_, cmd);
 
 			return readMessage<RewardStateTerminal>(socket_);
 
