@@ -1,0 +1,5 @@
+scene: "cat_scene.prototxt"
+creature: "creature"
+
+env_step_size: 0.001
+env_step_per_rl_step: 50
