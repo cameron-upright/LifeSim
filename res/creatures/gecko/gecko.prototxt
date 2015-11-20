@@ -1,0 +1,362 @@
+name: "creature"
+type: CREATURE
+[LifeSim.SceneCreatureDesc.scene_object] {
+  transform {
+    position { x: 0 x: 0 x: 0 }
+    rotation { x: 0 x: 0 x: 0 x: 1 }
+  }
+  child_scene_object {
+    type: BOX
+    name: "Body"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.0
+          x: 0.154659
+          x: 0.0
+        }
+        rotation {
+          x: -0.707107
+          x: -0.0
+          x: -0.0
+          x: 0.707107
+        }
+      }
+      half_extents {
+        x: 0.080268
+        x: 0.413515
+        x: 0.059701
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "Fore.L"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.168517
+          x: 0.084497
+          x: -0.323825
+        }
+        rotation {
+          x: -0.671314
+          x: -0.228251
+          x: 0.026894
+          x: 0.704639
+        }
+      }
+      half_extents {
+        x: 0.143984
+        x: 0.033443
+        x: 0.033876
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "Fore.R"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.168517
+          x: 0.084497
+          x: -0.323825
+        }
+        rotation {
+          x: -0.671357
+          x: 0.228255
+          x: -0.026894
+          x: 0.704596
+        }
+      }
+      half_extents {
+        x: 0.143984
+        x: 0.033443
+        x: 0.033876
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "Head"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -1.9e-05
+          x: 0.169946
+          x: -0.597573
+        }
+        rotation {
+          x: -0.707107
+          x: 0.0
+          x: 0.0
+          x: 0.707107
+        }
+      }
+      half_extents {
+        x: 0.076677
+        x: 0.123278
+        x: 0.063176
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "Hind.L"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.168517
+          x: 0.084677
+          x: 0.232751
+        }
+        rotation {
+          x: -0.650685
+          x: -0.07491
+          x: 0.167549
+          x: 0.736834
+        }
+      }
+      half_extents {
+        x: 0.144475
+        x: 0.033443
+        x: 0.033876
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "Hind.R"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.168517
+          x: 0.084677
+          x: 0.232751
+        }
+        rotation {
+          x: -0.650672
+          x: 0.074906
+          x: -0.167539
+          x: 0.736848
+        }
+      }
+      half_extents {
+        x: 0.144475
+        x: 0.033443
+        x: 0.033876
+      }
+    }
+  }
+  child_scene_object {
+    type: BOX
+    name: "Neck"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -0.0
+          x: 0.150363
+          x: -0.444081
+        }
+        rotation {
+          x: -0.707107
+          x: -0.0
+          x: -0.0
+          x: 0.707107
+        }
+      }
+      half_extents {
+        x: 0.055783
+        x: 0.040357
+        x: 0.029498
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "Neck"
+    body: "Neck"
+    body: "Body"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.0
+        x: 0.134498
+        x: -0.408962
+      }
+      axis_0 {
+        x: 1.0
+        x: -0.0
+        x: 0.0
+      }
+      axis_1 {
+        x: 0.0
+        x: 1.0
+        x: 0.0
+      }
+      limit_0 {
+        x: -0.392699
+        x: 0.392699
+      }
+      limit_1 {
+        x: -0.392699
+        x: 0.392699
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "Head"
+    body: "Head"
+    body: "Neck"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.0
+        x: 0.134498
+        x: -0.480389
+      }
+      axis_0 {
+        x: 1.0
+        x: -0.0
+        x: -0.0
+      }
+      axis_1 {
+        x: 0.0
+        x: 1.0
+        x: 0.0
+      }
+      limit_0 {
+        x: -0.392699
+        x: 0.392699
+      }
+      limit_1 {
+        x: -0.785398
+        x: 0.785398
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "Fore.R"
+    body: "Fore.R"
+    body: "Body"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: 0.041039
+        x: 0.131168
+        x: -0.283036
+      }
+      axis_0 {
+        x: -0.363065
+        x: -0.93002
+        x: -0.056975
+      }
+      axis_1 {
+        x: 0.239152
+        x: -0.152111
+        x: 0.958994
+      }
+      limit_0 {
+        x: -0.349066
+        x: 0.767945
+      }
+      limit_1 {
+        x: -0.349066
+        x: 0.349066
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "Fore.L"
+    body: "Fore.L"
+    body: "Body"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.041039
+        x: 0.131168
+        x: -0.283036
+      }
+      axis_0 {
+        x: -0.363065
+        x: 0.93002
+        x: 0.056975
+      }
+      axis_1 {
+        x: -0.239152
+        x: -0.152111
+        x: 0.958994
+      }
+      limit_0 {
+        x: -0.349066
+        x: 0.767945
+      }
+      limit_1 {
+        x: -0.349066
+        x: 0.349066
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "Hind.R"
+    body: "Hind.R"
+    body: "Body"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: 0.033591
+        x: 0.130216
+        x: 0.216268
+      }
+      axis_0 {
+        x: -0.316781
+        x: -0.938705
+        x: -0.135949
+      }
+      axis_1 {
+        x: -0.158986
+        x: -0.088753
+        x: 0.983283
+      }
+      limit_0 {
+        x: -0.593412
+        x: 0.523599
+      }
+      limit_1 {
+        x: -0.349066
+        x: 0.349066
+      }
+    }
+  }
+  constraint {
+    type: UNIVERSAL
+    name: "Hind.L"
+    body: "Hind.L"
+    body: "Body"
+    [LifeSim.UniversalConstraintDesc.constraint] {
+      pivot {
+        x: -0.033591
+        x: 0.130216
+        x: 0.216268
+      }
+      axis_0 {
+        x: -0.316781
+        x: 0.938705
+        x: 0.135949
+      }
+      axis_1 {
+        x: 0.158986
+        x: -0.088753
+        x: 0.983283
+      }
+      limit_0 {
+        x: -0.593412
+        x: 0.523599
+      }
+      limit_1 {
+        x: -0.349066
+        x: 0.349066
+      }
+    }
+  }
+}
