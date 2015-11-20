@@ -30,6 +30,8 @@ def output_model(armature_name, creature_name, output_name, worldScale, worldQua
     output_name = '%s/%s' % (os.path.dirname(bpy.data.filepath), output_name)
     f = open(output_name, 'w')
 
+    print(output_name)
+
     f.write('creature_name: %s\n\n' % creature_name)
 
     armature = bpy.data.objects[armature_name]
@@ -51,6 +53,7 @@ def output_model(armature_name, creature_name, output_name, worldScale, worldQua
     f.write("constraints:\n")
 
     for bone in bones:
+
         parentBone = bone.parent
         if parentBone == None:
             continue
@@ -88,6 +91,9 @@ def output_model(armature_name, creature_name, output_name, worldScale, worldQua
         parentInvRotation = parentRigidBody.matrix_world.to_quaternion().inverted()
         pivot = armature.matrix_world*bone.head
 
+        print(bone.name)
+        print(num)
+
         if num == 1 :
 
             pivotA = worldScale * (invRotation * (pivot - rigidBody.matrix_world.to_translation()))
@@ -95,11 +101,11 @@ def output_model(armature_name, creature_name, output_name, worldScale, worldQua
             axisA = invRotation * axis[0]
             axisB = parentInvRotation * axis[0]
 
-#            print(bone.name)
-#            print(pivot)
-#            print(rigidBody.matrix_world.to_translation())
-#            print(parentRigidBody.matrix_world.to_translation())
-#            print(axis[0])
+            print(bone.name)
+            print(pivot)
+            print(rigidBody.matrix_world.to_translation())
+            print(parentRigidBody.matrix_world.to_translation())
+            print(axis[0])
 
             f.write('  - type: hinge\n')
             f.write('    name: "%s"\n' % bone.name)
@@ -114,10 +120,10 @@ def output_model(armature_name, creature_name, output_name, worldScale, worldQua
 
         elif num == 2 :
 
-#            print("--------------------------------------------------")
-#            print(bone.name)
-#            print(axis)
-#            print('    axis2: [%f, %f, %f]\n' % (axis[1].x, axis[1].y, axis[1].z))
+            print("--------------------------------------------------")
+            print(bone.name)
+            print(axis)
+            print('    axis2: [%f, %f, %f]\n' % (axis[1].x, axis[1].y, axis[1].z))
 
             pivotWorld = worldScale * (worldQuat * pivot)
             axisA = worldQuat * axis[0]
@@ -134,6 +140,9 @@ def output_model(armature_name, creature_name, output_name, worldScale, worldQua
             f.write('    limit1: [%f, %f]\n' % (axisMin[1], axisMax[1]))
             f.write('\n');
 
+        else :
+
+            raise Exception('Uhoh')
 
 
     f.close()
