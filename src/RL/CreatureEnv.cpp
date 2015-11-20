@@ -98,8 +98,8 @@ RLGlue::RewardStateTerminal CreatureEnv::step(const RLGlue::ActionDesc &action) 
 
 	for (auto &a : actionVal) {
 		a *= 0.95;
-		if (lrand48() % 4 == 0)
-			a += 15.0*(drand48()-0.5);
+		if (lrand48() % 5 == 0)
+			a += 25.0*(drand48()-0.5);
 		actionCopy.add_float_action(-constraintMultiplier * a);
 	}
 

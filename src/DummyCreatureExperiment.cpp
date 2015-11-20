@@ -38,8 +38,9 @@ int main(int argc, char **argv) {
 		// Create our experiment
 		RLGlue::Experiment experiment(envClient, agentClient);
 
-		// Run a single 20 step episode
-		experiment.runEpisode(20);
+		// Run a single 20 step episode, 100 times
+		for (int i=0; i<100; i++)
+			experiment.runEpisode(20);
 
 		// Cleanup
 		envClient.cleanup();
