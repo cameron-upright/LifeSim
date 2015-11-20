@@ -30,7 +30,7 @@
 
 - type: creature
   name: creature
-  config: "creatures/cat/cat.prototxt"
+  config: "creatures/gecko/gecko.prototxt"
 
 - type: light
   name: light0

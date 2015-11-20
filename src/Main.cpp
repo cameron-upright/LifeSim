@@ -127,7 +127,7 @@ void DrawGLScene() {
   total += elapsed;
   if (total > 2.0) {
 		//		cerr << "ENV DrawGLScene step start" << endl;
-		env.stepSim(elapsed * 0.35f);
+		env.stepSim(elapsed);
 		//		cerr << "ENV DrawGLScene step done" << endl;
 
   }
@@ -200,13 +200,18 @@ void mouseMotionFunc(int x, int y) {
 }
 
 
-void init() {
+bool init(int argc, char **argv) {
+
+	if (argc != 2) {
+		cout << "Usage :" << endl << " ./gui [env.prototxt]" << endl;
+		return false;
+	}
 
   // default random seeds
   srand48(0);
   srand(0);
 
-	int argc = 1;
+	argc = 1;
 
   glutInit(&argc, NULL);
   glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_ALPHA | GLUT_STENCIL | GLUT_DEPTH | GLUT_MULTISAMPLE);  
@@ -232,11 +237,13 @@ void init() {
 	env.getScene()->setObserver(sceneVis);
 
 	// Load the environment
-	env.load("res/test_env.prototxt");
+	env.load(argv[1]);
 
 	userInputManager = new UserInputManager(*sceneVis);
 
   timer.reset();
+
+	return true;
 
 }
 
@@ -265,7 +272,8 @@ void rlLoop() {
 
 int main(int argc, char **argv) {
 
-	init();
+	if (!init(argc, argv))
+		return 1;
 
 	std::thread rlThread(rlLoop);
 

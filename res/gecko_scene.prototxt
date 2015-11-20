@@ -103,7 +103,7 @@ scene_object {
     [LifeSim.SceneBoxDesc.scene_object] {
       transform {
         position {
-          x: 0.1
+          x: 0.5
           x: 100
           x: 0.2
         }
@@ -123,7 +123,7 @@ scene_object {
   }
 }
 scene_object {
-  config: "creatures/cat/cat.prototxt"
+  config: "creatures/gecko/gecko.prototxt"
 }
 scene_object {
   desc {

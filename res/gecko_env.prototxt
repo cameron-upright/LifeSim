@@ -1,4 +1,4 @@
-scene: "scene.prototxt"
+scene: "gecko_scene.prototxt"
 creature: "creature"
 
 env_step_size: 0.001
