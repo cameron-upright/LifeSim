@@ -25,6 +25,8 @@ public:
 
 private:
 
+	RLGlue::ActionDesc prevAction;
+
 };
 
 

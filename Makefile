@@ -63,7 +63,7 @@ X11LIB=/usr/X11R6/lib
 ifeq ($(shell uname),Linux)
 LDFLAGS += -L/usr/lib/nvidia-331 -L/usr/lib/nvidia-current -L$(X11LIB) -L$(HOME)/usr/lib \
     -lglut -lpthread -lGL -lGLU -lXi -lXmu -lX11 -ldl -lm -lstdc++ -lpng -llapack \
-    -lBulletDynamics -lBulletCollision -lLinearMath -lprotobuf -lboost_system
+    -lBulletDynamics -lBulletCollision -lLinearMath -lprotobuf -lboost_system -lglog
 
 else
 LDFLAGS += -L$(X11LIB) -L$(HOME)/usr/lib -L/opt/local/lib \

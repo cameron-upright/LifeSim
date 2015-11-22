@@ -7,6 +7,7 @@
 
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
+#include <glog/logging.h>
 
 #include "CreatureEnv.h"
 
@@ -41,7 +42,7 @@ void CreatureEnv::load(const string &filename) {
 	google::protobuf::TextFormat::Parse(&fileInput, &desc);
 
 	close(fd);
-	
+
 	// Get the directory of the file
 	string filenameStr = string(filename);
   size_t found;
@@ -80,29 +81,10 @@ RLGlue::StateDesc CreatureEnv::start() {
 }
 
 
-/*
-void CreatureEnv::start(StateDesc &state) {
-
-}
-*/
 
 RLGlue::RewardStateTerminal CreatureEnv::step(const RLGlue::ActionDesc &action) {
 
-	const float constraintMultiplier = 0.5f;
-
-
 	RLGlue::ActionDesc actionCopy = action;
-
-	static vector<float> actionVal(getCreature()->hingeConstraints.size() + getCreature()->universalConstraints.size()*2);
-
-
-	for (auto &a : actionVal) {
-		a *= 0.95;
-		if (lrand48() % 5 == 0)
-			a += 25.0*(drand48()-0.5);
-		actionCopy.add_float_action(-constraintMultiplier * a);
-	}
-
 
 	// Prepare the step, creating an action to resist movement
 	RLGlue::StateDesc state;
@@ -188,7 +170,7 @@ void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &rewa
 		std::lock_guard<std::mutex> lock(rlMutex);
 
 		// The simulation should be waiting for an action at this point
-		assert(currentAction.get() == nullptr);
+		CHECK(currentAction.get() == nullptr);
 
 		// Set the action
 		currentAction.reset(new ActionDesc(action));
@@ -226,7 +208,9 @@ void CreatureEnv::applyControl(const ActionDesc &action) {
 	//	const float constraintMultiplier = 0.0f;
 	const float constraintStrength = 0.0001;
 
-	assert((unsigned)action.float_action_size() == creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
+	int numAction = (int)(creature->hingeConstraints.size() + creature->universalConstraints.size() * 2);
+
+	CHECK_EQ(action.float_action_size(), numAction);
 
 
 	int actionIndex = 0;

@@ -84,6 +84,7 @@ namespace RLGlue {
 
 
 			case AgentCommand_Type_AGENT_START:
+
 				{
 
 					// Get the state

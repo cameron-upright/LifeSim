@@ -10,6 +10,8 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
 
+#include <glog/logging.h>
+
 #include "Proto/LifeSim.pb.h"
 #include "Util/RLGlue/RLGlue++.h"
 #include "Util/RLGlue/AgentServer.h"
@@ -21,9 +23,14 @@ using namespace std;
 using boost::asio::ip::tcp;
 
 
-CreatureAgent agent;
-
 int main(int argc, char **argv) {
+
+  FLAGS_alsologtostderr = 1;
+
+  google::InitGoogleLogging(argv[0]);
+
+
+	CreatureAgent agent;
 
   try {
 		boost::asio::io_service io_service;
@@ -34,37 +41,6 @@ int main(int argc, char **argv) {
   catch (std::exception& e) {
 		std::cerr << e.what() << std::endl;
 	}
-
-
-	/*
-  try {
-
-    boost::asio::io_service io_service;
-
-		RLGlue::AgentEnv client(io_service, argv[1], "1338");
-
-
-		tcp::socket &socket = client.getSocket();
-
-		client.init();
-
-		RLGlue::StateDesc state = client.start();
-
-
-		// Step the environment for 20 steps
-		for (int i=0; i<20; i++) {
-
-			RLGlue::RewardStateTerminal rewardStateTerminal = client.step();
-
-		}
-
-		client.cleanup();
-
-	}
-	catch (std::exception& e) {
-		std::cerr << e.what() << std::endl;
-	}
-	*/
 
   return 0;
 

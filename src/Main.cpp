@@ -12,12 +12,15 @@
 
 #endif
 
+#include <glog/logging.h>
+
 #include <stdio.h>
 #include <unistd.h>     // needed to sleep
 #include <math.h>
 #include <iostream>
 
 #include <thread>
+
 
 #include "g_axis.h"
 #include "fpscounter.h"
@@ -206,6 +209,8 @@ bool init(int argc, char **argv) {
 		cout << "Usage :" << endl << " ./gui [env.prototxt]" << endl;
 		return false;
 	}
+
+	google::InitGoogleLogging(argv[0]);
 
   // default random seeds
   srand48(0);
