@@ -109,6 +109,7 @@ bool Scene::load(const char *filename) {
 
 				if (sceneObserver)
 					sceneObserver->onSceneAddPlane(scenePlane, origin, size);
+
 			}
 
 			else if (sceneObjectDesc.type() == SceneObjectDesc_Type_BOX) {

@@ -69,15 +69,13 @@ RLGlue::StateDesc CreatureEnv::start() {
 	remainingTime = 0.0f;
 	envStep = 0;
 
-	RLGlue::EnvironmentCommand startCmd;
-	startCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_START);
-
 	// Initialize a new currentState
 	currentState.reset(new StateDesc());
 
 	//	cerr << "ENV start done" << endl;
 
 	return *currentState;
+
 }
 
 
