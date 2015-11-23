@@ -32,29 +32,21 @@ Scene::Scene(const char *filename) {
 
 Scene::~Scene() {
 
-	for (vector<ScenePlane*>::iterator it = planes.begin(); it != planes.end(); it++) {
-		scenePhysics->removeSceneRigidBody(*it);
-		delete *it;
-	}
-	planes.clear();
+	for (auto &objIt : objectMap) {
 
-	for (vector<SceneSphere*>::iterator it = spheres.begin(); it != spheres.end(); it++) {
-		scenePhysics->removeSceneRigidBody(*it);
-		delete *it;
-	}
-	spheres.clear();
+		SceneRigidBodyObject *rigidBodyObj = dynamic_cast<SceneRigidBodyObject*>(objIt.second.get());
 
-	for (vector<SceneBox*>::iterator it = boxes.begin(); it != boxes.end(); it++) {
-		scenePhysics->removeSceneRigidBody(*it);
-		delete *it;
-	}
-	boxes.clear();
+		if (rigidBodyObj)
+			scenePhysics->removeSceneRigidBody(rigidBodyObj);
 
-	for (vector<Creature*>::iterator it = creatures.begin(); it != creatures.end(); it++) {
-		(*it)->removeFromScenePhysics(scenePhysics);
-		delete *it;
+		Creature *creatureObj = dynamic_cast<Creature*>(objIt.second.get());
+		if (creatureObj)
+			creatureObj->removeFromScenePhysics(scenePhysics);
+			
+
+
 	}
-	creatures.clear();
+	objectMap.clear();
 
 
 	delete scenePhysics;
@@ -88,7 +80,6 @@ bool Scene::load(const char *filename) {
 
 		if (ref.has_desc()) {
 
-
 			SceneObjectDesc sceneObjectDesc = ref.desc();
 
 			string name = sceneObjectDesc.name();
@@ -102,13 +93,13 @@ bool Scene::load(const char *filename) {
 				Planef plane = planeDesc.plane();
 				float size = planeDesc.size();
 
-				ScenePlane *scenePlane = new ScenePlane(name, plane);
-				planes.push_back(scenePlane);
+				std::shared_ptr<ScenePlane> scenePlane(new ScenePlane(name, plane));
+				objectMap[name] = scenePlane;
 
-				scenePhysics->addSceneRigidBody(scenePlane);
+				scenePhysics->addSceneRigidBody(scenePlane.get());
 
 				if (sceneObserver)
-					sceneObserver->onSceneAddPlane(scenePlane, origin, size);
+					sceneObserver->onSceneAddPlane(scenePlane.get(), origin, size);
 
 			}
 
@@ -119,13 +110,13 @@ bool Scene::load(const char *filename) {
 				Transform transform(boxDesc.transform());
 				Vector3f halfExtents(boxDesc.half_extents());
 
-				SceneBox *sceneBox = new SceneBox(name, halfExtents, transform);
-				boxes.push_back(sceneBox);
+				std::shared_ptr<SceneBox> sceneBox(new SceneBox(name, halfExtents, transform));
+				objectMap[name] = sceneBox;
 
-				scenePhysics->addSceneRigidBody(sceneBox);
+				scenePhysics->addSceneRigidBody(sceneBox.get());
 
 				if (sceneObserver)
-					sceneObserver->onSceneAddBox(sceneBox);
+					sceneObserver->onSceneAddBox(sceneBox.get());
 
 			}
 
@@ -145,147 +136,64 @@ bool Scene::load(const char *filename) {
 
 		}
 
-
-
-		// TODO : Refactor!!!  We're assuming a config based scene object is a creature
+		// TODO : Refactor!!!  We're assuming a config file based scene object is a creature
 		if (ref.has_config()) {
 
 			const string &config = ref.config();
 
-			Creature *creature = new Creature();
+			std::shared_ptr<Creature> creature(new Creature());
 			creature->load(dir + "/" + config);
-
-			creatures.push_back(creature);
+			objectMap[creature->name] = creature;
 
 			creature->addToScenePhysics(scenePhysics);
 
 			if (sceneObserver)
-				sceneObserver->onSceneAddCreature(creature);
+				sceneObserver->onSceneAddCreature(creature.get());
 
 		}
-
 
 	}
-
-
-
-
-
-	/*
-  for(unsigned i=0;i<doc.size();i++) {
-
-    //		cout << "blah" << endl;
-
-    string type;
-
-    doc[i]["type"] >> type;
-
-		if (type == "plane") {
-			Vector3f origin;
-			Planef plane;
-			float size;
-			string name;
-
-			doc[i]["name"] >> name;
-			doc[i]["origin"] >> origin;
-			doc[i]["plane"] >> plane;
-			doc[i]["size"] >> size;
-
-			ScenePlane *scenePlane = new ScenePlane(name, plane);
-			planes.push_back(scenePlane);
-
-			scenePhysics->addSceneRigidBody(scenePlane);
-
-			//			cout << scenePlane->plane << endl;
-
-			if (sceneObserver)
-				sceneObserver->onSceneAddPlane(scenePlane, origin, size);
-
-		}
-
-
-		else if (type == "sphere") {
-			Vector3f origin;
-			float radius;
-			string name;
-
-			doc[i]["name"] >> name;
-			doc[i]["origin"] >> origin;
-			doc[i]["radius"] >> radius;
-
-			SceneSphere *sceneSphere = new SceneSphere(name, radius, origin);
-			spheres.push_back(sceneSphere);
-
-			scenePhysics->addSceneRigidBody(sceneSphere);
-
-			if (sceneObserver)
-				sceneObserver->onSceneAddSphere(sceneSphere);
-
-		}
-
-		else if (type == "box") {
-			Vector3f position;
-			Vector3f halfExtents;
-			Quaternionf rotation;
-			string name;
-
-			doc[i]["name"] >> name;
-			doc[i]["position"] >> position;
-			doc[i]["rotation"] >> rotation;
-			doc[i]["halfExtents"] >> halfExtents;
-
-			SceneBox *sceneBox = new SceneBox(name, halfExtents, Transform(position, rotation));
-			boxes.push_back(sceneBox);
-
-			scenePhysics->addSceneRigidBody(sceneBox);
-
-			if (sceneObserver)
-				sceneObserver->onSceneAddBox(sceneBox);
-
-		}
-
-		else if (type == "light") {
-			Vector4f position, diffuse, specular, ambient;
-			string name;
-
-			doc[i]["name"] >> name;
-			doc[i]["position"] >> position;
-			doc[i]["diffuse"] >> diffuse;
-			doc[i]["specular"] >> specular;
-			doc[i]["ambient"] >> ambient;
-
-			if (sceneObserver)
-				sceneObserver->onSceneAddLight(position, diffuse, specular, ambient);
-
-		}
-
-		else if (type == "creature") {
-			string name, config;
-
-			doc[i]["name"] >> name;
-			doc[i]["config"] >> config;
-
-			Creature *creature = new Creature(name);
-			creature->load(dir + "/" + config);
-
-			creatures.push_back(creature);
-
-			creature->addToScenePhysics(scenePhysics);
-
-			if (sceneObserver)
-				sceneObserver->onSceneAddCreature(creature);
-
-		}
-
-  }
-
-	fin.close();
-  */
 
 
 	return true;
 
 }
+
+
+/*
+ScenePlane* Scene::resetOrCreatePlane(const string &name, const Planef &plane) {
+
+	ScenePlane* plane = dynamic_cast<ScenePlane*>(objectMap[name]);
+
+	if (plane != NULL) {
+		
+
+	}
+
+	else {
+		plane = new ScenePlane(name, plane);
+
+	return plane;
+		
+}
+
+
+SceneSphere* Scene::resetOrCreateSphere(const string &name) {
+
+}
+
+
+SceneBox* Scene::resetOrCreateBox(const string &name) {
+
+}
+
+
+Creature* Scene::resetOrCreateCreature(const string &name) {
+
+}
+*/
+
+
 
 
 void Scene::step(const float step) {
@@ -297,9 +205,10 @@ void Scene::step(const float step) {
 
 Creature* Scene::getCreature(const string &name) {
 
-	for (unsigned i=0; i<creatures.size(); i++)
-		if (creatures[i]->getName() == name)
-			return creatures[i];
+	auto it = objectMap.find(name);
+
+	if (it != objectMap.end())
+		return dynamic_cast<Creature*>(it->second.get());
 
 	return NULL;
 

@@ -3,6 +3,8 @@
 
 #include <istream>
 
+#include <memory>
+
 #include "SceneObserver.h"
 
 #include "ScenePlane.h"
@@ -20,10 +22,7 @@ class Scene {
   SceneObserver *sceneObserver;
   ScenePhysics *scenePhysics;
 
-  vector<ScenePlane*> planes;
-  vector<SceneSphere*> spheres;
-  vector<SceneBox*> boxes;
-  vector<Creature*> creatures;
+	map<string, std::shared_ptr<SceneObject> > objectMap;
 
 
 public:

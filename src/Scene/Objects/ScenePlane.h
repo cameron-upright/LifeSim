@@ -18,7 +18,7 @@ public:
   // plane object
   Planef plane;
 
-  ScenePlane(string &name_, Planef &plane_);
+  ScenePlane(const string &name_, const Planef &plane_);
   ~ScenePlane();
 
   btCollisionShape* getCollisionShape() {

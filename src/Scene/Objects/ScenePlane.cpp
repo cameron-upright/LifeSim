@@ -2,7 +2,7 @@
 
 
 
-ScenePlane::ScenePlane(string &name_, Planef &plane_) : SceneRigidBodyObject(name_), plane(plane_) {
+ScenePlane::ScenePlane(const string &name_, const Planef &plane_) : SceneRigidBodyObject(name_), plane(plane_) {
 
   planeShape = new btStaticPlaneShape(btVector3(plane.v[0], plane.v[1], plane.v[2]), -plane.d);
   planeMotionState = new btDefaultMotionState(btTransform(btQuaternion(0,0,0,1),btVector3(0,0,0)));
