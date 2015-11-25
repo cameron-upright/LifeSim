@@ -10,6 +10,8 @@
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/asio.hpp>
 
+#include <glog/logging.h>
+
 #include "Proto/LifeSim.pb.h"
 #include "Util/RLGlue/RLGlue++.h"
 #include "Util/RLGlue/Experiment.h"
@@ -22,6 +24,10 @@ using boost::asio::ip::tcp;
 
 
 int main(int argc, char **argv) {
+
+  FLAGS_alsologtostderr = 1;
+
+  google::InitGoogleLogging(argv[0]);
 
   try {
 
