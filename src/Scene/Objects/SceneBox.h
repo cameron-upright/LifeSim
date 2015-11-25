@@ -22,6 +22,8 @@ public:
   SceneBox(const string &name_, const Vector3f &halfExtents_, const Transform &transform_);
   ~SceneBox();
 
+	virtual void reset(const Transform &transform_);
+
   btCollisionShape* getCollisionShape() {
     return boxShape;
   };

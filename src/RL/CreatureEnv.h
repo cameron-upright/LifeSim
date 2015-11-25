@@ -33,6 +33,12 @@ class CreatureEnv : public RLGlue::Env {
   // This increments every environment step, and wraps to 0 after numEnvStepsPerRLStep
   int envStep;
 
+	// The path of the scene configuration file (TODO : gross, used for restarting)
+	string scenePath_;
+	LifeSim::CreatureEnvDesc desc_;
+
+
+
 
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// RL Info
@@ -60,6 +66,8 @@ class CreatureEnv : public RLGlue::Env {
 	// Used to notify env_step that the simulation is complete
 	std::mutex stepMutex;
 	std::condition_variable stepCond;
+
+
 
 
 

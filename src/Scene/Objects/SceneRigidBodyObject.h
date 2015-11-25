@@ -5,6 +5,8 @@
 
 #include "SceneObject.h"
 
+#include "Transform.h"
+
 using namespace std;
 
 class SceneRigidBodyObject : public SceneObject {
@@ -12,6 +14,8 @@ class SceneRigidBodyObject : public SceneObject {
 public:
 
   SceneRigidBodyObject(string name_) : SceneObject(name_) {}
+
+	virtual void reset(const Transform &transform_) {}
 
   virtual btCollisionShape *getCollisionShape() = 0;
   virtual btDefaultMotionState* getMotionState() = 0;

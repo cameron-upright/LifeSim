@@ -72,8 +72,10 @@ bool Scene::load(const char *filename) {
 
 	close(fd);
 
-	
-	
+	// TODO : kind of nasty, need to refactory by separating scene description and state?
+	bool firstTime = objectMap.empty();
+
+
 	for (int i=0; i<desc.scene_object_size(); i++) {
 
 		SceneObjectRef ref = desc.scene_object(i);
@@ -93,13 +95,25 @@ bool Scene::load(const char *filename) {
 				Planef plane = planeDesc.plane();
 				float size = planeDesc.size();
 
-				std::shared_ptr<ScenePlane> scenePlane(new ScenePlane(name, plane));
-				objectMap[name] = scenePlane;
+				auto objIt = objectMap.find(name);
 
-				scenePhysics->addSceneRigidBody(scenePlane.get());
+				ScenePlane *scenePlane;
 
-				if (sceneObserver)
-					sceneObserver->onSceneAddPlane(scenePlane.get(), origin, size);
+				if (objIt != objectMap.end()) {
+
+					scenePlane = dynamic_cast<ScenePlane*>(objIt->second.get());
+
+				} else {
+
+					scenePlane = new ScenePlane(name, plane);
+					objectMap[name] = std::shared_ptr<ScenePlane>(scenePlane);
+
+					scenePhysics->addSceneRigidBody(scenePlane);
+
+					if (sceneObserver)
+						sceneObserver->onSceneAddPlane(scenePlane, origin, size);
+
+				}
 
 			}
 
@@ -110,17 +124,30 @@ bool Scene::load(const char *filename) {
 				Transform transform(boxDesc.transform());
 				Vector3f halfExtents(boxDesc.half_extents());
 
-				std::shared_ptr<SceneBox> sceneBox(new SceneBox(name, halfExtents, transform));
-				objectMap[name] = sceneBox;
+				auto objIt = objectMap.find(name);
 
-				scenePhysics->addSceneRigidBody(sceneBox.get());
+				SceneBox* sceneBox;
 
-				if (sceneObserver)
-					sceneObserver->onSceneAddBox(sceneBox.get());
+				if (objIt != objectMap.end()) {
+
+					sceneBox = dynamic_cast<SceneBox*>(objIt->second.get());
+					sceneBox->reset(transform);
+
+				} else {
+
+					sceneBox = new SceneBox(name, halfExtents, transform);
+					objectMap[name] = std::shared_ptr<SceneBox>(sceneBox);
+
+					scenePhysics->addSceneRigidBody(sceneBox);
+
+					if (sceneObserver)
+						sceneObserver->onSceneAddBox(sceneBox);
+
+				}
 
 			}
 
-			else if (sceneObjectDesc.type() == SceneObjectDesc_Type_LIGHT) {
+			else if (sceneObjectDesc.type() == SceneObjectDesc_Type_LIGHT && firstTime) {
 
 				const SceneLightDesc &lightDesc = sceneObjectDesc.GetExtension(SceneLightDesc::scene_object);
 
@@ -137,7 +164,7 @@ bool Scene::load(const char *filename) {
 		}
 
 		// TODO : Refactor!!!  We're assuming a config file based scene object is a creature
-		if (ref.has_config()) {
+		if (ref.has_config() && firstTime) {
 
 			const string &config = ref.config();
 

@@ -30,6 +30,14 @@ SceneBox::SceneBox(const string &name_, const Vector3f &halfExtents_, const Tran
 
 
 
+void SceneBox::reset(const Transform &transform_) {
+
+	boxRigidBody->setWorldTransform(transform);
+
+}
+
+
+
 SceneBox::~SceneBox() {
 
   delete boxRigidBody;
@@ -37,3 +45,4 @@ SceneBox::~SceneBox() {
   delete boxShape;
 
 }
+

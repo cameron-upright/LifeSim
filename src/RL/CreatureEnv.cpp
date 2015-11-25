@@ -34,12 +34,10 @@ CreatureEnv::~CreatureEnv() {
 
 void CreatureEnv::load(const string &filename) {
 
-	LifeSim::CreatureEnvDesc desc;
-
   int fd = open(filename.c_str(), O_RDONLY);
 
   google::protobuf::io::FileInputStream fileInput(fd);
-	google::protobuf::TextFormat::Parse(&fileInput, &desc);
+	google::protobuf::TextFormat::Parse(&fileInput, &desc_);
 
 	close(fd);
 
@@ -49,11 +47,13 @@ void CreatureEnv::load(const string &filename) {
   found = filenameStr.find_last_of("/");
 	string dir = filenameStr.substr(0,found);
 
-	scene->load((dir + "/" + desc.scene()).c_str());
-	creature = scene->getCreature(desc.creature());
+	scenePath_ = dir + "/" + desc_.scene();
 
-	envStepSize = desc.env_step_size();
-	envStepPerRLStep = desc.env_step_per_rl_step();
+	scene->load(scenePath_.c_str());
+	creature = scene->getCreature(desc_.creature());
+
+	envStepSize = desc_.env_step_size();
+	envStepPerRLStep = desc_.env_step_per_rl_step();
 
 }
 
@@ -68,6 +68,10 @@ RLGlue::StateDesc CreatureEnv::start() {
 
 	remainingTime = 0.0f;
 	envStep = 0;
+
+	// Restart the scene
+	scene->load(scenePath_.c_str());
+	creature = scene->getCreature(desc_.creature());
 
 	// Initialize a new currentState
 	currentState.reset(new StateDesc());
@@ -90,7 +94,6 @@ RLGlue::RewardStateTerminal CreatureEnv::step(const RLGlue::ActionDesc &action) 
 
 	// Step the environment
 	stepRL(state, actionCopy, the_reward);
-
 
 	RLGlue::RewardStateTerminal rst;
 
