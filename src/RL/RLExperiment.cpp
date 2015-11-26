@@ -5,8 +5,6 @@
 #include <istream>
 #include <sstream>
 
-#include <assert.h>
-
 #include "RLExperiment.h"
 
 #include <google/protobuf/text_format.h>
