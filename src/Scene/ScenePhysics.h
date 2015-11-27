@@ -25,6 +25,8 @@ public:
   ScenePhysics(void);
   ~ScenePhysics();
 
+	void reset();
+
   void addSceneRigidBody(SceneRigidBodyObject *object);
   void removeSceneRigidBody(SceneRigidBodyObject *object);
 

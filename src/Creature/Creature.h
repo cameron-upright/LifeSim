@@ -6,6 +6,7 @@
 #include <string>
 #include <vector>
 #include <ext/hash_map>
+#include <memory>
 
 #include "SceneObject.h"
 #include "SceneBox.h"
@@ -29,18 +30,23 @@ class Creature : public SceneObject {
 
 public:
 
-  vector<SceneBox*> boxes;
-  vector<SceneHingeConstraint*> hingeConstraints;
-  vector<SceneUniversalConstraint*> universalConstraints;
+	vector<shared_ptr<SceneHingeConstraint> > hingeConstraints;
+	vector<shared_ptr<SceneUniversalConstraint> > universalConstraints;
 
-  map<string, SceneConstraint*> constraintMap;
-  map<string, SceneRigidBodyObject*> rigidBodyMap;
+  map<string, shared_ptr<SceneConstraint> > constraintMap;
+  map<string, shared_ptr<SceneRigidBodyObject> > rigidBodyMap;
 
 	Creature() {}
+	Creature(const Creature &creature) = delete;
+	Creature(Creature &&creature) = delete;
+
 
 	Creature(const string &name_) : SceneObject(name_) {}
 
   ~Creature();
+
+	Creature& operator=(const Creature &other) = delete;
+	Creature& operator=(Creature &&other) = delete;
 
   bool load(const string &filename);
 

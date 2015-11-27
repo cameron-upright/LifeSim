@@ -28,8 +28,13 @@ class CreatureVis : public SceneObjectVis {
  public:
 
   CreatureVis(Creature *_creature) : creature(_creature) {
-    for (vector<SceneBox*>::iterator it = creature->boxes.begin(); it != creature->boxes.end(); it++)
-      boxes.push_back(new SceneBoxVis(*it));
+
+		for (auto &it : creature->rigidBodyMap) {
+			SceneBox *box = dynamic_cast<SceneBox*>(it.second.get());
+			if (box)
+				boxes.push_back(new SceneBoxVis(box));
+		}
+
   }
 
   ~CreatureVis() {

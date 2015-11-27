@@ -16,24 +16,7 @@
 
 using namespace LifeSim;
 
-Creature::~Creature() {
-
-  for (vector<SceneBox*>::iterator it = boxes.begin(); it != boxes.end(); it++) {
-    rigidBodyMap.erase((*it)->getName().c_str());
-    delete *it;
-  }
-
-  for (vector<SceneHingeConstraint*>::iterator it = hingeConstraints.begin(); it != hingeConstraints.end(); it++) {
-    constraintMap.erase((*it)->name);
-    delete *it;
-  }
-
-  for (vector<SceneUniversalConstraint*>::iterator it = universalConstraints.begin(); it != universalConstraints.end(); it++) {
-    constraintMap.erase((*it)->name);
-    delete *it;
-  }
-
-}
+Creature::~Creature() {}
 
 bool Creature::load(const string &filename) {
 
@@ -63,21 +46,31 @@ bool Creature::load(const string &filename) {
     string name = bodyDesc.name();
 		//		rotation.normalize();
 
-		//		cout << name << " " << position << " " << rotation << endl;
-
 		if (bodyDesc.type() == SceneObjectDesc_Type_BOX) {
+
 
 			const SceneBoxDesc &boxDesc = bodyDesc.GetExtension(SceneBoxDesc::scene_object);
 
 			Transform transform(boxDesc.transform());
 			Vector3f halfExtents(boxDesc.half_extents());
 
+			auto objIt = rigidBodyMap.find(name);
 
-			SceneBox *sceneBox = new SceneBox(name, halfExtents, transform);
+			SceneBox* sceneBox;
 
-			boxes.push_back(sceneBox);
+			if (objIt != rigidBodyMap.end()) {
 
-			rigidBodyMap[sceneBox->getName().c_str()] = sceneBox;
+				//				cout << "RESET " << name << endl;
+
+				sceneBox = dynamic_cast<SceneBox*>(objIt->second.get());
+				sceneBox->reset(halfExtents, transform);
+
+			} else {
+
+				sceneBox = new SceneBox(name, halfExtents, transform);
+				rigidBodyMap[name] = std::shared_ptr<SceneBox>(sceneBox);
+
+			}
 
 		}
 
@@ -85,7 +78,13 @@ bool Creature::load(const string &filename) {
 
 
 
+	// Clear out the old constraints
+	// TODO : Ugh, nasty
 
+	
+	hingeConstraints.clear();
+	universalConstraints.clear();
+	constraintMap.clear();
 
 
 	for (int i=0; i<creatureDesc.constraint_size(); i++) {
@@ -93,6 +92,9 @@ bool Creature::load(const string &filename) {
 		ConstraintDesc constraintDesc = creatureDesc.constraint(i);
 
     string name = constraintDesc.name();
+
+		if (constraintMap.count(name))
+			continue;
 
 		string bodyNameA = constraintDesc.body(0);
 		string bodyNameB = constraintDesc.body(1);
@@ -107,30 +109,22 @@ bool Creature::load(const string &filename) {
 			Vector3f pivotB(hingeDesc.pivot_in_b());
 			Vector2f limit(hingeDesc.limit());
 
-			SceneRigidBodyObject *bodyA, *bodyB;
+			shared_ptr<SceneRigidBodyObject> bodyA, bodyB;
 
 			//    cout << "\"" << bodyNameA << "\"" << endl;
 
 			bodyA = rigidBodyMap[bodyNameA.c_str()];
 			bodyB = rigidBodyMap[bodyNameB.c_str()];
 
-			SceneHingeConstraint *sceneHingeConstraint = new SceneHingeConstraint(btVector3(axisA[0], axisA[1], axisA[2]),
-																																						btVector3(axisB[0], axisB[1], axisB[2]),
-																																						btVector3(pivotA[0], pivotA[1], pivotA[2]),
-																																						btVector3(pivotB[0], pivotB[1], pivotB[2]),
-																																						limit, bodyA, bodyB, name);
+			std::shared_ptr<SceneHingeConstraint>
+				sceneHingeConstraint(new SceneHingeConstraint(btVector3(axisA[0], axisA[1], axisA[2]),
+																											btVector3(axisB[0], axisB[1], axisB[2]),
+																											btVector3(pivotA[0], pivotA[1], pivotA[2]),
+																											btVector3(pivotB[0], pivotB[1], pivotB[2]),
+																											limit, bodyA.get(), bodyB.get(), name));
+
 			hingeConstraints.push_back(sceneHingeConstraint);
 			constraintMap[name] = sceneHingeConstraint;
-
-			/*
-				cout << axisA << endl;
-				cout << axisB << endl;
-				cout << pivotA << endl;
-				cout << pivotB << endl;
-				cout << bodyA << endl;
-				cout << bodyB << endl;
-				cout << endl;
-			*/
 
 		} else if (constraintDesc.type() == ConstraintDesc_Type_UNIVERSAL) {
 
@@ -142,33 +136,23 @@ bool Creature::load(const string &filename) {
 			Vector2f limit0(universalDesc.limit_0());
 			Vector2f limit1(universalDesc.limit_1());
 
-			SceneRigidBodyObject *bodyA, *bodyB;
+			shared_ptr<SceneRigidBodyObject> bodyA, bodyB;
 
 			//    cout << "\"" << bodyNameA << "\"" << endl;
 
 			bodyA = rigidBodyMap[bodyNameA.c_str()];
 			bodyB = rigidBodyMap[bodyNameB.c_str()];
 
-			SceneUniversalConstraint *sceneUniversalConstraint = new SceneUniversalConstraint(btVector3(axis0[0], axis0[1], axis0[2]),
-																																												btVector3(axis1[0], axis1[1], axis1[2]),
-																																												btVector3(pivot[0], pivot[1], pivot[2]),
-																																												limit0, limit1,
-																																												bodyA, bodyB, name);
+			std::shared_ptr<SceneUniversalConstraint>
+				sceneUniversalConstraint(new SceneUniversalConstraint(btVector3(axis0[0], axis0[1], axis0[2]),
+																															btVector3(axis1[0], axis1[1], axis1[2]),
+																															btVector3(pivot[0], pivot[1], pivot[2]),
+																															limit0, limit1,
+																															bodyA.get(), bodyB.get(), name));
+			
 			universalConstraints.push_back(sceneUniversalConstraint);
-			constraintMap[name] = sceneUniversalConstraint;
-
-			/*
-				cout << axis0 << endl;
-				cout << axis1 << endl;
-				cout << pivot << endl;
-				cout << bodyA << endl;
-				cout << bodyB << endl;
-				cout << limit0 << endl;
-				cout << limit1 << endl;
-				cout << endl;
-			*/
-
-
+			constraintMap[name] = std::shared_ptr<SceneConstraint>(sceneUniversalConstraint);
+			
 		}
 	}
 
@@ -180,31 +164,28 @@ bool Creature::load(const string &filename) {
 
 void Creature::addToScenePhysics(ScenePhysics *scenePhysics) {
 
-  for (vector<SceneBox*>::iterator it = boxes.begin(); it != boxes.end(); it++) {
-    scenePhysics->addSceneRigidBody(*it);
-  }
+	for (auto &it : rigidBodyMap)
+    scenePhysics->addSceneRigidBody(it.second.get());
 
-  for (vector<SceneHingeConstraint*>::iterator it = hingeConstraints.begin(); it != hingeConstraints.end(); it++)
-    scenePhysics->addSceneConstraint(*it);
+  for (auto &constraint : hingeConstraints)
+    scenePhysics->addSceneConstraint(constraint.get());
 
-  for (vector<SceneUniversalConstraint*>::iterator it = universalConstraints.begin(); it != universalConstraints.end(); it++)
-    scenePhysics->addSceneConstraint(*it);
+  for (auto &constraint : universalConstraints)
+    scenePhysics->addSceneConstraint(constraint.get());
 
 }
 
 
 void Creature::removeFromScenePhysics(ScenePhysics *scenePhysics) {
 
-  for (vector<SceneBox*>::iterator it = boxes.begin(); it != boxes.end(); it++) {
-    scenePhysics->removeSceneRigidBody(*it);
-  }
+  for (auto &constraint : hingeConstraints)
+    scenePhysics->removeSceneConstraint(constraint.get());
 
-  for (vector<SceneHingeConstraint*>::iterator it = hingeConstraints.begin(); it != hingeConstraints.end(); it++)
-    scenePhysics->removeSceneConstraint(*it);
+  for (auto &constraint : universalConstraints)
+    scenePhysics->removeSceneConstraint(constraint.get());
 
-  for (vector<SceneUniversalConstraint*>::iterator it = universalConstraints.begin(); it != universalConstraints.end(); it++)
-    scenePhysics->removeSceneConstraint(*it);
-
+	for (auto &it : rigidBodyMap)
+    scenePhysics->removeSceneRigidBody(it.second.get());
 
 }
 

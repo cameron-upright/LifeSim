@@ -18,19 +18,22 @@ using namespace LifeSim;
 Scene::Scene() {
 
 	sceneObserver = NULL;
-	scenePhysics = new ScenePhysics();
-
-}
-
-Scene::Scene(const char *filename) {
-
-	sceneObserver = NULL;
-  load(filename);
-	scenePhysics = new ScenePhysics();
+	scenePhysics = NULL;
+	//	scenePhysics = new ScenePhysics();
 
 }
 
 Scene::~Scene() {
+
+	destroyScenePhysics();
+
+}
+
+
+void Scene::destroyScenePhysics() {
+
+	if (scenePhysics == NULL)
+		return;
 
 	for (auto &objIt : objectMap) {
 
@@ -42,14 +45,12 @@ Scene::~Scene() {
 		Creature *creatureObj = dynamic_cast<Creature*>(objIt.second.get());
 		if (creatureObj)
 			creatureObj->removeFromScenePhysics(scenePhysics);
-			
-
 
 	}
-	objectMap.clear();
-
 
 	delete scenePhysics;
+
+	scenePhysics = NULL;
 
 }
 
@@ -72,6 +73,9 @@ bool Scene::load(const char *filename) {
 
 	close(fd);
 
+	destroyScenePhysics();
+	scenePhysics = new ScenePhysics();
+
 	// TODO : kind of nasty, need to refactory by separating scene description and state?
 	bool firstTime = objectMap.empty();
 
@@ -85,7 +89,6 @@ bool Scene::load(const char *filename) {
 			SceneObjectDesc sceneObjectDesc = ref.desc();
 
 			string name = sceneObjectDesc.name();
-
 
 			if (sceneObjectDesc.type() == SceneObjectDesc_Type_PLANE) {
 
@@ -108,12 +111,12 @@ bool Scene::load(const char *filename) {
 					scenePlane = new ScenePlane(name, plane);
 					objectMap[name] = std::shared_ptr<ScenePlane>(scenePlane);
 
-					scenePhysics->addSceneRigidBody(scenePlane);
-
 					if (sceneObserver)
 						sceneObserver->onSceneAddPlane(scenePlane, origin, size);
 
 				}
+
+				scenePhysics->addSceneRigidBody(scenePlane);
 
 			}
 
@@ -131,19 +134,19 @@ bool Scene::load(const char *filename) {
 				if (objIt != objectMap.end()) {
 
 					sceneBox = dynamic_cast<SceneBox*>(objIt->second.get());
-					sceneBox->reset(transform);
+					sceneBox->reset(halfExtents, transform);
 
 				} else {
 
 					sceneBox = new SceneBox(name, halfExtents, transform);
 					objectMap[name] = std::shared_ptr<SceneBox>(sceneBox);
 
-					scenePhysics->addSceneRigidBody(sceneBox);
-
 					if (sceneObserver)
 						sceneObserver->onSceneAddBox(sceneBox);
 
 				}
+
+				scenePhysics->addSceneRigidBody(sceneBox);
 
 			}
 
@@ -164,23 +167,41 @@ bool Scene::load(const char *filename) {
 		}
 
 		// TODO : Refactor!!!  We're assuming a config file based scene object is a creature
-		if (ref.has_config() && firstTime) {
+		if (ref.has_config()) {
 
 			const string &config = ref.config();
 
-			std::shared_ptr<Creature> creature(new Creature());
-			creature->load(dir + "/" + config);
-			objectMap[creature->name] = creature;
+			// TODO : This is the worst hack
+			auto objIt = objectMap.find(creatureNameHack);
+
+			Creature *creature;
+
+			if (!creatureNameHack.empty()) {
+
+				// Convert
+				creature = dynamic_cast<Creature*>(objIt->second.get());
+
+				// Reload
+				creature->load(dir + "/" + config);
+
+			} else {
+				// Create
+				creature = new Creature();
+				creature->load(dir + "/" + config);
+				creatureNameHack = creature->name;	
+				objectMap[creatureNameHack] = std::shared_ptr<Creature>(creature);
+
+				// Register
+				if (sceneObserver)
+					sceneObserver->onSceneAddCreature(creature);
+
+			}
 
 			creature->addToScenePhysics(scenePhysics);
-
-			if (sceneObserver)
-				sceneObserver->onSceneAddCreature(creature.get());
 
 		}
 
 	}
-
 
 	return true;
 

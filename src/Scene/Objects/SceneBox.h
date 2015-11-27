@@ -22,7 +22,10 @@ public:
   SceneBox(const string &name_, const Vector3f &halfExtents_, const Transform &transform_);
   ~SceneBox();
 
-	virtual void reset(const Transform &transform_);
+	virtual void reset(const Vector3f &halfExtents_, const Transform &transform_);
+	virtual void destroy();
+
+	void create(const Vector3f &halfExtents_, const Transform &transform_);
 
   btCollisionShape* getCollisionShape() {
     return boxShape;

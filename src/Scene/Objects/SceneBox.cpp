@@ -1,8 +1,15 @@
 #include "SceneBox.h"
 
-SceneBox::SceneBox(const string &name_, const Vector3f &halfExtents_, const Transform &transform_) : SceneRigidBodyObject(name_), 
-												    halfExtents(halfExtents_), 
-												    transform(transform_) {
+SceneBox::SceneBox(const string &name_,
+									 const Vector3f &halfExtents_,
+									 const Transform &transform_) :	SceneRigidBodyObject(name_), halfExtents(halfExtents_), transform(transform_) {
+
+	create(halfExtents_, transform_);
+
+}
+
+void SceneBox::create(const Vector3f &halfExtents_,
+											const Transform &transform_) {
 
   boxShape = new btBoxShape(btVector3(halfExtents[0], halfExtents[1], halfExtents[2]));
 
@@ -30,19 +37,37 @@ SceneBox::SceneBox(const string &name_, const Vector3f &halfExtents_, const Tran
 
 
 
-void SceneBox::reset(const Transform &transform_) {
+void SceneBox::reset(const Vector3f &halfExtents_,
+										 const Transform &transform_) {
 
+	destroy();
+	create(halfExtents_, transform_);
+
+	/*
+	boxMotionState->setWorldTransform(transform);
 	boxRigidBody->setWorldTransform(transform);
+
+	boxRigidBody->clearForces();
+	boxRigidBody->setLinearVelocity(btVector3(0,0,0));
+	boxRigidBody->setAngularVelocity(btVector3(0,0,0));
+	*/
 
 }
 
 
 
-SceneBox::~SceneBox() {
+void SceneBox::destroy() {
 
   delete boxRigidBody;
   delete boxMotionState;
   delete boxShape;
+
+}
+
+
+SceneBox::~SceneBox() {
+
+	destroy();
 
 }
 

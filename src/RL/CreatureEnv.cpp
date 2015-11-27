@@ -69,6 +69,8 @@ RLGlue::StateDesc CreatureEnv::start() {
 	remainingTime = 0.0f;
 	envStep = 0;
 
+
+
 	// Restart the scene
 	scene->load(scenePath_.c_str());
 	creature = scene->getCreature(desc_.creature());

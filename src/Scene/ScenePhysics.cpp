@@ -43,6 +43,20 @@ ScenePhysics::~ScenePhysics() {
 }
 
 
+void ScenePhysics::reset() {
+
+	solver->reset();
+	dynamicsWorld->clearForces();
+	broadphase->resetPool(dispatcher);
+
+	btOverlappingPairCache *pairCache = broadphase->getOverlappingPairCache();
+	btBroadphasePairArray &pairArray = pairCache->getOverlappingPairArray();
+
+	for (int i=0; i<pairArray.size(); i++)
+		pairCache->cleanOverlappingPair(pairArray[i], dispatcher);
+
+}
+
 void ScenePhysics::addSceneRigidBody(SceneRigidBodyObject *object) {
 
   dynamicsWorld->addRigidBody(object->getRigidBody());

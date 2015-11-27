@@ -16,6 +16,7 @@ public:
   SceneRigidBodyObject(string name_) : SceneObject(name_) {}
 
 	virtual void reset(const Transform &transform_) {}
+	virtual void destroy() {}
 
   virtual btCollisionShape *getCollisionShape() = 0;
   virtual btDefaultMotionState* getMotionState() = 0;

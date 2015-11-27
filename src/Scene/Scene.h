@@ -24,13 +24,21 @@ class Scene {
 
 	map<string, std::shared_ptr<SceneObject> > objectMap;
 
+	string creatureNameHack;
 
 public:
 
   Scene(void);
   Scene(const char *filename);
+
+	Scene(const Scene &scene) = delete;
+	Scene(Scene &&scene) = delete;
   ~Scene();
 
+	Scene& operator=(const Scene &other) = delete;
+	Scene& operator=(Scene &&other) = delete;
+
+	void destroyScenePhysics();
   bool load(const char *filename);
 
   void setObserver(SceneObserver *sceneObserver) {
