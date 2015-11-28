@@ -19,7 +19,7 @@ namespace RLGlue {
 		Experiment(EnvClient &envClient, AgentClient &agentClient) :
 			envClient_(envClient), agentClient_(agentClient) {}
 
-		void runEpisode(const int stepLimit = std::numeric_limits<int>::max());
+		bool runEpisode(const int stepLimit = std::numeric_limits<int>::max());
 
 	};
 

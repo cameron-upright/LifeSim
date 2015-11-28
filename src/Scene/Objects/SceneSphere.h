@@ -21,7 +21,7 @@ public:
   Vector3f origin;
 
   SceneSphere(string &name_, float radius_, Vector3f &origin_);
-  ~SceneSphere();
+  virtual ~SceneSphere();
 
   btCollisionShape* getCollisionShape() {
     return sphereShape;

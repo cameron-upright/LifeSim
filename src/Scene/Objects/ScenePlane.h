@@ -19,7 +19,7 @@ public:
   Planef plane;
 
   ScenePlane(const string &name_, const Planef &plane_);
-  ~ScenePlane();
+  virtual ~ScenePlane();
 
   btCollisionShape* getCollisionShape() {
     return planeShape;

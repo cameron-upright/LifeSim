@@ -20,10 +20,10 @@ public:
   Transform transform;
 
   SceneBox(const string &name_, const Vector3f &halfExtents_, const Transform &transform_);
-  ~SceneBox();
+  virtual ~SceneBox();
 
 	virtual void reset(const Vector3f &halfExtents_, const Transform &transform_);
-	virtual void destroy();
+	void destroy();
 
 	void create(const Vector3f &halfExtents_, const Transform &transform_);
 

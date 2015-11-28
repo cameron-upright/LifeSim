@@ -75,8 +75,8 @@ RLGlue::StateDesc CreatureEnv::start() {
 	scene->load(scenePath_.c_str());
 	creature = scene->getCreature(desc_.creature());
 
-	// Initialize a new currentState
-	currentState.reset(new StateDesc());
+	// Update the currentState
+	updateCurrentState();
 
 	//	cerr << "ENV start done" << endl;
 
@@ -92,15 +92,15 @@ RLGlue::RewardStateTerminal CreatureEnv::step(const RLGlue::ActionDesc &action) 
 
 	// Prepare the step, creating an action to resist movement
 	RLGlue::StateDesc state;
-	float the_reward=0;
+	float theReward=0;
 
 	// Step the environment
-	stepRL(state, actionCopy, the_reward);
+	stepRL(state, actionCopy, theReward);
 
 	RLGlue::RewardStateTerminal rst;
 
-	rst.set_reward(0.0);
-	rst.mutable_state();
+	rst.set_reward(theReward);
+	*(rst.mutable_state()) = state;
 	rst.set_terminal(false);
 
 	return rst;
@@ -149,8 +149,12 @@ void CreatureEnv::stepSim(float dt) {
 	if (envStep == envStepPerRLStep) {
 
 		currentAction.release();
-		currentState.reset(new StateDesc());
-		currentReward = 0.0f;
+		updateCurrentState();
+
+		Vector3f velocity = creature->getVelocity();
+		Vector3f forward(0.0f, 0.0f, 1.0f);
+
+		currentReward = velocity.dot(forward);
 
 		// Notify the RL that the step is done
 		stepCond.notify_one();
@@ -204,7 +208,20 @@ void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &rewa
 }
 
 
+void CreatureEnv::updateCurrentState() {
 
+	currentState.reset(new StateDesc());
+
+	for (auto hingeConstraint : creature->hingeConstraints)
+		currentState->add_float_state(hingeConstraint->getAngle());
+
+	for (auto universalConstraint : creature->universalConstraints) {
+		currentState->add_float_state(universalConstraint->getAngle(0));
+		currentState->add_float_state(universalConstraint->getAngle(1));
+	}
+
+
+}
 
 void CreatureEnv::applyControl(const ActionDesc &action) {
 

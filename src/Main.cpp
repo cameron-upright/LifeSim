@@ -127,6 +127,7 @@ void DrawGLScene() {
 
   glClear(GL_DEPTH_BUFFER_BIT | GL_COLOR_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
+
   total += elapsed;
   if (total > 2.0) {
 		//		cerr << "ENV DrawGLScene step start" << endl;
@@ -135,7 +136,10 @@ void DrawGLScene() {
 
   }
 
-	sceneVis->render();
+	{
+		std::unique_lock<std::mutex> simLock = env.getSimLock();
+		sceneVis->render();
+	}
 
   fps.showFrameRate();
 

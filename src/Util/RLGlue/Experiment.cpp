@@ -1,9 +1,11 @@
+#include <glog/logging.h>
+
 #include "Experiment.h"
 
 
 namespace RLGlue {
 
-	void Experiment::runEpisode(const int stepLimit) {
+	bool Experiment::runEpisode(const int stepLimit) {
 
 		StateDesc state = envClient_.start();
 		ActionDesc action = agentClient_.start(state);
@@ -20,13 +22,18 @@ namespace RLGlue {
 			rewardState.set_reward(rewardStateTerminal.reward());
 			*(rewardState.mutable_state()) = rewardStateTerminal.state();
 
-			// Step the action
+			// End the episode on a terminal state, or at the step limit
+			if (rewardStateTerminal.terminal()) {
+				agentClient_.end(rewardStateTerminal.reward());
+				return true;
+			}
+
+			// Step the agent
 			action = agentClient_.step(rewardState);
 
 		}
 
-		// End the episode
-		agentClient_.end(0.0);
+		return false;
 
 	}
 

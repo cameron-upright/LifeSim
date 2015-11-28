@@ -10,7 +10,10 @@ message RLExperimentDesc {
 
 
 message StateDesc {
-  
+
+	repeated float float_state = 1;
+	repeated float int_state = 2;
+
 }
 
 message ActionDesc {

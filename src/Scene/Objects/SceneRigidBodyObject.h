@@ -14,9 +14,18 @@ class SceneRigidBodyObject : public SceneObject {
 public:
 
   SceneRigidBodyObject(string name_) : SceneObject(name_) {}
+	virtual ~SceneRigidBodyObject() {}
 
 	virtual void reset(const Transform &transform_) {}
-	virtual void destroy() {}
+
+
+	Vector3f getVelocity() {
+		return Vector3f(getRigidBody()->getLinearVelocity());
+	}
+
+	float getMass() {
+		return 1.0 / getRigidBody()->getInvMass();
+	}
 
   virtual btCollisionShape *getCollisionShape() = 0;
   virtual btDefaultMotionState* getMotionState() = 0;

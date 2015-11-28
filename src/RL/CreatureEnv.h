@@ -96,6 +96,10 @@ public:
 	}
 
 
+	std::unique_lock<std::mutex> getSimLock() {
+		return std::unique_lock<std::mutex>(simMutex);
+	}
+
 
 	// RLGlue overrides
 
@@ -108,6 +112,8 @@ public:
 
 
 private:
+
+	void updateCurrentState();
 
   void applyControl(const RLGlue::ActionDesc &action);
 

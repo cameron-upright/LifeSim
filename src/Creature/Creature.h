@@ -53,6 +53,18 @@ public:
   void addToScenePhysics(ScenePhysics *scenePhysics);
   void removeFromScenePhysics(ScenePhysics *scenePhysics);
 
+	Vector3f getVelocity() const {
+		Vector3f velocity;
+		float totalMass = 0.0f;
+
+		for (auto &it : rigidBodyMap) {
+			float mass = it.second->getMass();
+			totalMass += mass;
+			velocity += it.second->getVelocity() * mass;
+		}
+
+		return velocity / totalMass;
+	}
 
 	int getNumDOF() const {
 		return hingeConstraints.size() + universalConstraints.size() * 2;

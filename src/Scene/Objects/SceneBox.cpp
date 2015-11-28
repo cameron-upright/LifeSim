@@ -20,7 +20,7 @@ void SceneBox::create(const Vector3f &halfExtents_,
   boxShape->calculateLocalInertia(mass,boxInertia);
   btRigidBody::btRigidBodyConstructionInfo boxRigidBodyCI(mass,boxMotionState,boxShape,boxInertia);
   boxRigidBodyCI.m_restitution = 0.5;
-	boxRigidBodyCI.m_friction = 1.3;
+	boxRigidBodyCI.m_friction = 1.8;
   boxRigidBody = new btRigidBody(boxRigidBodyCI);
 
 	//  btVector3 origin = boxRigidBody->getCenterOfMassTransform().getOrigin();
