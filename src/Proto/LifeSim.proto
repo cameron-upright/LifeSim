@@ -141,6 +141,17 @@ message UniversalConstraintDesc {
 }
 
 
+message CreatureSymmetry {
+
+	// The two symmetrical constraints
+	required string constraintNameA = 1;
+	required string constraintNameB = 2;
+
+	// For each degree of freedom, the symmetry mapping (1 or -1)
+	repeated float symmetry = 3;
+
+}
+
 message SceneCreatureDesc {
 
   extend SceneObjectDesc {
@@ -152,6 +163,7 @@ message SceneCreatureDesc {
   repeated SceneObjectDesc child_scene_object = 3;
   repeated ConstraintDesc constraint = 4;
 
+	repeated CreatureSymmetry symmetry = 5;
 }
 
 

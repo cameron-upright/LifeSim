@@ -1469,4 +1469,44 @@ type: CREATURE
       }
     }
   }
+
+  symmetry {
+    constraintNameA: "leg_F_0.L"
+    constraintNameB: "leg_F_0.R"
+    symmetry: 1.0
+    symmetry: 1.0
+  }
+  symmetry {
+    constraintNameA: "leg_F_1.L"
+    constraintNameB: "leg_F_1.R"
+    symmetry: 1.0
+  }
+  symmetry {
+    constraintNameA: "leg_F_2.L"
+    constraintNameB: "leg_F_2.R"
+    symmetry: 1.0
+  }
+
+  symmetry {
+    constraintNameA: "leg_H_0.L"
+    constraintNameB: "leg_H_0.R"
+    symmetry: 1.0
+    symmetry: 1.0
+  }
+  symmetry {
+    constraintNameA: "leg_H_1.L"
+    constraintNameB: "leg_H_1.R"
+    symmetry: 1.0
+  }
+  symmetry {
+    constraintNameA: "leg_H_2.L"
+    constraintNameB: "leg_H_2.R"
+    symmetry: 1.0
+  }
+  symmetry {
+    constraintNameA: "leg_H_3.L"
+    constraintNameB: "leg_H_3.R"
+    symmetry: 1.0
+  }
+    
 }
