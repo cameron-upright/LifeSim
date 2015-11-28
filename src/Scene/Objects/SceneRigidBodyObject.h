@@ -18,6 +18,9 @@ public:
 
 	virtual void reset(const Transform &transform_) {}
 
+	Vector3f getCenterOfMass() {
+		return Vector3f(getRigidBody()->getCenterOfMassPosition());
+	}
 
 	Vector3f getVelocity() {
 		return Vector3f(getRigidBody()->getLinearVelocity());

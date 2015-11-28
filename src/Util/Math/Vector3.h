@@ -50,6 +50,14 @@ public:
 
   T* ptr(void) { return (T*)this; }
 
+	T norm() const {
+		return length();
+	}
+
+	T infinityNorm() const {
+		return max(max(fabs(v[0]), fabs(v[1])), fabs(v[2]));
+	}
+
   T length() const {
     return sqrt(length_sqr());
   }

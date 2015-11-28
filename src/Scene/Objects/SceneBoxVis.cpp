@@ -13,6 +13,8 @@
 
 #include "SceneBoxVis.h"
 
+#include "g_axis.h"
+
 #include "Transform.h"
 #include "Vector4.h"
 
@@ -59,6 +61,34 @@ void SceneBoxVis::render(bool ambientPass) {
   glPopMatrix();
 
 }
+
+
+void SceneBoxVis::renderTransform() {
+
+  glPushMatrix();
+
+	/*
+  // Get the transform
+  btTransform trans;
+  box->getMotionState()->getWorldTransform(trans);
+
+  float m[16];
+  trans.getOpenGLMatrix(m);
+
+	glMultMatrixf(m);
+	*/
+
+	// Maximum half extent * 1.2
+	float scale = box->halfExtents.infinityNorm() * 2.0f;
+
+	glScalef(scale, scale, scale);
+
+	draw_axis();
+
+  glPopMatrix();
+
+}
+
 
 void SceneBoxVis::calcLightFacing(const Vector4f &lightPosition) {
 

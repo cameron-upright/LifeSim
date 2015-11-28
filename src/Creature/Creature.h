@@ -36,6 +36,12 @@ public:
   map<string, shared_ptr<SceneConstraint> > constraintMap;
   map<string, shared_ptr<SceneRigidBodyObject> > rigidBodyMap;
 
+
+	// TODO : gross
+	// This map stores the original rotations of the boxes
+	map<string,btQuaternion> originalRotation;
+
+
 	Creature() {}
 	Creature(const Creature &creature) = delete;
 	Creature(Creature &&creature) = delete;
@@ -65,6 +71,52 @@ public:
 
 		return velocity / totalMass;
 	}
+
+	Vector3f getCenterOfMass() const {
+
+		Vector3f com;
+		float totalMass = 0.0f;
+
+		for (auto &it : rigidBodyMap) {
+			float mass = it.second->getMass();
+			totalMass += mass;
+			com += it.second->getCenterOfMass() * mass;
+		}
+
+		return com / totalMass;
+
+	}
+
+
+	Vector3f getUpDirection() const {
+
+		Vector3f up;
+		float totalMass = 0.0f;
+
+		for (auto &it : rigidBodyMap) {
+
+			SceneBox *box = dynamic_cast<SceneBox*>(it.second.get());
+
+			if (box == NULL)
+				continue;
+
+			btTransform currentTransform;
+			btQuaternion startRotation = (originalRotation.find(box->getName()))->second;
+
+			box->getMotionState()->getWorldTransform(currentTransform);
+			currentTransform.setRotation(currentTransform.getRotation() * startRotation.inverse());
+
+			float mass = box->getMass();
+			totalMass += mass;
+
+			up += Quaternionf(currentTransform.getRotation()) * Vector3f(0,1,0) * mass;
+
+		}
+
+		return up / totalMass;
+
+	}
+
 
 	int getNumDOF() const {
 		return hingeConstraints.size() + universalConstraints.size() * 2;

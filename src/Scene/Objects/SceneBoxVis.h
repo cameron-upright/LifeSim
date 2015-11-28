@@ -63,7 +63,12 @@ class SceneBoxVis : public SceneObjectVis {
 
   }
 
+	SceneBox* getBox() {
+		return box;
+	}
+
   void render(bool ambientPass);
+	void renderTransform();
   void renderLightCap();
   void renderDarkCap(const Vector4f &lightPosition);
   void renderShadowSides(const Vector4f &lightPosition);

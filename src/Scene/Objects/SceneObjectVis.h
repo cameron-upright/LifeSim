@@ -13,6 +13,7 @@ class SceneObjectVis {
   virtual ~SceneObjectVis() {}
 
   virtual void render(bool ambientPass) = 0;
+	virtual void renderTransform() {}
   virtual void renderLightCap() = 0;
   virtual void renderDarkCap(const Vector4f &lightPosition) = 0;
   virtual void renderShadowSides(const Vector4f &lightPosition) = 0;

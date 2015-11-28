@@ -37,7 +37,8 @@ bool Creature::load(const string &filename) {
 	this->name = desc.name();
 
 
-
+	// TODO : ugh
+	originalRotation.clear();
 
 	for (int i=0; i<creatureDesc.child_scene_object_size(); i++) {
 
@@ -71,6 +72,10 @@ bool Creature::load(const string &filename) {
 				rigidBodyMap[name] = std::shared_ptr<SceneBox>(sceneBox);
 
 			}
+
+			btTransform currentTransform;
+			sceneBox->getMotionState()->getWorldTransform(currentTransform);
+			originalRotation[name] = currentTransform.getRotation();
 
 		}
 

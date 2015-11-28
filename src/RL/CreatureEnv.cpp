@@ -97,11 +97,14 @@ RLGlue::RewardStateTerminal CreatureEnv::step(const RLGlue::ActionDesc &action) 
 	// Step the environment
 	stepRL(state, actionCopy, theReward);
 
+	Vector3f upDirection = creature->getUpDirection();
+	bool isTerminal = upDirection.dot(Vector3f(0,1,0)) < cos(3.0f / 8.0f * M_PI);
+
 	RLGlue::RewardStateTerminal rst;
 
 	rst.set_reward(theReward);
 	*(rst.mutable_state()) = state;
-	rst.set_terminal(false);
+	rst.set_terminal(isTerminal);
 
 	return rst;
 

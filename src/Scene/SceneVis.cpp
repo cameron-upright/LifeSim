@@ -101,8 +101,6 @@ void SceneVis::render(void) {
 	applyCameraTransform();
 	//	applyFog();
 
-  glEnable(GL_CULL_FACE);
-
 	glDisable(GL_FOG);
 
 
@@ -113,15 +111,47 @@ void SceneVis::render(void) {
 		renderPhongPass(i);
 	}
 
+	// Render various transforms
 
-
-	// Draw an axis at the origin
+  glDisable(GL_LIGHTING);
 	glDisable(GL_CULL_FACE);
-  glPushMatrix();
-	//	glScaled(0.5, 0.5, 0.5);
-  //	draw_axis();
-  glPopMatrix();
 
+	/*
+	// Render the creature up direction
+	for (auto creatureVis : creatures) {
+
+		glColor3f(1,0,0);
+
+		// Draw an axis at the origin
+		glPushMatrix();
+		Vector3f com = creatureVis->getCreature()->getCenterOfMass();
+		Vector3f up = creatureVis->getCreature()->getUpDirection();
+
+		glTranslated(com[0], com[1], com[2]);
+
+		glBegin(GL_LINES);
+		glVertex3f(0, 0, 0);
+		glVertex3f(up[0], up[1], up[2]);
+		glEnd();
+		glPopMatrix();
+
+	}
+	*/
+
+
+	//	for (auto creatureVis : creatures) {
+	//		creatureVis->renderTransform();
+	//	}
+
+	/*
+	// Draw an axis at the origin
+  glPushMatrix();
+	glScaled(0.5, 0.5, 0.5);
+	draw_axis();
+  glPopMatrix();
+	*/
+	// Transform render cleanup
+  glEnable(GL_CULL_FACE);
 
   drawOrientationAxis(theta, phi);
 
