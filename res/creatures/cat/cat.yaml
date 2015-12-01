@@ -3,9 +3,9 @@ creature_name: Timaaay!
 rigid_bodies:
   - type: "box"
     name: "head"
-    position: [-0.000000, 0.683879, 0.960586]
+    position: [-0.000000, 0.686609, 0.957099]
     rotation: [-0.606794, -0.000000, -0.000000, 0.794859]
-    halfExtents: [0.089191, 0.089191, 0.089191]
+    halfExtents: [0.091757, 0.085187, 0.093803]
 
   - type: "box"
     name: "leg_F_0.L"

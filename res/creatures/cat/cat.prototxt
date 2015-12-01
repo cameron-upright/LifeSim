@@ -12,8 +12,8 @@ type: CREATURE
       transform {
         position {
           x: -0.0
-          x: 0.683879
-          x: 0.960586
+          x: 0.686609
+          x: 0.957099
         }
         rotation {
           x: -0.606794
@@ -23,9 +23,9 @@ type: CREATURE
         }
       }
       half_extents {
-        x: 0.089191
-        x: 0.089191
-        x: 0.089191
+        x: 0.091757
+        x: 0.085187
+        x: 0.093803
       }
     }
   }
@@ -1508,5 +1508,5 @@ type: CREATURE
     constraintNameB: "leg_H_3.R"
     symmetry: 1.0
   }
-    
+
 }
