@@ -214,6 +214,9 @@ bool init(int argc, char **argv) {
 		return false;
 	}
 
+
+  FLAGS_alsologtostderr = 1;
+
 	google::InitGoogleLogging(argv[0]);
 
   // default random seeds
