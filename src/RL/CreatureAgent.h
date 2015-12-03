@@ -4,18 +4,20 @@
 #include <memory>
 #include <mutex>
 #include <condition_variable>
+#include <string>
 
 #include "Scene.h"
 
 #include "RLGlue/RLGlue++.h"
 #include "RLGlue.pb.h"
 
+#include "LifeSim.pb.h"
 
 class CreatureAgent : public RLGlue::Agent {
 
 public:
 
-  CreatureAgent();
+  CreatureAgent(const string &creatureFile);
   ~CreatureAgent();
 
 	RLGlue::ActionDesc start(const RLGlue::StateDesc &state);
@@ -24,6 +26,8 @@ public:
 
 
 private:
+
+	LifeSim::SceneCreatureDesc creatureDesc;
 
 	RLGlue::ActionDesc prevAction;
 

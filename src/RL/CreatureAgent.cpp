@@ -11,11 +11,25 @@
 
 #include "CreatureAgent.h"
 
-#include "RLGlue.pb.h"
-#include "LifeSim.pb.h"
+
+CreatureAgent::CreatureAgent(const string &creatureFilename) {
+	
+	LifeSim::SceneObjectDesc desc;
+
+  int fd = open(creatureFilename.c_str(), O_RDONLY);
+
+  google::protobuf::io::FileInputStream fileInput(fd);
+	google::protobuf::TextFormat::Parse(&fileInput, &desc);
+
+	close(fd);
+
+	CHECK_EQ(desc.type(), LifeSim::SceneObjectDesc_Type_CREATURE);
+
+	creatureDesc = desc.GetExtension(LifeSim::SceneCreatureDesc::scene_object);
+
+}
 
 
-CreatureAgent::CreatureAgent() {}
 CreatureAgent::~CreatureAgent() {}
 
 

@@ -29,8 +29,13 @@ int main(int argc, char **argv) {
 
   google::InitGoogleLogging(argv[0]);
 
+	if (argc != 2) {
+		LOG(ERROR) << "Usage :" << endl << " ./DummyCreatureAgent [creature.prototxt]" << endl;
+		return 1;
+	}
 
-	CreatureAgent agent;
+
+	CreatureAgent agent(argv[1]);
 
   try {
 		boost::asio::io_service io_service;
