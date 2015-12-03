@@ -30,7 +30,9 @@ message SceneObjectDesc {
 	required Type type = 2;
 	required string name = 3;
 
+	// TODO : Worst hack ever, and not even working anymore...
 	optional bool is_foot = 4 [default = false];
+
 }
 
 
@@ -223,3 +225,4 @@ message CreatureEnvDesc {
 	required int32 env_step_per_rl_step = 4;
 
 }
+
