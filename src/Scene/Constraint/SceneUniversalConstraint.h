@@ -84,7 +84,7 @@ public:
     return SceneUniversalConstraintType;
   }
 
-  float getAngle(int index) {
+  float getAngle(int index) const {
     return universalConstraint->getAngle(index+1);
   }
 

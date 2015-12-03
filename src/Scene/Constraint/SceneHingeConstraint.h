@@ -64,7 +64,7 @@ public:
     return SceneHingeConstraintType;
   }
 
-  float getAngle() {
+  float getAngle() const {
     return hingeConstraint->getHingeAngle() - zeroAngle;
   }
 
