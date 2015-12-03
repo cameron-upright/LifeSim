@@ -36,6 +36,7 @@ public:
   map<string, shared_ptr<SceneConstraint> > constraintMap;
   map<string, shared_ptr<SceneRigidBodyObject> > rigidBodyMap;
 
+	map<pair<string,int>, float> symmetryMultiplier;
 
 	// TODO : gross
 	// This map stores the original rotations of the boxes

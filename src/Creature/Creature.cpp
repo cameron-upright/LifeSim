@@ -8,7 +8,7 @@
 #include <google/protobuf/text_format.h>
 #include <google/protobuf/io/zero_copy_stream_impl.h>
 
-#include "LifeSim.pb.h"
+#include <glog/logging.h>
 
 #include "Creature.h"
 
@@ -160,6 +160,38 @@ bool Creature::load(const string &filename) {
 			
 		}
 	}
+
+
+	for (int i=0; i<creatureDesc.symmetry_size(); i++) {
+
+		const CreatureSymmetry &symmetry = creatureDesc.symmetry(i);
+
+		const string &otherName = symmetry.constraintnameb();
+
+		const SceneConstraint *constraintA = constraintMap[symmetry.constraintnamea()].get();
+		const SceneConstraint *constraintB = constraintMap[symmetry.constraintnameb()].get();
+
+		const SceneHingeConstraint *hingeA = dynamic_cast<const SceneHingeConstraint*>(constraintA);
+		const SceneHingeConstraint *hingeB = dynamic_cast<const SceneHingeConstraint*>(constraintB);
+
+		const SceneUniversalConstraint *universalA = dynamic_cast<const SceneUniversalConstraint*>(constraintA);
+		const SceneUniversalConstraint *universalB = dynamic_cast<const SceneUniversalConstraint*>(constraintB);
+
+
+		if (hingeA && hingeB)
+			symmetryMultiplier[pair<string,int>(otherName, 0)] = symmetry.symmetry(0);
+
+		else if (universalA && universalB) {
+			const string &otherName = symmetry.constraintnameb();
+			symmetryMultiplier[pair<string,int>(otherName, 0)] = symmetry.symmetry(0);
+			symmetryMultiplier[pair<string,int>(otherName, 1)] = symmetry.symmetry(1);
+		}
+
+		else
+			LOG(FATAL) << "Invalid symmetry";
+
+	}
+
 
 	return true;
 
