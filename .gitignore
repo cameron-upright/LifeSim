@@ -1,0 +1,17 @@
+LifeSim/LifeSim.xcodeproj/*mode1v3
+LifeSim/LifeSim.xcodeproj/*pbxuser
+LifeSim/build
+
+scratch
+
+gui
+DummyCreatureAgent
+DummyCreatureExperiment
+
+*.o
+*.pb.h
+*.pb.cc
+*~
+
+gmon.out
+test

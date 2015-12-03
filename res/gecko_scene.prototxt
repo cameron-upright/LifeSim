@@ -1,0 +1,319 @@
+scene_object {
+  desc {
+    type: PLANE
+    name: "plane"
+    [LifeSim.ScenePlaneDesc.scene_object] {
+      plane {
+        x: 0
+        x: 1
+        x: 0
+        x: 0
+      }
+      size: 20
+      origin {
+        x: 0
+        x: 0
+        x: 0
+      }
+    }
+  }
+}
+scene_object {
+  desc {
+    type: BOX
+    name: "box0"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: -8
+          x: 4
+          x: 0
+        }
+        rotation {
+          x: 0
+          x: 0
+          x: 0
+          x: 1
+        }
+      }
+      half_extents {
+        x: 1
+        x: 4
+        x: 2
+      }
+    }
+  }
+}
+scene_object {
+  desc {
+    type: BOX
+    name: "box1"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0
+          x: 1
+          x: -5
+        }
+        rotation {
+          x: 0
+          x: 0
+          x: 0
+          x: 1
+        }
+      }
+      half_extents {
+        x: 1.5
+        x: 1
+        x: 0.5
+      }
+    }
+  }
+}
+scene_object {
+  desc {
+    type: BOX
+    name: "box2"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0
+          x: 1
+          x: 5
+        }
+        rotation {
+          x: 0
+          x: 0
+          x: 0
+          x: 1
+        }
+      }
+      half_extents {
+        x: 1.0
+        x: 0.5
+        x: 0.25
+      }
+    }
+  }
+}
+scene_object {
+  desc {
+    type: BOX
+    name: "box3"
+    [LifeSim.SceneBoxDesc.scene_object] {
+      transform {
+        position {
+          x: 0.5
+          x: 100
+          x: 0.2
+        }
+        rotation {
+          x: 0
+          x: 0
+          x: 0
+          x: 1
+        }
+      }
+      half_extents {
+        x: 0.5
+        x: 0.5
+        x: 0.5
+      }
+    }
+  }
+}
+scene_object {
+  config: "creatures/gecko/gecko.prototxt"
+}
+scene_object {
+  desc {
+    type: LIGHT
+    name: "light0"
+    [LifeSim.SceneLightDesc.scene_object] {
+      position {
+          x: 1
+          x: 3
+          x: 10
+          x: 0
+      }
+      ambient {
+          x: 0
+          x: 0
+          x: 0
+          x: 0
+      }
+      diffuse {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+      specular {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+    }
+  }
+}
+scene_object {
+  desc {
+    type: LIGHT
+    name: "light1"
+    [LifeSim.SceneLightDesc.scene_object] {
+      position {
+          x: -5
+          x: 4
+          x: -2
+          x: 0
+      }
+      ambient {
+          x: 0
+          x: 0
+          x: 0
+          x: 0
+      }
+      diffuse {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+      specular {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+    }
+  }
+}
+scene_object {
+  desc {
+    type: LIGHT
+    name: "light2"
+    [LifeSim.SceneLightDesc.scene_object] {
+      position {
+          x: -0.5
+          x: 2
+          x: 1
+          x: 0
+      }
+      ambient {
+          x: 0
+          x: 0
+          x: 0
+          x: 0
+      }
+      diffuse {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+      specular {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+    }
+  }
+}
+scene_object {
+  desc {
+    type: LIGHT
+    name: "light3"
+    [LifeSim.SceneLightDesc.scene_object] {
+      position {
+          x: 0.8
+          x: 3
+          x: -1
+          x: 0
+      }
+      ambient {
+          x: 0
+          x: 0
+          x: 0
+          x: 0
+      }
+      diffuse {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+      specular {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+    }
+  }
+}
+scene_object {
+  desc {
+    type: LIGHT
+    name: "light4"
+    [LifeSim.SceneLightDesc.scene_object] {
+      position {
+          x: 4
+          x: 2
+          x: 1
+          x: 0
+      }
+      ambient {
+          x: 0
+          x: 0
+          x: 0
+          x: 0
+      }
+      diffuse {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+      specular {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+    }
+  }
+}
+scene_object {
+  desc {
+    type: LIGHT
+    name: "light5"
+    [LifeSim.SceneLightDesc.scene_object] {
+      position {
+          x: -1
+          x: 1
+          x: -1
+          x: 0
+      }
+      ambient {
+          x: 0
+          x: 0
+          x: 0
+          x: 0
+      }
+      diffuse {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+      specular {
+          x: 0.25
+          x: 0.25
+          x: 0.25
+          x: 1
+      }
+    }
+  }
+}

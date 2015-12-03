@@ -1,0 +1,228 @@
+package LifeSim;
+
+
+message VectorDesc {
+
+  repeated float x = 1;
+
+}
+
+message TransformDesc {
+  required VectorDesc position = 1;
+  required VectorDesc rotation = 2;
+}
+
+
+
+
+message SceneObjectDesc {
+
+  extensions 1000 to max;
+
+  enum Type {
+		PLANE    = 0;
+    BOX      = 1;
+		SPHERE   = 2;
+		CREATURE = 100;
+		LIGHT    = 1000;
+  }
+
+	required Type type = 2;
+	required string name = 3;
+
+	// TODO : Worst hack ever, and not even working anymore...
+	optional bool is_foot = 4 [default = false];
+
+}
+
+
+message SceneObjectRef {
+
+	optional string config = 1;
+	optional SceneObjectDesc desc = 2;
+
+}
+
+
+
+message ScenePlaneDesc {
+
+  extend SceneObjectDesc {
+		required ScenePlaneDesc scene_object = 1000;
+	}
+
+	required VectorDesc plane = 1;
+  required float size = 2;
+  required VectorDesc origin = 3;
+
+}
+
+
+message SceneBoxDesc {
+
+  extend SceneObjectDesc {
+    required SceneBoxDesc scene_object = 1001;
+	}
+
+	// TODO : Refactor before release, rigid bodies and their states should be decoupled.
+	//        This currently is used to specify the default positions of the
+	//        rigid bodies.
+	required TransformDesc transform = 1;
+	required VectorDesc half_extents = 2;
+	
+}
+
+message SceneSphereDesc {
+
+  extend SceneObjectDesc {
+		required SceneSphereDesc scene_object = 1002;
+	}
+
+	required TransformDesc transform = 1;
+	required float radius = 2;
+
+}
+
+message SceneLightDesc {
+
+  extend SceneObjectDesc {
+		required SceneLightDesc scene_object = 2000;
+	}
+
+	required VectorDesc position = 1;
+	required VectorDesc ambient  = 2;
+	required VectorDesc diffuse  = 3;
+	required VectorDesc specular = 4;
+}
+
+
+message ConstraintDesc {
+
+  extensions 1000 to max;
+
+	enum Type {
+    HINGE = 0;
+    UNIVERSAL = 1;
+	}
+
+	required Type type = 1;
+  required string name = 2;
+
+	// The bodies for the constraint (one or two)
+	repeated string body = 3;
+
+}
+
+message HingeConstraintDesc {
+
+  extend ConstraintDesc {
+    required HingeConstraintDesc constraint = 1000;
+	}
+
+	required VectorDesc pivot_in_a = 1;
+	required VectorDesc pivot_in_b = 2;
+	required VectorDesc axis_in_a = 3;
+	required VectorDesc axis_in_b = 4;
+	required VectorDesc limit = 5;
+
+}
+
+
+message UniversalConstraintDesc {
+
+  extend ConstraintDesc {
+    required UniversalConstraintDesc constraint = 1001;
+	}
+
+  required VectorDesc pivot = 1;
+  required VectorDesc axis_0 = 2;
+  required VectorDesc axis_1 = 3;
+  required VectorDesc limit_0 = 4;
+	required VectorDesc limit_1 = 5;
+
+}
+
+
+message CreatureSymmetry {
+
+	// The two symmetrical constraints
+	required string constraintNameA = 1;
+	required string constraintNameB = 2;
+
+	// For each degree of freedom, the symmetry mapping (1 or -1)
+	repeated float symmetry = 3;
+
+}
+
+message SceneCreatureDesc {
+
+  extend SceneObjectDesc {
+		required SceneCreatureDesc scene_object = 1100;
+	}
+
+	required TransformDesc transform = 2;
+
+  repeated SceneObjectDesc child_scene_object = 3;
+  repeated ConstraintDesc constraint = 4;
+
+	repeated CreatureSymmetry symmetry = 5;
+}
+
+
+message SceneDesc {
+
+  repeated SceneObjectRef scene_object = 1;
+
+}
+
+
+
+message RLEnvironmentDesc {
+
+  required string scene = 1;
+  required string creature = 2;
+
+	// Physics stepsize
+	required float env_step_size = 3;
+
+	// Physics steps per RL step
+	required int32 env_step_per_rl_step = 4;
+
+}
+
+
+message RLExperimentDesc {
+
+	required string env_config = 1;
+	required string agent_config = 2;
+
+}
+
+
+message RLStateDesc {
+
+}
+
+message RLActionDesc {
+
+	repeated float action = 1;
+	//	repeated float float_action = 1;
+	//	repeated int int_action = 2;
+
+}
+
+
+
+message CreatureEnvDesc {
+
+  required string scene = 1;
+  required string creature = 2;
+
+	// Physics stepsize
+	required float env_step_size = 3;
+
+	// Physics steps per RL step
+	required int32 env_step_per_rl_step = 4;
+
+}
+

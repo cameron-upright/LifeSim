@@ -1,0 +1,4 @@
+env_config: "test_env.prototxt"
+agent_config: "test_agent.prototxt"
+
+env_step_per_rl_step: 50
