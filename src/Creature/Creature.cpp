@@ -22,7 +22,6 @@ bool Creature::load(const string &filename) {
 
 	SceneObjectDesc desc;
 
-
   int fd = open(filename.c_str(), O_RDONLY);
 
   google::protobuf::io::FileInputStream fileInput(fd);
@@ -30,7 +29,7 @@ bool Creature::load(const string &filename) {
 
 	close(fd);
 
-	assert(desc.type() == SceneObjectDesc_Type_CREATURE);
+	CHECK_EQ(desc.type(), SceneObjectDesc_Type_CREATURE);
 
 	const SceneCreatureDesc &creatureDesc = desc.GetExtension(SceneCreatureDesc::scene_object);
 
