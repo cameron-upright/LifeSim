@@ -26,7 +26,7 @@ CREATURE_OBJS = Creature.o
 RESOURCE_OBJS = ResourceManager.o
 GRAPHICS_MESH_OBJS = Mesh.o
 GRAPHICS_SHADER_OBJS = VertexProgram.o FragmentProgram.o
-RL_OBJS = CreatureEnv.o CreatureAgent.o # RLExperiment.o RLAgentDummy.o RLAgent.o 
+RL_OBJS = CreatureEnv.o # RLExperiment.o RLAgentDummy.o RLAgent.o 
 #UTIL_OBJS = RLGlue++.o
 UTIL_RLGLUE_OBJS = RLGlue++.o Experiment.o
 
