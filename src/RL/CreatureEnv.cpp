@@ -61,7 +61,7 @@ void CreatureEnv::load(const string &filename) {
 
 RLGlue::StateDesc CreatureEnv::start() {
 
-	//	cerr << "ENV start start" << endl;
+	LOG(INFO) << "ENV start start";
 
 	std::unique_lock<std::mutex> simLock(simMutex);
 	std::unique_lock<std::mutex> rlLock(rlMutex);
@@ -78,7 +78,7 @@ RLGlue::StateDesc CreatureEnv::start() {
 	// Update the currentState
 	updateCurrentState();
 
-	//	cerr << "ENV start done" << endl;
+	//	LOG(INFO) << "ENV start done";
 
 	return *currentState;
 
@@ -111,21 +111,21 @@ RLGlue::RewardStateTerminal CreatureEnv::step(const RLGlue::ActionDesc &action) 
 }
 
 
-void CreatureEnv::stepSim(float dt) {
-
-	//	cerr << "ENV stepSim start" << endl;
+float CreatureEnv::stepSim(float dt) {
 
 	std::unique_lock<std::mutex> simLock(simMutex);
 	std::unique_lock<std::mutex> rlLock(rlMutex);
 
 	// If there's no action yet, return
 	if (currentAction.get() == nullptr)
-		return;
+		return 0.0f;
+
+	float simulated = 0.0f;
 
 	// Update the remaining time to be simulated
 	remainingTime += dt;
 
-	//	cerr << "ENV stepSim sim " << remainingTime << " " << envStep << endl;
+	//	LOG(INFO) << "ENV stepSim stepSim " << remainingTime << " " << envStep;
 
 	// false false, return, no time to simulate, and no action
 	// false true,  return, action ready but no time to simulate
@@ -146,6 +146,8 @@ void CreatureEnv::stepSim(float dt) {
 		remainingTime -= envStepSize;
 		envStep++;
 
+		simulated += envStepSize;
+
 	}
 
 	// Done stepping the simulation for this action
@@ -164,14 +166,16 @@ void CreatureEnv::stepSim(float dt) {
 
 	}
 
-	//	cerr << "ENV stepSim end" << endl;
+	//	LOG(INFO) << "ENV stepSim end";
+
+	return simulated;
 
 }
 
 // void stepRL(RLGlue::StateDesc &state, const RLGlue::ActionDesc &action, float &reward);
 void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &reward) {
 
-	//	cerr << "ENV stepRL start" << endl;
+	//	LOG(INFO) << "ENV stepRL start";
 
 	// Set the new action
 	// This assumes that the simulation is waiting for the action
@@ -186,7 +190,7 @@ void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &rewa
 		currentAction.reset(new ActionDesc(action));
 	}
 
-	//	cerr << "ENV stepRL wait start" << endl;
+	//	LOG(INFO) << "ENV stepRL wait start";
 
 
 	// Wait until the simulation is done, and we have a new state and reward
@@ -195,7 +199,7 @@ void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &rewa
 		stepCond.wait(stepLock);
 	}
 
-	//	cerr << "ENV stepRL wait done" << endl;
+	//	LOG(INFO) << "ENV stepRL wait done";
 
 	// Wait for access to the member variables, then copy the state / reward, and reset the envStep
 	{
@@ -206,7 +210,7 @@ void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &rewa
 		envStep = 0;
 	}
 
-	//	cerr << "ENV stepRL done" << endl;
+	//	LOG(INFO) << "ENV stepRL done";
 
 }
 

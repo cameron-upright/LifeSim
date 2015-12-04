@@ -80,7 +80,7 @@ public:
 
 	//  void start(RLGlue::StateDesc &state);
 
-	void stepSim(const float dt);
+	float stepSim(const float dt);
   void stepRL(RLGlue::StateDesc &state, const RLGlue::ActionDesc &action, float &reward);
 
   Scene* getScene() {

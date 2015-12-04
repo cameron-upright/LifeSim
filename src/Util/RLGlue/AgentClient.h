@@ -19,7 +19,11 @@ namespace RLGlue {
 			boost::asio::ip::tcp::resolver::query query(host, service);
 			boost::asio::ip::tcp::resolver::iterator endpoint_iterator = resolver.resolve(query);
 
+			LOG(INFO) << "Attempting connection to " << host << " " << service;
+
 			boost::asio::connect(socket_, endpoint_iterator);
+
+			LOG(INFO) << "Connected";
 
 		}
 
