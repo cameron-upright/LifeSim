@@ -5,6 +5,7 @@ LifeSim/build
 scratch
 
 gui
+sim
 DummyCreatureAgent
 DummyCreatureExperiment
 
@@ -15,3 +16,5 @@ DummyCreatureExperiment
 
 gmon.out
 test
+
+*.log
