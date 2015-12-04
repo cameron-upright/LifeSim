@@ -22,7 +22,6 @@ namespace RLGlue {
 
 			LOG(INFO) << "Connected";
 
-
 		}
 
 
@@ -35,7 +34,7 @@ namespace RLGlue {
 			// Initialize the environment
 			RLGlue::EnvironmentCommand initCmd;
 			initCmd.set_type(RLGlue::EnvironmentCommand_Type_ENV_INIT);
-		
+
 			RLGlue::writeMessage(socket_, initCmd);
 
 		}
@@ -45,7 +44,7 @@ namespace RLGlue {
 			// Start the environment
 			EnvironmentCommand startCmd;
 			startCmd.set_type(EnvironmentCommand_Type_ENV_START);
-		
+
 			writeMessage(socket_, startCmd);
 
 			return readMessage<StateDesc>(socket_);
