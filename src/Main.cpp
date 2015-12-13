@@ -157,6 +157,11 @@ void keyPressed(unsigned char key, int x, int y)
 
 	switch(key) {
 
+	case 'f':
+	case 'F':
+		sceneVis->toggleFollow();
+		break;
+
 	case ESCAPE:
 	case 'q':
 		glutDestroyWindow(window); 

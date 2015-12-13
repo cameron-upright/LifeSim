@@ -21,12 +21,14 @@
 
 using namespace std;
 
-SceneVis::SceneVis(Scene &scene) : scene(scene){
+SceneVis::SceneVis(Scene &scene) : scene(scene) {
 
   lookat = Vector3f(0.0, 0.5, 0.0);
   phi = -M_PI/8.0;
   theta = M_PI/4.0;
   dist = 8.0;
+
+	follow = false;
 }
 
 SceneVis::~SceneVis() {
@@ -75,10 +77,19 @@ void SceneVis::onSceneAddCreature(Creature *creature) {
 
 
 void SceneVis::applyCameraTransform() {
+
   glTranslated(0,0,-dist);
   glRotated(-phi*180.0/M_PI, 1.0, 0.0, 0.0);
   glRotated(-theta*180.0/M_PI, 0.0, 1.0, 0.0);
-  glTranslated(-lookat[0], -lookat[1], -lookat[2]);
+
+	// TODO : GROSS HACK
+	//        We're following the first creature if it exists
+	if (follow && !creatures.empty()) {
+		Vector3f creatureCenterOfMass = creatures[0]->getCreature()->getCenterOfMass();
+		glTranslated(-creatureCenterOfMass[0], -creatureCenterOfMass[1], -creatureCenterOfMass[2]);
+	} else
+		glTranslated(-lookat[0], -lookat[1], -lookat[2]);
+
 }
 
 void SceneVis::applyFog() {

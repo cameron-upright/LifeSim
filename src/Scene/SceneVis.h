@@ -44,6 +44,9 @@ class SceneVis : public SceneObserver {
 
   Mesh mesh;
 
+	// TODO : Kind of a hack
+	bool follow;
+
  public:
 
   Vector3f lookat;
@@ -72,6 +75,11 @@ class SceneVis : public SceneObserver {
   void onSceneAddBox(SceneBox *box);
 
   void onSceneAddCreature(Creature *creature);
+
+
+	void toggleFollow() {
+		follow = !follow;
+	}
 
  private:
   void applyCameraTransform();
