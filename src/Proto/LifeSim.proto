@@ -177,19 +177,6 @@ message SceneDesc {
 
 
 
-message RLEnvironmentDesc {
-
-  required string scene = 1;
-  required string creature = 2;
-
-	// Physics stepsize
-	required float env_step_size = 3;
-
-	// Physics steps per RL step
-	required int32 env_step_per_rl_step = 4;
-
-}
-
 
 message RLExperimentDesc {
 
@@ -223,6 +210,9 @@ message CreatureEnvDesc {
 
 	// Physics steps per RL step
 	required int32 env_step_per_rl_step = 4;
+
+	// If the tips, the episode ends
+	optional bool end_episode_on_creature_falling_over = 5 [default = true];
 
 }
 
