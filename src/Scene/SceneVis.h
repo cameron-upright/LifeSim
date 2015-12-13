@@ -77,6 +77,10 @@ class SceneVis : public SceneObserver {
   void onSceneAddCreature(Creature *creature);
 
 
+	bool isFollowSet() const {
+		return follow;
+	}
+
 	void toggleFollow() {
 		follow = !follow;
 	}
