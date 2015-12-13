@@ -61,7 +61,7 @@ void CreatureEnv::load(const string &filename) {
 
 RLGlue::StateDesc CreatureEnv::start() {
 
-	LOG(INFO) << "ENV start start";
+	//	LOG(INFO) << "ENV start start";
 
 	std::unique_lock<std::mutex> simLock(simMutex);
 	std::unique_lock<std::mutex> rlLock(rlMutex);
