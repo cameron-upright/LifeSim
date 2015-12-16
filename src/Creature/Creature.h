@@ -38,6 +38,8 @@ public:
 
 	map<pair<string,int>, float> symmetryMultiplier;
 
+	map<string, vector<string> > groupMap;
+
 	// TODO : gross
 	// This map stores the original rotations of the boxes
 	map<string,btQuaternion> originalRotation;

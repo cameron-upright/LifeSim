@@ -154,6 +154,18 @@ message CreatureSymmetry {
 
 }
 
+
+message CreatureBodyGroup {
+
+	// The name of the group
+	required string name = 1;
+
+  // The names of the bodies in the group
+	repeated string objectName = 2;
+
+}
+
+
 message SceneCreatureDesc {
 
   extend SceneObjectDesc {
@@ -166,6 +178,8 @@ message SceneCreatureDesc {
   repeated ConstraintDesc constraint = 4;
 
 	repeated CreatureSymmetry symmetry = 5;
+	repeated CreatureBodyGroup group = 6;
+
 }
 
 

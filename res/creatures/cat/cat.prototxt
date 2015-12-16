@@ -1509,4 +1509,31 @@ type: CREATURE
     symmetry: 1.0
   }
 
+	group {
+    name: "leg_F.L"
+    objectName: "leg_F_0.L"
+    objectName: "leg_F_1.L"
+    objectName: "leg_F_2.L"
+  }
+	group {
+    name: "leg_F.R"
+    objectName: "leg_F_0.R"
+    objectName: "leg_F_1.R"
+    objectName: "leg_F_2.R"
+  }
+	group {
+    name: "leg_H.L"
+    objectName: "leg_H_0.L"
+    objectName: "leg_H_1.L"
+    objectName: "leg_H_2.L"
+    objectName: "leg_H_3.L"
+  }
+	group {
+    name: "leg_H.R"
+    objectName: "leg_H_0.R"
+    objectName: "leg_H_1.R"
+    objectName: "leg_H_2.R"
+    objectName: "leg_H_3.R"
+  }
+
 }

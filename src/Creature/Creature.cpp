@@ -192,6 +192,22 @@ bool Creature::load(const string &filename) {
 	}
 
 
+
+	for (int i=0; i<creatureDesc.group_size(); i++) {
+
+		const CreatureBodyGroup &group = creatureDesc.group(i);
+
+		const string &name = group.name();
+
+		for (int j=0; j<group.objectname_size(); j++)
+			groupMap[name].push_back(group.objectname(j));
+
+	}
+
+
+
+
+
 	return true;
 
 }
