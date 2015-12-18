@@ -16,8 +16,6 @@ public:
   SceneRigidBodyObject(string name_) : SceneObject(name_) {}
 	virtual ~SceneRigidBodyObject() {}
 
-	virtual void reset(const Transform &transform_) {}
-
 	Vector3f getCenterOfMass() {
 		return Vector3f(getRigidBody()->getCenterOfMassPosition());
 	}

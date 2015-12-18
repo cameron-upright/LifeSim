@@ -22,7 +22,7 @@ public:
   SceneBox(const string &name_, const Vector3f &halfExtents_, const Transform &transform_);
   virtual ~SceneBox();
 
-	virtual void reset(const Vector3f &halfExtents_, const Transform &transform_);
+	void reset(const Vector3f &halfExtents_, const Transform &transform_);
 	void destroy();
 
 	void create(const Vector3f &halfExtents_, const Transform &transform_);

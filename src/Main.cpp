@@ -248,8 +248,8 @@ bool init(int argc, char **argv) {
 
   InitGL(window_width, window_height);
 
-	// Create the scene visualizer, and connect to the scene
-	sceneVis = new SceneVis(*(env.getScene()));
+	// Create the scene visualizer
+	sceneVis = new SceneVis();
 
 	env.getScene()->setObserver(sceneVis);
 

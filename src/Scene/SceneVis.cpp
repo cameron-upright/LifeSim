@@ -21,7 +21,7 @@
 
 using namespace std;
 
-SceneVis::SceneVis(Scene &scene) : scene(scene) {
+SceneVis::SceneVis() {
 
   lookat = Vector3f(0.0, 0.5, 0.0);
   phi = -M_PI/8.0;

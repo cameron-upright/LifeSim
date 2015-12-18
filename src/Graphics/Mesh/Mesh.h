@@ -26,7 +26,7 @@ class EdgeCompare {
 
 public:
 
-  bool operator() (const Edge &a, const Edge &b) {
+  bool operator() (const Edge &a, const Edge &b) const {
 
     unsigned short a0 = min(a.v0, a.v1);
     unsigned short a1 = max(a.v0, a.v1);

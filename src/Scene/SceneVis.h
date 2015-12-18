@@ -32,8 +32,6 @@
 
 class SceneVis : public SceneObserver {
 
-  Scene &scene;
-
   vector <SceneLight*> lights;
 
   vector <ScenePlaneVis*> planes;
@@ -54,7 +52,7 @@ class SceneVis : public SceneObserver {
   float theta;
   float dist;
 
-  SceneVis(Scene &scene);
+  SceneVis();
   ~SceneVis();
 
   void render(void);
