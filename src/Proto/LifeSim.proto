@@ -163,6 +163,9 @@ message CreatureBodyGroup {
   // The names of the bodies in the group
 	repeated string objectName = 2;
 
+	// The names of the constraints in the group
+	repeated string constraintName = 3;
+
 }
 
 
