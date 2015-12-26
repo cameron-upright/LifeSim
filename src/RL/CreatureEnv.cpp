@@ -242,17 +242,22 @@ void CreatureEnv::updateCurrentState() {
 	currentState.reset(new CreatureState());
 
 	// Go through all the constraints, and save their angles in the current state
-	for (const auto &kv : creature->constraintMap) {
-		const string &name = kv.first;
+	// These will be done in the order they're stored in the SceneCreatureDesc
+	for (int i=0; i<creature->creatureDesc.constraint_size(); i++) {
 
-		const SceneHingeConstraint *hinge = dynamic_cast<const SceneHingeConstraint*>(kv.second.get());
-		if (hinge)
+    string name = creature->creatureDesc.constraint(i).name();
+
+		const SceneHingeConstraint *hinge = dynamic_cast<const SceneHingeConstraint*>(creature->constraintMap[name].get());
+		if(hinge)
 			currentState->constraintAngles[name].push_back(hinge->getAngle());
-		const SceneUniversalConstraint *universal = dynamic_cast<const SceneUniversalConstraint*>(kv.second.get());
+
+		const SceneUniversalConstraint *universal = dynamic_cast<const SceneUniversalConstraint*>(creature->constraintMap[name].get());
 		if (universal) {
 			currentState->constraintAngles[name].push_back(universal->getAngle(0));
 			currentState->constraintAngles[name].push_back(universal->getAngle(1));
 		}
+
+
 	}
 
 }
