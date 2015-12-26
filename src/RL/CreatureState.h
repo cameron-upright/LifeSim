@@ -10,6 +10,9 @@ class CreatureState {
 
 public:
 
+	CreatureState() {}
+
+
 	operator RLGlue::StateDesc() const {
 
 		RLGlue::StateDesc stateDesc;
