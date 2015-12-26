@@ -11,13 +11,14 @@ class CreatureState {
 public:
 
 	CreatureState() {}
+  CreatureState(const RLGlue::StateDesc &stateDesc, const LifeSim::SceneCreatureDesc &sceneCreatureDesc);
 
 
 	operator RLGlue::StateDesc() const {
 
 		RLGlue::StateDesc stateDesc;
 
-		for (const auto &kv : groupAngles)
+		for (const auto &kv : constraintAngles)
 			for (const auto &angle : kv.second)
 				stateDesc.add_float_state(angle);
 
@@ -26,8 +27,8 @@ public:
 	}
 
 
-	// For each group, this gives the concatenated angles of each joint
-	std::map<std::string, vector<float> > groupAngles;
+	// For each constraint, a vector of angles
+	std::map<std::string, vector<float> > constraintAngles;
 
 };
 
