@@ -222,7 +222,25 @@ void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &rewa
 
 void CreatureEnv::updateCurrentState() {
 
+	//	currentState.reset(new CreatureState());
 	currentState.reset(new StateDesc());
+
+
+	LOG(INFO) << "==================================================";
+	for (const auto &kv : creature->groupConstraintMap) {
+		LOG(INFO) << kv.first;
+		for (const auto &name : kv.second) {
+			const SceneHingeConstraint *hinge = dynamic_cast<const SceneHingeConstraint*>(creature->constraintMap[name].get());
+			if (hinge)
+				LOG(INFO) << " " << name << " : (" << hinge->getAngle() << ")";
+			const SceneUniversalConstraint *universal = dynamic_cast<const SceneUniversalConstraint*>(creature->constraintMap[name].get());
+			if (universal)
+				LOG(INFO) << " " << name << " : (" << universal->getAngle(0) << "," << universal->getAngle(1) << ")";
+		}
+		LOG(INFO);
+	}
+	LOG(INFO);
+
 
 	for (auto hingeConstraint : creature->hingeConstraints)
 		currentState->add_float_state(hingeConstraint->getAngle());

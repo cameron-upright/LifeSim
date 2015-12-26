@@ -10,6 +10,8 @@
 #include "RLGlue/RLGlue++.h"
 #include "RLGlue.pb.h"
 
+#include "CreatureState.h"
+
 
 class CreatureEnv : public RLGlue::Env {
 
@@ -44,15 +46,15 @@ class CreatureEnv : public RLGlue::Env {
 	// RL Info
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	// The most recent state, and the action we're currently simulating
-	std::unique_ptr<RLGlue::StateDesc>  currentState;
+	// The most recent state and action, that we're currently simulating
+	std::unique_ptr<RLGlue::StateDesc> currentState;
   std::unique_ptr<RLGlue::ActionDesc> currentAction;
 
 	// The reward
 	float currentReward;
 
 
-	
+
 	////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Mutex / Condition
 	////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -77,8 +79,6 @@ public:
   ~CreatureEnv();
 
   void load(const string &filename);
-
-	//  void start(RLGlue::StateDesc &state);
 
 	float stepSim(const float dt);
   void stepRL(RLGlue::StateDesc &state, const RLGlue::ActionDesc &action, float &reward);

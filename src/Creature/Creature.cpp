@@ -191,6 +191,8 @@ bool Creature::load(const string &filename) {
 
 	}
 
+	groupBodyMap.clear();
+	groupConstraintMap.clear();
 
 
 	for (int i=0; i<creatureDesc.group_size(); i++) {
@@ -200,11 +202,12 @@ bool Creature::load(const string &filename) {
 		const string &name = group.name();
 
 		for (int j=0; j<group.objectname_size(); j++)
-			groupMap[name].push_back(group.objectname(j));
+			groupBodyMap[name].push_back(group.objectname(j));
+
+		for (int j=0; j<group.constraintname_size(); j++)
+			groupConstraintMap[name].push_back(group.constraintname(j));
 
 	}
-
-
 
 
 
