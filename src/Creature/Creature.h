@@ -30,6 +30,8 @@ class Creature : public SceneObject {
 
 public:
 
+	LifeSim::SceneCreatureDesc creatureDesc;
+
 	vector<shared_ptr<SceneHingeConstraint> > hingeConstraints;
 	vector<shared_ptr<SceneUniversalConstraint> > universalConstraints;
 

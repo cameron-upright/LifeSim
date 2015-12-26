@@ -31,7 +31,7 @@ bool Creature::load(const string &filename) {
 
 	CHECK_EQ(desc.type(), SceneObjectDesc_Type_CREATURE);
 
-	const SceneCreatureDesc &creatureDesc = desc.GetExtension(SceneCreatureDesc::scene_object);
+	creatureDesc = desc.GetExtension(SceneCreatureDesc::scene_object);
 
 	this->name = desc.name();
 
