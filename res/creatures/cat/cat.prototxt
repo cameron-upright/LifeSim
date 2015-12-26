@@ -1509,6 +1509,42 @@ type: CREATURE
     symmetry: 1.0
   }
 
+  group {
+    name: "neck"
+    objectName: "neck_0"
+    objectName: "neck_1"
+    objectName: "head"
+    constraintName: "neck_0"
+    constraintName: "neck_1"
+    constraintName: "head"
+  }
+  group {
+    name: "spine"
+    objectName: "spine_0"
+    objectName: "spine_1"
+    objectName: "spine_2"
+    objectName: "spine_3"
+    constraintName: "spine_0"
+    constraintName: "spine_1"
+    constraintName: "spine_2"
+    constraintName: "spine_3"
+  }
+  group {
+    name: "tail"
+    objectName: "tail_0"
+    objectName: "tail_1"
+    objectName: "tail_2"
+    objectName: "tail_3"
+    objectName: "tail_4"
+    objectName: "tail_5"
+    constraintName: "tail_0"
+    constraintName: "tail_1"
+    constraintName: "tail_2"
+    constraintName: "tail_3"
+    constraintName: "tail_4"
+    constraintName: "tail_5"
+  }
+
 	group {
     name: "leg_F.L"
     objectName: "leg_F_0.L"
