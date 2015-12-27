@@ -93,9 +93,9 @@ bool Creature::load(const string &filename) {
 
 	for (int i=0; i<creatureDesc.constraint_size(); i++) {
 
-		ConstraintDesc constraintDesc = creatureDesc.constraint(i);
+		const ConstraintDesc &constraintDesc = creatureDesc.constraint(i);
 
-    string name = constraintDesc.name();
+    const string &name = constraintDesc.name();
 
 		if (constraintMap.count(name))
 			continue;
