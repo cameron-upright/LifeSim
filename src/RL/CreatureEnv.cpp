@@ -221,9 +221,9 @@ void CreatureEnv::stepRL(StateDesc &state, const ActionDesc &action, float &rewa
 
 
 void CreatureEnv::updateCurrentState() {
+	
 
 	/*
-	LOG(INFO) << "==================================================";
 	for (const auto &kv : creature->groupConstraintMap) {
 		LOG(INFO) << kv.first;
 		for (const auto &name : kv.second) {
@@ -257,8 +257,11 @@ void CreatureEnv::updateCurrentState() {
 			currentState->constraintAngles[name].push_back(universal->getAngle(1));
 		}
 
-
 	}
+
+
+	LOG(INFO) << "==================================================";
+	currentState->logStateInfo();
 
 }
 

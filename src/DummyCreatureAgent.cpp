@@ -18,6 +18,8 @@
 #include "Util/RLGlue/RLGlue++.h"
 #include "Util/RLGlue/AgentServer.h"
 
+#include "CreatureState.h"
+
 
 using namespace std;
 using boost::asio::ip::tcp;
@@ -71,6 +73,9 @@ RLGlue::ActionDesc CreatureAgent::start(const RLGlue::StateDesc &state) {
 
 	RLGlue::ActionDesc action;
 
+	//	CreatureState creatureState(state, creatureDesc);
+	//	creatureState.logStateInfo();
+
 	for (int i=0; i<42; i++)
 		action.add_float_action(0.0);
 
@@ -84,6 +89,10 @@ RLGlue::ActionDesc CreatureAgent::start(const RLGlue::StateDesc &state) {
 RLGlue::ActionDesc CreatureAgent::step(const RLGlue::RewardState &rewardState) {
 
 	//	LOG(INFO) << "step " << rewardState.reward();
+
+
+	//	CreatureState creatureState(rewardState.state(), creatureDesc);
+	//	creatureState.logStateInfo();
 
 	const float constraintMultiplier = 0.5f;
 

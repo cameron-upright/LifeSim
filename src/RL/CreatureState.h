@@ -26,6 +26,14 @@ public:
 
 	}
 
+	void logStateInfo() const {
+
+		for (const auto &kv : constraintAngles)
+			for (const auto &val : kv.second)
+				LOG(INFO) << kv.first << " : " << val;
+		LOG(INFO);
+
+	}
 
 	// For each constraint, a vector of angles
 	std::map<std::string, vector<float> > constraintAngles;
