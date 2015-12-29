@@ -6,7 +6,7 @@ CreatureState::CreatureState(const RLGlue::StateDesc &stateDesc, const LifeSim::
 	// A CreatureState and therefore a StateDesc stores things in alphabetical order.  We need to find this order in order to recreate this
 	// from the StateDesc.  Create the constraintAngles map with appropriately sized vectors, then iterate through that map,
 	// populating the vectors with data from the stateDesc.
-	// TODO : This kind of sucks, profile and find a better way perhaps.
+	// TODO : This kind of sucks, profile and find a better way perhaps (PT https://www.pivotaltracker.com/story/show/110791096)
 	for (int i=0; i<sceneCreatureDesc.constraint_size(); i++) {
 
 		const LifeSim::ConstraintDesc &constraintDesc = sceneCreatureDesc.constraint(i);
