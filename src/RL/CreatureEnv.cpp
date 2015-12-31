@@ -245,7 +245,7 @@ void CreatureEnv::updateCurrentState() {
 	// These will be done in the order they're stored in the SceneCreatureDesc
 	for (int i=0; i<creature->creatureDesc.constraint_size(); i++) {
 
-    string name = creature->creatureDesc.constraint(i).name();
+    const string &name = creature->creatureDesc.constraint(i).name();
 
 		const SceneHingeConstraint *hinge = dynamic_cast<const SceneHingeConstraint*>(creature->constraintMap[name].get());
 		if(hinge)
@@ -260,8 +260,8 @@ void CreatureEnv::updateCurrentState() {
 	}
 
 
-	LOG(INFO) << "==================================================";
-	currentState->logStateInfo();
+	//	LOG(INFO) << "==================================================";
+	//	currentState->logStateInfo();
 
 }
 
@@ -275,6 +275,29 @@ void CreatureEnv::applyControl(const ActionDesc &action) {
 	CHECK_EQ(action.float_action_size(), numAction);
 
 
+
+	// Convert to a CreatureAction
+	CreatureAction creatureAction(action, creature->creatureDesc);
+
+	// Go through all the constraints, and apply our control signal
+	for (int i=0; i<creature->creatureDesc.constraint_size(); i++) {
+
+    const string &name = creature->creatureDesc.constraint(i).name();
+
+		SceneHingeConstraint *hinge = dynamic_cast<SceneHingeConstraint*>(creature->constraintMap[name].get());
+		if(hinge)
+			hinge->enableAngularMotor(true, creatureAction.constraintActivations[name][0], constraintStrength);
+
+		SceneUniversalConstraint *universal = dynamic_cast<SceneUniversalConstraint*>(creature->constraintMap[name].get());
+		if (universal) {
+			universal->enableAngularMotor(0, true, creatureAction.constraintActivations[name][0], constraintStrength);
+			universal->enableAngularMotor(1, true, creatureAction.constraintActivations[name][1], constraintStrength);
+		}
+
+	}
+
+
+	/*
 	int actionIndex = 0;
 
 	for (auto hingeConstraint : creature->hingeConstraints)
@@ -284,7 +307,7 @@ void CreatureEnv::applyControl(const ActionDesc &action) {
 		universalConstraint->enableAngularMotor(0, true, action.float_action(actionIndex++), constraintStrength);
 		universalConstraint->enableAngularMotor(1, true, action.float_action(actionIndex++), constraintStrength);
 	}
-
+	*/
 
 }
 

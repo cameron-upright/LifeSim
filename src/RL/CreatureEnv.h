@@ -11,6 +11,7 @@
 #include "RLGlue.pb.h"
 
 #include "CreatureState.h"
+#include "CreatureAction.h"
 
 
 class CreatureEnv : public RLGlue::Env {

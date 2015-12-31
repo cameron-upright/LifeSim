@@ -19,7 +19,7 @@
 #include "Util/RLGlue/AgentServer.h"
 
 #include "CreatureState.h"
-
+#include "CreatureAction.h"
 
 using namespace std;
 using boost::asio::ip::tcp;
@@ -43,7 +43,9 @@ private:
 
 	LifeSim::SceneCreatureDesc creatureDesc;
 
-	RLGlue::ActionDesc prevAction;
+	CreatureAction prevAction;
+	//	RLGlue::ActionDesc prevAction;
+	
 
 };
 
@@ -71,13 +73,14 @@ CreatureAgent::~CreatureAgent() {}
 
 RLGlue::ActionDesc CreatureAgent::start(const RLGlue::StateDesc &state) {
 
-	RLGlue::ActionDesc action;
+	CreatureAction action;
 
-	//	CreatureState creatureState(state, creatureDesc);
+	CreatureState creatureState(state, creatureDesc);
 	//	creatureState.logStateInfo();
 
-	for (int i=0; i<42; i++)
-		action.add_float_action(0.0);
+	// Initialize the activations to zero
+	for (auto &kv : creatureState.constraintAngles)
+		action.constraintActivations[kv.first] = vector<float>(kv.second.size());
 
 	prevAction = action;
 
@@ -91,21 +94,39 @@ RLGlue::ActionDesc CreatureAgent::step(const RLGlue::RewardState &rewardState) {
 	//	LOG(INFO) << "step " << rewardState.reward();
 
 
-	//	CreatureState creatureState(rewardState.state(), creatureDesc);
-	//	creatureState.logStateInfo();
+	CreatureState creatureState(rewardState.state(), creatureDesc);
 
 	const float constraintMultiplier = 0.5f;
 
-	RLGlue::ActionDesc action;
+	CreatureAction action;
 
-	for (auto a : prevAction.float_action()) {
-		a *= 0.92;
-		if (lrand48() % 10 == 0)
-			a += 35.0*(drand48()-0.5);
-		action.add_float_action(-constraintMultiplier * a);
+	// For each joint and degree of freedom
+	for (const auto &kv : creatureState.constraintAngles) {
+		const string &name = kv.first;
+
+		// Try to move to the zero angle
+		for (const auto &val : kv.second) {
+			action.constraintActivations[name].push_back(-10*val);
+		}
 	}
 
+
+	/*
+	for (const auto &kv : prevAction.constraintActivations) {
+		for (const auto &val : kv.second) {
+			float a = val * 0.92;
+			if (lrand48() % 10 == 0)
+				a += 35.0*(drand48()-0.5);
+			a *= constraintMultiplier;
+			action.constraintActivations[kv.first].push_back(a);
+		}
+	}
+	*/
+
 	prevAction = action;
+
+	//	creatureState.logStateInfo();
+	//	action.logActionInfo();	
 
 	return action;
 
